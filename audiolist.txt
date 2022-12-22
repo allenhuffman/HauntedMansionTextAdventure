@@ -1,0 +1,11 @@
+foyer: organ
+ER: none
+gallery: lightning
+load: ghostly wind / bells / flute
+Portrait Hall: organ
+Endless hall: organ
+seance: seance loop
+ballroom: mad waltz
+attic:
+graveyard: GGG
+crypt: exit quintet
