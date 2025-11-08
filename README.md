@@ -10,6 +10,10 @@ A text adventure game inspired by Disney's Haunted Mansion attraction, featuring
 - **`javascript/`** - Modern 2025 JavaScript version with JSON data, MP3 audio, and enhanced features
 - **`java-to-javascript-conversion/`** - Development notes and conversion documentation
 
+## Game Map
+
+See [`HauntedMansionMap.png`](HauntedMansionMap.png) for a visual layout of the mansion's rooms and connections.
+
 ## Overview
 
 This interactive text adventure allows players to explore a virtual version of Disney's Haunted Mansion, complete with the famous rooms, supernatural encounters, and eerie atmosphere that makes the attraction so memorable. Originally built as a Java applet in 2002, the game has been modernized with JavaScript ES6, featuring enhanced interactive systems, data-driven configuration, and improved user experience.
