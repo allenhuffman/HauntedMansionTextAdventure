@@ -12,7 +12,12 @@ A text adventure game inspired by Disney's Haunted Mansion attraction, featuring
 
 ## Game Map
 
-See [`HauntedMansionMap.png`](HauntedMansionMap.png) for a visual layout of the mansion's rooms and connections.
+### Visual References
+- **[`HauntedMansionMap.png`](HauntedMansionMap.png)** - Original visual layout of the mansion
+- **[`GameMap.md`](GameMap.md)** - Detailed ASCII art map with room connections and analysis
+- **[`InteractiveMap.html`](InteractiveMap.html)** - Interactive web-based map with clickable rooms
+
+The mansion contains **52 rooms** across **3 floors** (plus attic), with complex vertical connections via staircases. Key areas include the Grand Ballroom complex, mysterious Seance Room, hidden Secret Rooms, and the final Attic confrontation with the Ghostly Bride.
 
 ## Overview
 

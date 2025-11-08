@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haunted Mansion Game Map</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #2a2a2a;
+            border: 2px solid #666;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .floor {
+            margin-bottom: 40px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .floor-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .room-grid {
+            display: grid;
+            gap: 10px;
+            justify-content: center;
+        }
+        .floor-1 { grid-template-columns: repeat(8, 120px); }
+        .floor-2 { grid-template-columns: repeat(8, 120px); }
+        .floor-3 { grid-template-columns: repeat(6, 120px); }
+        
+        .room {
+            width: 110px;
+            height: 90px;
+            border: 2px solid #666;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            text-align: center;
+            background-color: #3a3a3a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+        .room:hover {
+            background-color: #4a4a4a;
+            border-color: #ff6b6b;
+            transform: scale(1.05);
+        }
+        .room-id {
+            font-weight: bold;
+            color: #ffff66;
+            font-size: 16px;
+        }
+        .room-name {
+            color: #cccccc;
+            font-size: 11px;
+            margin-top: 3px;
+            line-height: 1.2;
+        }
+        .empty { opacity: 0.3; }
+        .start { border-color: #66ff66; background-color: #2a4a2a; }
+        .special { border-color: #ff6666; background-color: #4a2a2a; }
+        .ballroom { border-color: #6666ff; background-color: #2a2a4a; }
+        .stairs-yellow { border-color: #ffff00; background-color: #4a4a2a; }
+        .stairs-cyan { border-color: #00ffff; background-color: #2a4a4a; }
+        .stairs-light-green { border-color: #90ff90; background-color: #2a4a3a; }
+        .stairs-light-purple { border-color: #cc99ff; background-color: #3a2a4a; }
+        
+        .connections {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #1a1a1a;
+            border-radius: 5px;
+        }
+        .connection-title {
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .vertical-connections {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            font-size: 12px;
+        }
+        .connection {
+            text-align: center;
+            padding: 5px;
+            background-color: #2a2a2a;
+            border-radius: 3px;
+        }
+        
+        #room-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 250px;
+            background-color: #2a2a2a;
+            border: 2px solid #666;
+            border-radius: 5px;
+            padding: 15px;
+            display: none;
+        }
+        #room-info h3 {
+            color: #ff6b6b;
+            margin-top: 0;
+        }
+        #room-info .description {
+            font-size: 12px;
+            line-height: 1.4;
+            margin: 10px 0;
+        }
+        #room-info .exits {
+            font-size: 11px;
+            color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="map-container">
+        <h1 style="text-align: center; color: #ff6b6b; margin-bottom: 30px;">🏚️ HAUNTED MANSION GAME MAP 👻</h1>
+        
+        <!-- First Floor -->
+        <div class="floor">
+            <div class="floor-title">First Floor</div>
+            <div class="room-grid floor-1" id="floor-1"></div>
+        </div>
+        
+        <!-- Second Floor -->
+        <div class="floor">
+            <div class="floor-title">Second Floor</div>
+            <div class="room-grid floor-2" id="floor-2"></div>
+        </div>
+        
+        <!-- Attic -->
+        <div class="floor">
+            <div class="floor-title">Attic</div>
+            <div class="room-grid floor-3" id="floor-3"></div>
+        </div>
+        
+        <!-- Vertical Connections -->
+        <div class="connections">
+            <div class="connection-title">🪜 Vertical Connections (UP/DOWN)</div>
+            <div class="vertical-connections">
+                <div class="connection" style="background-color: #4a4a2a; border: 1px solid #ffff00;">11 ↕ 28<br><span style="color: #ffff00;">Starting Position Stairs</span></div>
+                <div class="connection" style="background-color: #2a4a4a; border: 1px solid #00ffff;">6 ↕ 22<br><span style="color: #00ffff;">Busts/Music Room Stairs</span></div>
+                <div class="connection" style="background-color: #3a2a4a; border: 1px solid #cc99ff;">17 ↕ 34<br><span style="color: #cc99ff;">Ballroom to Dueling Portraits</span></div>
+                <div class="connection" style="background-color: #2a4a3a; border: 1px solid #90ff90;">33 ↕ 46<br><span style="color: #90ff90;">Floor 2 to Attic</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Room Info Panel -->
+    <div id="room-info">
+        <h3 id="room-title">Room Name</h3>
+        <div id="room-description" class="description"></div>
+        <div id="room-exits" class="exits"></div>
+    </div>
+    
+    <script>
+        const rooms = {
+            1: { name: "Foyer", floor: 1, class: "start" },
+            2: { name: "Portrait Gallery", floor: 1, class: "stairs-cyan" },
+            3: { name: "Hallway", floor: 1 },
+            4: { name: "Hallway", floor: 1 },
+            5: { name: "Marble Busts", floor: 1 },
+            6: { name: "Bottom of Stairs", floor: 1, class: "stairs-cyan" },
+            7: { name: "Piano Room", floor: 1 },
+            8: { name: "Library", floor: 1 },
+            9: { name: "Library West", floor: 1 },
+            10: { name: "Portrait Hallway", floor: 1 },
+            11: { name: "Bottom of Stairs", floor: 1, class: "stairs-yellow" },
+            12: { name: "Hallway", floor: 1 },
+            13: { name: "Servant's Quarters", floor: 1 },
+            14: { name: "Hallway", floor: 1 },
+            15: { name: "Grand Ballroom North", floor: 1 },
+            16: { name: "Grand Ballroom Middle", floor: 1 },
+            17: { name: "Grand Ballroom Dining", floor: 1, class: "stairs-light-purple" },
+            18: { name: "Kitchen South", floor: 1 },
+            19: { name: "Kitchen North", floor: 1 },
+            20: { name: "Grand Ballroom South", floor: 1 },
+            21: { name: "Outside Patio", floor: 1 },
+            22: { name: "Top of Stairs", floor: 2, class: "stairs-cyan" },
+            23: { name: "Conservatory", floor: 2 },
+            24: { name: "Hallway of Doors North", floor: 2 },
+            25: { name: "Hallway of Doors South", floor: 2 },
+            26: { name: "Clock", floor: 2 },
+            27: { name: "Seance Room", floor: 2 },
+            28: { name: "Hallway", floor: 2, class: "stairs-yellow" },
+            29: { name: "Balcony South", floor: 2 },
+            30: { name: "Balcony", floor: 2 },
+            31: { name: "Balcony", floor: 2 },
+            32: { name: "Balcony North", floor: 2 },
+            33: { name: "Bottom of Stairs", floor: 2, class: "stairs-light-green" },
+            34: { name: "Walkway South", floor: 2, class: "stairs-light-purple" },
+            35: { name: "Walkway Middle", floor: 2 },
+            36: { name: "Walkway North", floor: 2 },
+            37: { name: "Room", floor: 2 },
+            38: { name: "Endless Hallway", floor: 2 },
+            39: { name: "Room", floor: 2 },
+            40: { name: "Room", floor: 2 },
+            41: { name: "Endless Hallway", floor: 2 },
+            42: { name: "Room", floor: 2 },
+            43: { name: "Secret Room", floor: 2 },
+            44: { name: "End of Endless Hallway", floor: 2 },
+            45: { name: "Secret Room", floor: 2 },
+            46: { name: "Top of Stairs", floor: 3, class: "stairs-light-green" },
+            47: { name: "Attic", floor: 3 },
+            48: { name: "Attic", floor: 3 },
+            49: { name: "Attic", floor: 3 },
+            50: { name: "Attic", floor: 3 },
+            51: { name: "Attic (Bride)", floor: 3 },
+            52: { name: "Ledge", floor: 3 }
+        };
+        
+        // Room connection data from the game
+        const roomConnections = {
+            1: {"north": 2, "south": 0, "west": 0, "east": 0, "up": 0, "down": 0},
+            2: {"north": 3, "south": 1, "west": 0, "east": 12, "up": 0, "down": 0},
+            3: {"north": 4, "south": 2, "west": 0, "east": 0, "up": 0, "down": 0},
+            4: {"north": 5, "south": 3, "west": 0, "east": 0, "up": 0, "down": 0},
+            5: {"north": 0, "south": 4, "west": 0, "east": 6, "up": 0, "down": 0},
+            6: {"north": 0, "south": 0, "west": 5, "east": 7, "up": 22, "down": 0},
+            7: {"north": 0, "south": 8, "west": 6, "east": 14, "up": 0, "down": 0},
+            8: {"north": 7, "south": 10, "west": 9, "east": 0, "up": 0, "down": 0},
+            9: {"north": 0, "south": 0, "west": 0, "east": 8, "up": 0, "down": 0},
+            10: {"north": 8, "south": 11, "west": 0, "east": 0, "up": 0, "down": 0},
+            11: {"north": 10, "south": 0, "west": 12, "east": 0, "up": 28, "down": 0},
+            12: {"north": 0, "south": 0, "west": 2, "east": 11, "up": 0, "down": 0},
+            13: {"north": 0, "south": 12, "west": 0, "east": 0, "up": 0, "down": 0},
+            14: {"north": 0, "south": 0, "west": 7, "east": 15, "up": 0, "down": 0},
+            15: {"north": 0, "south": 16, "west": 14, "east": 0, "up": 0, "down": 0},
+            16: {"north": 15, "south": 17, "west": 0, "east": 0, "up": 0, "down": 0},
+            17: {"north": 16, "south": 20, "west": 18, "east": 0, "up": 34, "down": 0},
+            18: {"north": 19, "south": 0, "west": 0, "east": 17, "up": 0, "down": 0},
+            19: {"north": 0, "south": 18, "west": 0, "east": 0, "up": 0, "down": 0},
+            20: {"north": 17, "south": 0, "west": 0, "east": 21, "up": 0, "down": 0},
+            21: {"north": 0, "south": 0, "west": 20, "east": 0, "up": 0, "down": 0},
+            22: {"north": 0, "south": 38, "west": 23, "east": 0, "up": 0, "down": 6},
+            23: {"north": 0, "south": 24, "west": 0, "east": 22, "up": 0, "down": 0},
+            24: {"north": 23, "south": 25, "west": 0, "east": 0, "up": 0, "down": 0},
+            25: {"north": 24, "south": 26, "west": 0, "east": 0, "up": 0, "down": 0},
+            26: {"north": 25, "south": 0, "west": 0, "east": 27, "up": 0, "down": 0},
+            27: {"north": 0, "south": 0, "west": 26, "east": 28, "up": 0, "down": 0},
+            28: {"north": 0, "south": 0, "west": 27, "east": 29, "up": 0, "down": 11},
+            29: {"north": 30, "south": 0, "west": 28, "east": 0, "up": 0, "down": 0},
+            30: {"north": 31, "south": 29, "west": 0, "east": 0, "up": 0, "down": 0},
+            31: {"north": 32, "south": 30, "west": 0, "east": 0, "up": 0, "down": 0},
+            32: {"north": 0, "south": 31, "west": 33, "east": 0, "up": 0, "down": 0},
+            33: {"north": 0, "south": 0, "west": 0, "east": 32, "up": 46, "down": 0},
+            34: {"north": 35, "south": 0, "west": 0, "east": 0, "up": 0, "down": 17},
+            35: {"north": 36, "south": 34, "west": 0, "east": 0, "up": 0, "down": 0},
+            36: {"north": 0, "south": 35, "west": 0, "east": 0, "up": 0, "down": 0},
+            37: {"north": 0, "south": 0, "west": 0, "east": 38, "up": 0, "down": 0},
+            38: {"north": 22, "south": 41, "west": 37, "east": 39, "up": 0, "down": 0},
+            39: {"north": 0, "south": 0, "west": 38, "east": 0, "up": 0, "down": 0},
+            40: {"north": 0, "south": 0, "west": 0, "east": 41, "up": 0, "down": 0},
+            41: {"north": 44, "south": 38, "west": 40, "east": 42, "up": 0, "down": 0},
+            42: {"north": 0, "south": 0, "west": 41, "east": 0, "up": 0, "down": 0},
+            43: {"north": 0, "south": 0, "west": 0, "east": 44, "up": 0, "down": 0},
+            44: {"north": 38, "south": 0, "west": 43, "east": 45, "up": 0, "down": 0},
+            45: {"north": 0, "south": 0, "west": 44, "east": 0, "up": 0, "down": 0},
+            46: {"north": 0, "south": 47, "west": 0, "east": 0, "up": 0, "down": 33},
+            47: {"north": 46, "south": 0, "west": 48, "east": 0, "up": 0, "down": 0},
+            48: {"north": 50, "south": 0, "west": 49, "east": 47, "up": 0, "down": 0},
+            49: {"north": 51, "south": 0, "west": 0, "east": 48, "up": 0, "down": 0},
+            50: {"north": 0, "south": 48, "west": 51, "east": 0, "up": 0, "down": 0},
+            51: {"north": 0, "south": 49, "west": 52, "east": 50, "up": 0, "down": 0},
+            52: {"north": 0, "south": 0, "west": 0, "east": 51, "up": 0, "down": 0}
+        };
+        
+        function createRoomElement(roomId, roomInfo) {
+            const room = document.createElement('div');
+            room.className = `room ${roomInfo.class || ''}`;
+            
+            // Count exits for this room
+            const connections = roomConnections[roomId];
+            const exitCount = Object.values(connections).filter(exit => exit !== 0).length;
+            
+            room.innerHTML = `
+                <div class="room-id">${roomId}</div>
+                <div class="room-name">${roomInfo.name}</div>
+                <div class="exit-count" style="font-size: 10px; color: #999; margin-top: 3px;">${exitCount} exits</div>
+            `;
+            room.onclick = () => showRoomInfo(roomId, roomInfo);
+            room.title = `Click to see connections for ${roomInfo.name}`;
+            return room;
+        }
+        
+        function showRoomInfo(roomId, roomInfo) {
+            const panel = document.getElementById('room-info');
+            const connections = roomConnections[roomId];
+            
+            document.getElementById('room-title').textContent = `Room ${roomId}: ${roomInfo.name}`;
+            document.getElementById('room-description').textContent = `Floor ${roomInfo.floor}`;
+            
+            // Build exits list
+            let exitsList = '<strong>Exits:</strong><br>';
+            const directions = ['north', 'south', 'east', 'west', 'up', 'down'];
+            let hasExits = false;
+            
+            directions.forEach(dir => {
+                if (connections[dir] && connections[dir] !== 0) {
+                    const targetRoom = connections[dir];
+                    const targetName = rooms[targetRoom] ? rooms[targetRoom].name : 'Unknown';
+                    const dirSymbol = {
+                        'north': '↑', 'south': '↓', 'east': '→', 
+                        'west': '←', 'up': '⬆', 'down': '⬇'
+                    }[dir];
+                    exitsList += `${dirSymbol} ${dir.toUpperCase()}: Room ${targetRoom} (${targetName})<br>`;
+                    hasExits = true;
+                }
+            });
+            
+            if (!hasExits) {
+                exitsList += 'Dead end - no exits available';
+            }
+            
+            document.getElementById('room-exits').innerHTML = exitsList;
+            panel.style.display = 'block';
+        }
+        
+        // Create floor layouts
+        const floor1 = document.getElementById('floor-1');
+        const floor2 = document.getElementById('floor-2');
+        const floor3 = document.getElementById('floor-3');
+        
+        // Populate floors
+        Object.entries(rooms).forEach(([id, info]) => {
+            const roomElement = createRoomElement(id, info);
+            if (info.floor === 1) floor1.appendChild(roomElement);
+            else if (info.floor === 2) floor2.appendChild(roomElement);
+            else if (info.floor === 3) floor3.appendChild(roomElement);
+        });
+        
+        // Hide room info when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.room') && !e.target.closest('#room-info')) {
+                document.getElementById('room-info').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
