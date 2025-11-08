@@ -69,6 +69,34 @@
                 await world.init();
                 log('✓ World created, starting location: ' + world.getLocation().getName());
                 
+                // Test new classes
+                log('Testing ActionItem...');
+                const actionItem = new ActionItem('ladder', 'a tall ladder', 'Leads to the roof', false);
+                actionItem.setAction('climb');
+                actionItem.setLeadsTo(loc);
+                log('✓ ActionItem created: ' + actionItem.getName() + ', action: ' + actionItem.getAction());
+                
+                log('Testing Player class...');
+                const player = new Player();
+                player.setLocation(loc);
+                player.addItem(item);
+                log('✓ Player created, location: ' + player.getLocation().getName() + ', items: ' + player.getItems().length);
+                
+                log('Testing SpecialExit...');
+                const specialExit = new SpecialExit('climb', 'ladder', loc);
+                log('✓ SpecialExit created: ' + specialExit.getAction() + ' ' + specialExit.getTarget());
+                
+                log('Testing SpecialLocation...');
+                const specialLoc = new SpecialLocation('Special Room', 'A room with special exits');
+                specialLoc.addSpecialExit(specialExit);
+                log('✓ SpecialLocation created with ' + specialLoc.getSpecialExits().length + ' special exits');
+                
+                log('Testing World class...');
+                const worldClass = new World();
+                worldClass.addLocation(loc);
+                worldClass.addItem(item);
+                log('✓ World class created with ' + worldClass.getLocations().length + ' locations');
+                
                 // Test audio system
                 log('Testing audio system...');
                 const soundPlayer = new SoundPlayer();
@@ -83,7 +111,7 @@
                     log('❌ Audio error: ' + audioError.message);
                 }
                 
-                log('All tests passed! JavaScript conversion is working.');
+                log('All tests passed! Complete JavaScript conversion is working.');
                 
             } catch (error) {
                 log('❌ Error: ' + error.message);
@@ -96,7 +124,15 @@
             'js/Location.js',
             'js/Exit.js', 
             'js/Item.js',
+            'js/ActionItem.js',
             'js/Inventory.js',
+            'js/Player.js',
+            'js/SpecialExit.js',
+            'js/SpecialLocation.js',
+            'js/World.js',
+            'js/Carryable.js',
+            'js/GUI.js',
+            'js/Display.js',
             'js/CSVTokenizer.js',
             'js/Parse.js',
             'js/SoundList.js',

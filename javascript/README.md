@@ -47,23 +47,35 @@ Example: `foyer.au` should be converted to `foyer.mp3`, `foyer.ogg`, or `foyer.w
 ```
 javascript/
 ├── index.html          # Main game page
+├── test.html           # Debug/testing page
+├── audio-test.html     # Audio system testing page
 ├── js/                 # JavaScript source files
 │   ├── Adventure.js    # Main game engine
 │   ├── CreateWorld.js  # World loading and management
 │   ├── Location.js     # Location data model
+│   ├── SpecialLocation.js # Special locations with custom exits
 │   ├── Exit.js         # Exit/movement system
+│   ├── SpecialExit.js  # Special exits with custom actions
 │   ├── Item.js         # Item data model
+│   ├── ActionItem.js   # Special items that transport player
 │   ├── Inventory.js    # Player inventory
+│   ├── Player.js       # Player class (alternative to CreateWorld player)
+│   ├── World.js        # Alternative world management class
 │   ├── Parse.js        # Command parsing
 │   ├── CSVTokenizer.js # CSV file parsing
 │   ├── SoundPlayer.js  # Audio system
-│   └── SoundList.js    # Audio management
+│   ├── SoundList.js    # Audio management
+│   ├── Carryable.js    # Early command handling (unused)
+│   ├── GUI.js          # GUI helper class (unused in web)
+│   └── Display.js      # Display management (unused in web)
 ├── data/               # Game data files
 │   ├── hm_map.csv     # Room definitions and connections
 │   └── hm_items.csv   # Item locations and properties
-└── audio/              # Audio files (convert from .au format)
+└── audio/              # Audio files
     ├── foyer.au       # Original Sun Audio files
+    ├── foyer.mp3      # Converted MP3 files
     ├── ballroom.au
+    ├── ballroom.mp3
     └── ...
 ```
 
@@ -102,6 +114,8 @@ The JavaScript version supports all original commands:
 - **No applet container**: Runs directly in browser without Java plugin
 - **Modern audio**: HTML5 Audio API instead of Java AudioClip
 - **Responsive UI**: CSS-styled interface instead of GridBagLayout
+- **Complete class conversion**: All Java classes converted, including unused ones
+- **Enhanced functionality**: Supports ActionItems and SpecialLocations for future features
 
 ### Debugging
 - Open browser Developer Tools (F12) to see console messages
