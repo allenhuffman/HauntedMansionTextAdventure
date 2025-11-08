@@ -159,7 +159,7 @@
     {
       "id": 12,
       "name": "Hallway",
-      "description": "You are in a plain looking hallway. There is some old furniture here but little else of interest. There is a door marked Servant's Quarters on the north wall.",
+      "description": "You are in a plain looking hallway. There is some old furniture here but little else of interest. There is a door marked Servants Quarters on the north wall.",
       "exits": {
         "north": 0,
         "south": 0,
@@ -171,8 +171,8 @@
     },
     {
       "id": 13,
-      "name": "Servant's Quarters",
-      "description": "You are in a small bedroom which is probably for a servant.",
+      "name": "Servants Quarters",
+      "description": "You are in a small bedroom which is probably for a servant. On the wall is a wooden panel. Nearby are seven bells that may be rung to summon the servant to a particular room.",
       "exits": {
         "north": 0,
         "south": 12,
@@ -197,8 +197,8 @@
     },
     {
       "id": 15,
-      "name": "Grand Ballroom",
-      "description": "You are at the north end of a grand ballroom. There is a large pipe organ here. It is playing even though you see no one sitting on the stool. To the south it an open dance floor and you can see the large dining room table beyond it.",
+      "name": "Grand Hall",
+      "description": "You are at the north end of a Grand Hall. There is a large pipe organ here. It is playing even though you see no one sitting on the stool. To the south it an open dance floor and you can see the large dining room table beyond it.",
       "exits": {
         "north": 0,
         "south": 16,
@@ -210,8 +210,8 @@
     },
     {
       "id": 16,
-      "name": "Grand Ballroom",
-      "description": "You are standing in the middle of a grand ballroom. This area seems to be used for dances. An old organ is to the north and a large dining room is to the south.",
+      "name": "Grand Hall",
+      "description": "You are standing in the middle of a Grand Hall. This area seems to be used for dances. An old organ is to the north and a large dining room is to the south.",
       "exits": {
         "north": 15,
         "south": 17,
@@ -223,7 +223,7 @@
     },
     {
       "id": 17,
-      "name": "Grand Ballroom",
+      "name": "Grand Hall",
       "description": "You are standing next to a large dining room table. It is set as if expecting a large party. You notice an interesting arrangement of plates. There is a decaying birthday cake on the south end of the table.",
       "exits": {
         "north": 16,
@@ -262,8 +262,8 @@
     },
     {
       "id": 20,
-      "name": "Grand Ballroom",
-      "description": "You are standing at the south end of a grand ballroom. There is a large fireplace here. There is a large exit to the east leading outside.",
+      "name": "Grand Hall",
+      "description": "You are standing at the south end of a Grand Hall. There is a large fireplace here. There is a large exit to the east leading outside.",
       "exits": {
         "north": 17,
         "south": 0,
@@ -276,7 +276,7 @@
     {
       "id": 21,
       "name": "Outside",
-      "description": "You are on a patio area outside of the grand ballroom. A large fence prevents you from going any further, or even seeing what is beyond it.",
+      "description": "You are on a patio area outside of the Grand Hall. A large fence prevents you from going any further, or even seeing what is beyond it.",
       "exits": {
         "north": 0,
         "south": 0,
@@ -380,7 +380,7 @@
     {
       "id": 29,
       "name": "Balcony",
-      "description": "You are at the south end of a long balcony which overlooks the grand ballroom. Down below you can see a fireplace.",
+      "description": "You are at the south end of a long balcony which overlooks the Grand Hall. Down below you can see a fireplace.",
       "exits": {
         "north": 30,
         "south": 0,
@@ -393,7 +393,7 @@
     {
       "id": 30,
       "name": "Balcony",
-      "description": "You are on a long balcony which overlooks the grand ballroom. Down below you can see a large table.",
+      "description": "You are on a long balcony which overlooks the Grand Hall. Down below you can see a large table.",
       "exits": {
         "north": 31,
         "south": 29,
@@ -406,7 +406,7 @@
     {
       "id": 31,
       "name": "Balcony",
-      "description": "You are on a long balcony which overlooks the grand ballroom. Down below you can see a large open area.",
+      "description": "You are on a long balcony which overlooks the Grand Hall. Down below you can see a large open area.",
       "exits": {
         "north": 32,
         "south": 30,
@@ -419,7 +419,7 @@
     {
       "id": 32,
       "name": "Balcony",
-      "description": "You are at the north end of a long balcony which overlooks the grand ballroom. Down below you see a large pipe organ.",
+      "description": "You are at the north end of a long balcony which overlooks the Grand Hall. Down below you see a large pipe organ.",
       "exits": {
         "north": 0,
         "south": 31,
@@ -445,7 +445,7 @@
     {
       "id": 34,
       "name": "Walkway",
-      "description": "You are at the south end of a walkway which overlooks the grand ballroom. Down below you can see a large table.",
+      "description": "You are at the south end of a walkway which overlooks the Grand Hall. Down below you can see a large table.",
       "exits": {
         "north": 35,
         "south": 0,
@@ -471,7 +471,7 @@
     {
       "id": 36,
       "name": "Walkway",
-      "description": "You are at the north end of a walkway which overlooks the grand ballroom. To the east is a large portrait. Down below you can see a large pipe organ.",
+      "description": "You are at the north end of a walkway which overlooks the Grand Hall. To the east is a large portrait. Down below you can see a large pipe organ.",
       "exits": {
         "north": 0,
         "south": 35,
@@ -575,20 +575,20 @@
     {
       "id": 44,
       "name": "End of Endless Hallway",
-      "description": "You are at the end of a long north-south endless hallway. There are doors on the west and east walls.",
+      "description": "You are at the end of a long endless hallway. There are doors on the west and east walls.",
       "exits": {
         "north": 38,
         "south": 0,
         "west": 43,
-        "east": 45,
+        "east": 0,
         "up": 0,
         "down": 0
       }
     },
     {
       "id": 45,
-      "name": "Secret Room",
-      "description": "You are in a secret room.",
+      "name": "Master Gracey's Bedchamber",
+      "description": "You are in a lavishly decorated bedroom, filled with antique furniture and eerie portraits.",
       "exits": {
         "north": 0,
         "south": 0,

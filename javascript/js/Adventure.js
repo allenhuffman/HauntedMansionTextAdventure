@@ -257,34 +257,70 @@ class Adventure {
                 this.player.getLocation().beenHere(false); // kinda a kludge
                 this.showLocation();
             } else {
-                // Nope, find the item...
-                let items = false;
-                
-                // First check player inventory
-                const playerItems = this.player.getItems();
-                for (const anItem of playerItems) {
-                    // Item is in inventory, see if this is what they want to examine.
-                    if (anItem.getKeyword() && anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
-                        this.desc.value += anItem.getDescription() + "\n";
-                        items = true;
-                        break;
+                // First check for ActionItem actions (EXAMINE/LOOK with custom actions)
+                let actionHandled = false;
+                if (verb && noun) {
+                    const currentRoomId = this.player.getLocation().getId ? this.player.getLocation().getId() : 1;
+                    
+                    // Check player inventory for ActionItems
+                    const playerItems = this.player.getItems();
+                    for (const anItem of playerItems) {
+                        if (anItem.isSpecial() && anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
+                            const result = anItem.executeAction(verb, currentRoomId, this.world, playerItems);
+                            if (result && result.success) {
+                                this.desc.value += result.message + "\n";
+                                actionHandled = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // Check room items for ActionItems
+                    if (!actionHandled) {
+                        const locationItems = this.player.getLocation().getItems();
+                        for (const anItem of locationItems) {
+                            if (anItem.isSpecial() && anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
+                                const result = anItem.executeAction(verb, currentRoomId, this.world, playerItems);
+                                if (result && result.success) {
+                                    this.desc.value += result.message + "\n";
+                                    actionHandled = true;
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
                 
-                // Now check for items that are in the room.
-                if (!items) {
-                    const locationItems = this.player.getLocation().getItems();
-                    for (const anItem of locationItems) {
-                        // Item is in room, see if this is what they want to examine.
+                // If no ActionItem handled it, fall back to basic examine logic
+                if (!actionHandled) {
+                    let items = false;
+                    
+                    // First check player inventory
+                    const playerItems = this.player.getItems();
+                    for (const anItem of playerItems) {
+                        // Item is in inventory, see if this is what they want to examine.
                         if (anItem.getKeyword() && anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
                             this.desc.value += anItem.getDescription() + "\n";
                             items = true;
                             break;
                         }
                     }
-                }
+                    
+                    // Now check for items that are in the room.
+                    if (!items) {
+                        const locationItems = this.player.getLocation().getItems();
+                        for (const anItem of locationItems) {
+                            // Item is in room, see if this is what they want to examine.
+                            if (anItem.getKeyword() && anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
+                                this.desc.value += anItem.getDescription() + "\n";
+                                items = true;
+                                break;
+                            }
+                        }
+                    }
 
-                if (!items) this.desc.value += "I don't see that around here.\n";
+                    if (!items) this.desc.value += "I don't see that around here.\n";
+                } // end of !actionHandled
             } // end of (noun===null)
         }
         else if (verb && verb.toUpperCase() === "GOTO") {

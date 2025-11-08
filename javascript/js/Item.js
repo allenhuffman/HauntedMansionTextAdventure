@@ -64,8 +64,8 @@ class Item {
             );
             if (!hasRequiredItem) {
                 return {
-                    success: false,
-                    message: `You need a ${action.requiresItem} to do that.`
+                    success: true, // Changed to true so message shows instead of falling back
+                    message: action.requiresItemMessage || `You need a ${action.requiresItem} to do that.`
                 };
             }
         }

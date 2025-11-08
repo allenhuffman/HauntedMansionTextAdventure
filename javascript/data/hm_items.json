@@ -4,7 +4,7 @@
       "id": 1,
       "startLocation": 9,
       "keyword": "book",
-      "name": "a hardback book",
+      "name": "a book",
       "description": "It appears to be a collection of stories by Edgar Allan Poe.",
       "carryable": true,
       "actions": [
@@ -249,31 +249,32 @@
     },
     {
       "id": 26,
-      "startLocation": 23,
+      "startLocation": 0,
       "keyword": "key",
       "name": "a brass key",
-      "description": "An ornate brass key with strange mystical symbols etched into its surface. It looks like it might unlock something important.",
+      "description": "An ornate brass key with a skeleton design. It looks like it might unlock something important.",
       "carryable": true
     },
     {
       "id": 27,
-      "startLocation": 12,
+      "startLocation": 44,
       "keyword": "door",
-      "name": "a locked door",
-      "description": "A heavy wooden door with an ornate brass lock. The door is marked 'Servants Quarters'.",
+      "name": "a locked door to the east",
+      "description": "A heavy wooden door with an ornate brass lock. The door is marked Master Gracey.",
       "carryable": false,
       "actions": [
         {
           "verb": "unlock",
-          "useInRoom": 12,
+          "useInRoom": 44,
           "requiresItem": "key",
+          "requiresItemMessage": "You need a key to do that.",
           "addExit": {
-            "direction": "north",
-            "destination": 13
+            "direction": "east",
+            "destination": 45
           },
-          "message": "The brass key turns with a satisfying click in the lock. The door to the Servants Quarters swings open!",
-          "newName": "an unlocked door",
-          "newDescription": "A heavy wooden door that now stands ajar. The ornate brass lock is no longer securing it, and you can see the Servants Quarters beyond."
+          "message": "The brass key turns with a satisfying click in the lock. The door swings open.",
+          "newName": "an unlocked door to the east",
+          "newDescription": "A heavy wooden door that now stands ajar. It is marked Master Gracey."
         },
         {
           "verb": "lock",
@@ -286,6 +287,11 @@
           "message": "The brass key turns with a satisfying click in the lock. You close and lock the door to the Servants Quarters.",
           "newName": "",
           "newDescription": ""
+        },
+        {
+          "verb": "open",
+          "useInRoom": 44,
+          "message": "You jiggle the handle, but the door is firmly locked. You'll need to unlock it first."
         }
       ]
     },
@@ -352,6 +358,82 @@
       "name": "a mysterious amulet",
       "description": "The amulet is intricately designed with symbols that seem to shimmer and change when you look at them. It feels warm to the touch.",
       "carryable": true
+    },
+    {
+      "id": 33,
+      "startLocation": 27,
+      "keyword": "spellbook",
+      "name": "Madame Leota's spellbook",
+      "description": "The spellbook is ancient and worn, filled with arcane symbols and illustrations. It seems to hum with a faint magical energy.",
+      "carryable": true
+    },
+    {
+      "id": 34,
+      "startLocation": 27,
+      "keyword": "card",
+      "name": "a tarot card",
+      "description": "The tarot card is intricately illustrated, depicting a mysterious figure surrounded by swirling mist. It seems to pulse with a faint energy.",
+      "carryable": true
+    },
+    {
+      "id": 35,
+      "startLocation": 29,
+      "keyword": "candelabra",
+      "name": "a candelabra",
+      "description": "The candelabra is made of tarnished silver and holds five candles. The candles are unlit but seem to emit a faint warmth.",
+      "carryable": true
+    },
+    {
+      "id": 36,
+      "startLocation": 29,
+      "keyword": "raven",
+      "name": "a raven",
+      "description": "The raven is perched on the chair. It eyes you suspisciously.",
+      "carryable": false
+    },
+    {
+      "id": 37,
+      "startLocation": 29,
+      "keyword": "ball",
+      "name": "a crystal ball",
+      "description": "The crystal ball is perfectly clear and smooth, but when you look into it, you see a face looking back at you.",
+      "carryable": true
+    },
+    {
+      "id": 38,
+      "startLocation": 13,
+      "keyword": "panel",
+      "name": "a wooden panel",
+      "description": "It is a panel of wood where keys may be attached. They are twelve spots labeled Stretching Room, Endless Hallway, Conservatory, Foyer, Grand Hall, Corridor of Doors, Picture Gallery, Seance Circle, Attic, Music Room, Library and Grand Stairs. Upon first glance, they all appear empty.",
+      "carryable": false,
+      "actions": [
+        {
+          "verb": "search",
+          "useInRoom": "*",
+          "message": "Upon closer inspection, you see that one of the hooks has a small brass key hanging from it.",
+          "alreadyPerformedMessage": "Nothing else is hanging from the hooks.",
+          "revealsItemId": 26,
+          "onceOnly": true
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "startLocation": 13,
+      "keyword": "bells",
+      "name": "a set of bells",
+      "description": "There are seven bells labeled Ambassador Xavier's Lounging Lodge, Madame Leota's Boudoir, Grandfather McKim's Resting Room, Uncle Davis' Sleeping Salon, Master Gracey's Bedchamber, Colonel Coats' Bivouac Berth, and Professor Wathel's Reposing Lounge. They look like they can be rung to summon a servant to that room.",
+      "carryable": false,
+      "actions": [
+        {
+          "verb": "search",
+          "useInRoom": "*",
+          "message": "All the bells are covered with dust except for Master Gracey's Bedchamber.",
+          "alreadyPerformedMessage": "You have already examined this bell.",
+          "revealsItemId": null,
+          "onceOnly": true
+        }
+      ]
     }
   ]
 }
