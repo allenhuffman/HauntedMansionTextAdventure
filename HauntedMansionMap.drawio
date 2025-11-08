@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0.1 Safari/605.1.15" version="28.2.9">
   <diagram name="Page-1" id="eJmXXb0IufuB-SfE6dvh">
-    <mxGraphModel dx="1548" dy="1582" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1213" dy="1354" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -378,13 +378,13 @@
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-367" value="43&lt;div&gt;Secret Room&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-221" vertex="1">
           <mxGeometry x="880" y="360" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="NtIjfB5tUNKMfuGPDF4m-368" value="45&lt;div&gt;Secret Room&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-221" vertex="1">
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-368" value="45&lt;div&gt;Master Gracey&#39;s Bedchamber&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-221" vertex="1">
           <mxGeometry x="1120" y="360" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-369" value="Alcove&lt;div&gt;(Christmas)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-221" vertex="1">
           <mxGeometry x="760" y="240" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="_tIOIGK4imfzDmzX5xBq-6" value="&lt;ol&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Ambassador Xavier&#39;s Lounging Lodge&lt;br&gt;&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Madame Leota&#39;s Boudoir&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Grandfather McKim&#39;s Resting Room&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Uncle Davis&#39; Sleeping Salon&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Master Gracey&#39;s bedchamber&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Colonel Coats&#39; Bivouac Berth&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Professor Wathel&#39;s Reposing Lounge&lt;br&gt;&lt;/li&gt;&lt;/ol&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-221">
+        <mxCell id="_tIOIGK4imfzDmzX5xBq-6" value="&lt;ol&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Ambassador Xavier&#39;s Lounging Lodge&lt;br&gt;&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Madame Leota&#39;s Boudoir&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Grandfather McKim&#39;s Resting Room&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Uncle Davis&#39; Sleeping Salon&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Master Gracey&#39;s Bedchamber&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Colonel Coats&#39; Bivouac Berth&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Professor Wathel&#39;s Reposing Lounge&lt;br&gt;&lt;/li&gt;&lt;/ol&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-221">
           <mxGeometry x="880" y="40" width="320" height="120" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-8" value="Endless Hallway" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-221">
