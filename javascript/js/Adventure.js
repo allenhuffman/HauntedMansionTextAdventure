@@ -6,6 +6,7 @@ class Adventure {
         this.soundEnabled = true;  // Sound enabled by default
         this.player = null;        // CreateWorld instance
         this.soundPlayer = null;
+        this.awaitingQuitConfirmation = false; // Track quit confirmation state
     }
 
     async init() {
@@ -33,7 +34,7 @@ class Adventure {
         // Focus on input field
         this.input.focus();
 
-        this.desc.value = "Welcome, foolish mortal.\n\nLoading game map and items...\n\n(Click anywhere to enable atmospheric audio)\n";
+        this.desc.value = "Welcome, foolish mortal.\n\nLoading game map and items...\n\n(Type 'sound on/off' to enable/disable atmospheric audio.)\n";
         
         // Initialize the world
         this.player = new CreateWorld();
@@ -218,6 +219,37 @@ class Adventure {
                 this.desc.value += "Sound is ON.\n";
             } else {
                 this.desc.value += "Sound is OFF.\n";
+            }
+        }
+        else if (verb && verb.toUpperCase() === "HELP") {
+            this.desc.value += "=== BASIC COMMANDS ===\n";
+            this.desc.value += "Movement: GO NORTH (or N), GO SOUTH (or S), GO WEST (or W), GO EAST (or E), GO UP (or U), GO DOWN (or D)\n";
+            this.desc.value += "Items: GET <item>, DROP <item>, INVENTORY (or I)\n";
+            this.desc.value += "Interaction: LOOK <item>, EXAMINE <item>, SEARCH <item>\n";
+            this.desc.value += "Settings: SOUND ON/OFF, VERBOSE ON/OFF\n";
+            this.desc.value += "Other: LOOK (redisplay room), HELP, QUIT\n\n";
+            this.desc.value += "Try interacting with objects using different verbs - some items have special actions!\n";
+        }
+        else if (verb && verb.toUpperCase() === "QUIT") {
+            this.desc.value += "Are you sure you want to quit?\n";
+            this.desc.value += "Type YES to quit, NO to continue, or RESTART to start over.\n";
+            this.awaitingQuitConfirmation = true;
+        }
+        else if (this.awaitingQuitConfirmation && verb) {
+            if (verb.toUpperCase() === "YES") {
+                this.desc.value += "Thanks for playing Allen's Haunted Mansion!\n";
+                this.desc.value += "Close your browser window or tab to exit.\n";
+                this.input.disabled = true; // Disable further input
+            } else if (verb.toUpperCase() === "NO") {
+                this.desc.value += "Welcome back to the mansion, foolish mortal!\n";
+                this.awaitingQuitConfirmation = false;
+            } else if (verb.toUpperCase() === "RESTART") {
+                this.desc.value += "Restarting the haunted adventure...\n\n";
+                this.awaitingQuitConfirmation = false;
+                // Restart the game
+                location.reload();
+            } else {
+                this.desc.value += "Please type YES to quit, NO to continue, or RESTART to start over.\n";
             }
         }
         else if (verb && (verb.toUpperCase() === "LOOK" || verb.toUpperCase() === "EXAMINE")) {
