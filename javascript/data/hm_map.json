@@ -29,7 +29,7 @@
     {
       "id": 2,
       "name": "Portrait Gallery",
-      "description": "You are in a large portrait gallery. On four of the walls you can see portraits of some of the mansion's guests as they appeared in their corruptable mortal state. You instintively step all the way in to the dead center as if you are making room for others, though you are all alone. Stone gargoyles holding candles peer down from the rafters. The ceiling is very high.",
+      "description": "You are in a large octagonal portrait gallery. On four of the walls you can see portraits of some of the mansion's guests as they appeared in their corruptable mortal state. Stone gargoyles holding candles peer down from the rafters. The ceiling is very high. You instintively step all the way in to the dead center as if you are making room for others, though you are all alone.",
       "exits": {
         "north": 3,
         "south": 1,
@@ -41,7 +41,7 @@
     },
     {
       "id": 3,
-      "name": "Hallway",
+      "name": "Portrait Corridor",
       "description": "You are at the south end of a long hallway. On the west wall are windows which reveal the stormy night outside. Hanging on the east wall are various portraits which seem to be changing.",
       "exits": {
         "north": 4,
@@ -54,7 +54,7 @@
     },
     {
       "id": 4,
-      "name": "Hallway",
+      "name": "Portrait Corridor",
       "description": "You are at the north end of a long hallway. On the west wall are windows which reveal the stormy night outside. Hanging on the east wall are various portraits which seem to be changing.",
       "exits": {
         "north": 5,
@@ -93,8 +93,8 @@
     },
     {
       "id": 7,
-      "name": "Piano Room",
-      "description": "You are standing in the music room. An ancient piano sits in front of a large window to the north. The piano is playing eerie music though no one is there. Something seems to be casting a shadow and you can see the outline of someone playing.",
+      "name": "Music Room",
+      "description": "You are standing in the music room. An old piano sits in front of a large window to the north. The piano is playing eerie music though no one is there. Something seems to be casting a shadow and you can see the outline of someone playing.",
       "exits": {
         "north": 0,
         "south": 8,
@@ -107,7 +107,7 @@
     {
       "id": 8,
       "name": "Library",
-      "description": "You are in the library. The shelves seem to be well stocked with priceless first editions. They all seem to be ghost stories. Some of the books seem to be moving and a large chair rocks quietly in the corner.",
+      "description": "You are in the library. The shelves seem to be well stocked with priceless first editions. They all seem to be ghost stories. Some of the books seem to be moving and a large chair rocks quietly in the corner. Marble busts line the walls and seem to be watching you.",
       "exits": {
         "north": 7,
         "south": 10,
@@ -132,8 +132,8 @@
     },
     {
       "id": 10,
-      "name": "Portrait Hallway",
-      "description": "Creepy pictures line both the west and east walls of this hallway. At the north end is a large portrait of a man holding an axe.",
+      "name": "Portrait Hall",
+      "description": "Ten creepy paintings line the west and east walls of this hallway. At the north end is an eleventh large portrait of a man holding an axe. Their eyes seem to follow you.",
       "exits": {
         "north": 8,
         "south": 11,
@@ -314,7 +314,7 @@
     },
     {
       "id": 24,
-      "name": "Hallway of Doors",
+      "name": "Corridor of Doors",
       "description": "You are at the north end of a long hallway with doors on each wall. Perhaps it is your imagination, but you seem to hear voices from behind some of the doors.",
       "exits": {
         "north": 23,
@@ -327,7 +327,7 @@
     },
     {
       "id": 25,
-      "name": "Hallway of Doors",
+      "name": "Corridor of Doors",
       "description": "You are at the south end of a long hallway with doors on each wall. One of the door handles rattles mysteriously.",
       "exits": {
         "north": 24,
@@ -353,8 +353,8 @@
     },
     {
       "id": 27,
-      "name": "Seance Room",
-      "description": "You are in a large dark room. There is a table and chair in the center. On the table is a large crystal ball. A raven is peached on the chair and a large cabinet sits behind that.",
+      "name": "Seance Circle",
+      "description": "You are in a large dark room. There is a table and chair in the center. On the table is a large crystal ball. A raven is perched on the chair and a large cabinet sits behind that.",
       "exits": {
         "north": 0,
         "south": 0,
@@ -445,7 +445,7 @@
     {
       "id": 34,
       "name": "Walkway",
-      "description": "You are at the south end of a walkway which overlooks the grand ballroom.",
+      "description": "You are at the south end of a walkway which overlooks the grand ballroom. Down below you can see a large table.",
       "exits": {
         "north": 35,
         "south": 0,
@@ -458,7 +458,7 @@
     {
       "id": 35,
       "name": "Walkway",
-      "description": "You are in the middle of a walkway which overlooks the grand ballrom. To the east is a large portrait.",
+      "description": "You are in the middle of a walkway which overlooks the grand ballrom. To the east is a large portrait. Down below you can see a large open area.",
       "exits": {
         "north": 36,
         "south": 34,
@@ -471,7 +471,7 @@
     {
       "id": 36,
       "name": "Walkway",
-      "description": "You are at the north end of a walkway which overlooks the grand ballroom. To the east is a large portrait.",
+      "description": "You are at the north end of a walkway which overlooks the grand ballroom. To the east is a large portrait. Down below you can see a large pipe organ.",
       "exits": {
         "north": 0,
         "south": 35,
@@ -549,7 +549,7 @@
     {
       "id": 42,
       "name": "Room",
-      "description": "You are in a room.",
+      "description": "You are in a room. Don't panic.",
       "exits": {
         "north": 0,
         "south": 0,
