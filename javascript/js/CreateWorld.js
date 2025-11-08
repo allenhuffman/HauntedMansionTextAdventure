@@ -62,15 +62,22 @@ class CreateWorld {
             const itemResponse = await fetch('data/hm_items.json');
             const itemData = await itemResponse.json();
 
+            // Initialize items tracking
+            this.allItems = {}; // Track all items by ID for revealing
+            this.hiddenItems = {}; // Track hidden items (startLocation: 0)
+
             // Create item objects
             for (const itemInfo of itemData.items) {
                 const actions = itemInfo.actions || [];
-                if (itemInfo.startLocation === 0) { // Player inventory
-                    this.inventory.addItem(new Item(itemInfo.keyword, itemInfo.name, itemInfo.description, true, actions));
+                const item = new Item(itemInfo.keyword, itemInfo.name, itemInfo.description, itemInfo.carryable, actions);
+                
+                // Store item by ID for revealing system
+                this.allItems[itemInfo.id] = item;
+                
+                if (itemInfo.startLocation === 0) { // Hidden items (limbo)
+                    this.hiddenItems[itemInfo.id] = item;
                 } else { // In a location
-                    tempLocation[itemInfo.startLocation].addItem(
-                        new Item(itemInfo.keyword, itemInfo.name, itemInfo.description, itemInfo.carryable, actions)
-                    );
+                    tempLocation[itemInfo.startLocation].addItem(item);
                 }
             }
             console.log(itemData.items.length + " items added to game.");
@@ -129,5 +136,18 @@ class CreateWorld {
 
     getItems() {
         return this.inventory.getItems();
+    }
+
+    // Reveal a hidden item by moving it from limbo to the specified location
+    revealItemById(itemId, targetLocation) {
+        const item = this.hiddenItems[itemId];
+        if (item) {
+            // Remove from hidden items
+            delete this.hiddenItems[itemId];
+            // Add to target location
+            targetLocation.addItem(item);
+            return item;
+        }
+        return null;
     }
 }

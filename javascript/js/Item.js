@@ -9,6 +9,9 @@ class Item {
         // Store original values for resetting
         this.originalName = name || null;
         this.originalDescription = description || null;
+        
+        // Track which actions have been performed (for onceOnly actions)
+        this.performedActions = new Set();
     }
 
     isSpecial() {
@@ -19,7 +22,8 @@ class Item {
     canPerformAction(verb, currentRoomId) {
         if (!this.isSpecial()) return null;
         
-        return this.actions.find(action => {
+        // First check if there's an action that matches the verb and room, regardless of onceOnly status
+        const matchingAction = this.actions.find(action => {
             if (action.verb.toLowerCase() !== verb.toLowerCase()) return false;
             
             // Check if action works in this room
@@ -29,12 +33,29 @@ class Item {
             }
             return action.useInRoom === currentRoomId;
         });
+        
+        if (!matchingAction) return null;
+        
+        // If it's a onceOnly action that has already been performed, return a special marker
+        if (matchingAction.onceOnly && this.performedActions.has(matchingAction.verb.toLowerCase())) {
+            return { ...matchingAction, _alreadyPerformed: true };
+        }
+        
+        return matchingAction;
     }
 
     // Execute an action and return the result
     executeAction(verb, currentRoomId, world, playerItems = []) {
         const action = this.canPerformAction(verb, currentRoomId);
         if (!action) return null;
+
+        // Check if this is a onceOnly action that has already been performed
+        if (action._alreadyPerformed) {
+            return {
+                success: true,
+                message: action.alreadyPerformedMessage || "You find nothing else."
+            };
+        }
 
         // Check if action requires a specific item
         if (action.requiresItem) {
@@ -67,8 +88,15 @@ class Item {
             consumeItem: action.consumeItem || false,
             addExit: action.addExit || null,
             newDescription: newDescription,
-            newName: newName
+            newName: newName,
+            revealsItem: action.revealsItem || null,
+            revealsItemId: action.revealsItemId || null
         };
+
+        // Mark action as performed if it's onceOnly
+        if (action.onceOnly) {
+            this.performedActions.add(action.verb.toLowerCase());
+        }
 
         // Handle location change
         if (action.leadsTo) {

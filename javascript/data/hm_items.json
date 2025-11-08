@@ -12,6 +12,14 @@
           "verb": "read",
           "useInRoom": "*",
           "message": "You read several spine-chilling tales that send shivers down your spine. The stories seem to come alive in this haunted place."
+        },
+        {
+          "verb": "search",
+          "useInRoom": "*",
+          "message": "As you carefully flip through the pages of the book, a leather bookmark falls out and lands on the floor!",
+          "alreadyPerformedMessage": "You have already searched through the book thoroughly. There is nothing else hidden within its pages.",
+          "revealsItemId": 28,
+          "onceOnly": true
         }
       ]
     },
@@ -262,6 +270,14 @@
           "newDescription": ""
         }
       ]
+    },
+    {
+      "id": 28,
+      "startLocation": 0,
+      "keyword": "bookmark",
+      "name": "a leather bookmark",
+      "description": "An old leather bookmark with strange mystical symbols etched into its surface. It feels warm to the touch.",
+      "carryable": true
     }
   ]
 }

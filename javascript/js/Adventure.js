@@ -277,6 +277,22 @@ class Adventure {
                                 anItem.setName(result.newName);
                             }
                             
+                            // Handle revealed items
+                            if (result.revealsItemId) {
+                                // Reveal pre-defined hidden item by ID
+                                this.player.revealItemById(result.revealsItemId, this.player.getLocation());
+                            } else if (result.revealsItem) {
+                                // Fallback: create item dynamically (legacy support)
+                                const revealedItem = new Item(
+                                    result.revealsItem.keyword,
+                                    result.revealsItem.name,
+                                    result.revealsItem.description,
+                                    result.revealsItem.carryable !== undefined ? result.revealsItem.carryable : true,
+                                    result.revealsItem.actions || []
+                                );
+                                this.player.getLocation().addItem(revealedItem);
+                            }
+                            
                             // Handle item consumption
                             if (result.consumeItem) {
                                 this.player.removeItem(anItem);
@@ -321,6 +337,22 @@ class Adventure {
                                 }
                                 if (result.newName) {
                                     anItem.setName(result.newName);
+                                }
+                                
+                                // Handle revealed items
+                                if (result.revealsItemId) {
+                                    // Reveal pre-defined hidden item by ID
+                                    this.player.revealItemById(result.revealsItemId, this.player.getLocation());
+                                } else if (result.revealsItem) {
+                                    // Fallback: create item dynamically (legacy support)
+                                    const revealedItem = new Item(
+                                        result.revealsItem.keyword,
+                                        result.revealsItem.name,
+                                        result.revealsItem.description,
+                                        result.revealsItem.carryable !== undefined ? result.revealsItem.carryable : true,
+                                        result.revealsItem.actions || []
+                                    );
+                                    this.player.getLocation().addItem(revealedItem);
                                 }
                                 
                                 // Handle item consumption
@@ -402,7 +434,7 @@ class Adventure {
         
         // HACK - Audio system
         if (this.player.getLocation().getSound() !== null) {
-            this.desc.value += "[Background sound: " + this.player.getLocation().getSound() + "]\n";
+            // this.desc.value += "[Background sound: " + this.player.getLocation().getSound() + "]\n";
             this.soundPlayer.loop(this.player.getLocation().getSound());
         }
         
