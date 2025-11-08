@@ -7,56 +7,43 @@ class CreateWorld {
     }
 
     async init() {
-        let numRooms = 0;
         let tempLocation = [];
 
         try {
-            // Load room data from CSV
-            console.log("Retrieving map from: data/hm_map.csv");
-            const mapResponse = await fetch('data/hm_map.csv');
-            const mapText = await mapResponse.text();
-            const mapLines = mapText.trim().split('\n');
+            // Load room data from JSON
+            console.log("Retrieving map from: data/hm_map.json");
+            const mapResponse = await fetch('data/hm_map.json');
+            const mapData = await mapResponse.json();
 
-            const roomNames = [];
-            const roomDescs = [];
-            const roomExits = [];
-
-            for (const line of mapLines) {
-                if (line.trim() === '') continue;
-                
-                const csvt = new CSVTokenizer(line);
-                const exits = [];
-                
-                // Read the 6 direction exits (N,S,W,E,U,D)
-                for (let i = 0; i < 6; i++) {
-                    exits[i] = parseInt(csvt.nextToken());
-                }
-                
-                const roomName = csvt.nextToken();
-                const roomDesc = csvt.nextToken();
-                
-                roomExits[numRooms] = exits;
-                roomNames[numRooms] = roomName;
-                roomDescs[numRooms] = roomDesc;
-                numRooms++;
-            }
-
-            // At this point, the state table has been read into arrays.
-            // We want to build Location objects from this stuff.
+            const numRooms = mapData.rooms.length;
             tempLocation = new Array(numRooms);
 
+            // Create Location objects
             for (let i = 0; i < numRooms; i++) {
-                tempLocation[i] = new Location(roomNames[i], roomDescs[i]);
+                const room = mapData.rooms[i];
+                tempLocation[room.id] = new Location(room.name, room.description);
             }
             console.log(numRooms + " rooms added to game.");
 
-            // Now we do the same with all the exits.
+            // Create exits
             let numExits = 0;
             for (let i = 0; i < numRooms; i++) {
-                // Loop through each exit direction.
-                for (let j = 0; j < 6; j++) {
-                    if (roomExits[i][j] !== 0) { // If this is an exit,
-                        tempLocation[i].addExit(new Exit(j + 1, tempLocation[roomExits[i][j]]));
+                const room = mapData.rooms[i];
+                const roomLocation = tempLocation[room.id];
+                
+                // Map exit directions: north=1, south=2, west=3, east=4, up=5, down=6
+                const exitMappings = [
+                    { direction: 1, target: room.exits.north },   // North
+                    { direction: 2, target: room.exits.south },   // South  
+                    { direction: 3, target: room.exits.west },    // West
+                    { direction: 4, target: room.exits.east },    // East
+                    { direction: 5, target: room.exits.up },      // Up
+                    { direction: 6, target: room.exits.down }     // Down
+                ];
+
+                for (const exit of exitMappings) {
+                    if (exit.target !== 0) { // If this is a valid exit
+                        roomLocation.addExit(new Exit(exit.direction, tempLocation[exit.target]));
                         numExits++;
                     }
                 }
@@ -70,45 +57,22 @@ class CreateWorld {
         }
 
         // Now load items
-        let numItems = 0;
         try {
-            console.log("Retrieving item list from: data/hm_items.csv");
-            const itemResponse = await fetch('data/hm_items.csv');
-            const itemText = await itemResponse.text();
-            const itemLines = itemText.trim().split('\n');
+            console.log("Retrieving item list from: data/hm_items.json");
+            const itemResponse = await fetch('data/hm_items.json');
+            const itemData = await itemResponse.json();
 
-            const itemLocation = [];
-            const itemKeyword = [];
-            const itemName = [];
-            const itemDescription = [];
-            const itemGetable = [];
-
-            for (const line of itemLines) {
-                if (line.trim() === '') continue;
-                
-                const csvt = new CSVTokenizer(line);
-                
-                itemLocation[numItems] = parseInt(csvt.nextToken());
-                itemKeyword[numItems] = csvt.nextToken();
-                itemName[numItems] = csvt.nextToken();
-                itemDescription[numItems] = csvt.nextToken();
-                const temp = csvt.nextToken();
-                itemGetable[numItems] = !temp.toLowerCase().includes("false");
-                numItems++;
-            }
-
-            // At this point, the state table has been read into arrays.
-            // Create new item objects...
-            for (let i = 0; i < numItems; i++) {
-                if (itemLocation[i] === 0) { // Player inventory
-                    this.inventory.addItem(new Item(itemKeyword[i], itemName[i], itemDescription[i]));
-                } else { // In a location.
-                    tempLocation[itemLocation[i]].addItem(
-                        new Item(itemKeyword[i], itemName[i], itemDescription[i], itemGetable[i])
+            // Create item objects
+            for (const itemInfo of itemData.items) {
+                if (itemInfo.startLocation === 0) { // Player inventory
+                    this.inventory.addItem(new Item(itemInfo.keyword, itemInfo.name, itemInfo.description));
+                } else { // In a location
+                    tempLocation[itemInfo.startLocation].addItem(
+                        new Item(itemInfo.keyword, itemInfo.name, itemInfo.description, itemInfo.carryable)
                     );
                 }
             }
-            console.log(numItems + " items added to game.");
+            console.log(itemData.items.length + " items added to game.");
 
         } catch (e) {
             console.log("Error loading items -- " + e.toString());

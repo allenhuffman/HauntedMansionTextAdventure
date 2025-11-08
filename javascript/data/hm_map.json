@@ -1,0 +1,693 @@
+{
+  "rooms": [
+    {
+      "id": 0,
+      "name": "Empty",
+      "description": "empty room",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 1,
+      "name": "Foyer",
+      "description": "You are standing in the foyer of the Mansion. A fireplace is on one wall and a portrait of an old man hangs above it. Is it your imagination or does the portrait appear to be aging right before your eyes? You hear faint organ music and notice that the candles are flickering even though the air is deathly still. It is almost as if you fear ghosts are present.",
+      "exits": {
+        "north": 2,
+        "south": 0,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 2,
+      "name": "Portrait Gallery",
+      "description": "You are in a large portrait gallery. On four of the walls you can see portraits of some of the mansion's guests as they appeared in the former corruptable mortal state. You instintively step all the way in to the dead center as if you are making room for others, though you are all alone. Stone gargoyles holding candles peer down from the rafters. The ceiling is very high.",
+      "exits": {
+        "north": 3,
+        "south": 1,
+        "west": 0,
+        "east": 12,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 3,
+      "name": "Hallway",
+      "description": "You are at the south end of a long hallway. On the west wall are windows which reveal the stormy night outside. Hanging on the east wall are various portraits which seem to be changing.",
+      "exits": {
+        "north": 4,
+        "south": 2,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 4,
+      "name": "Hallway",
+      "description": "You are at the north end of a long hallway. On the west wall are windows which reveal the stormy night outside. Hanging on the east wall are various portraits which seem to be changing.",
+      "exits": {
+        "north": 5,
+        "south": 3,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 5,
+      "name": "Marble Busts",
+      "description": "Two marble busts sit on shelves built in to the north wall. It is probably just your imagination but it seems they are watching you. To the east is a hallway which leads to a staircase.",
+      "exits": {
+        "north": 0,
+        "south": 4,
+        "west": 0,
+        "east": 6,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 6,
+      "name": "Bottom of Stairs",
+      "description": "You are at the bottom of a stairway which leads to the second story. You hear piano music coming from the east.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 5,
+        "east": 7,
+        "up": 22,
+        "down": 0
+      }
+    },
+    {
+      "id": 7,
+      "name": "Piano Room",
+      "description": "You are standing in the music room. An ancient piano sits in front of a large window to the north. The piano is playing eerie music though no one is there. Something seems to be casting a shadow and you can see the outline of someone playing.",
+      "exits": {
+        "north": 0,
+        "south": 8,
+        "west": 6,
+        "east": 14,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 8,
+      "name": "Library",
+      "description": "You are in the library. The shelves seem to be well stocked with priceless first editions. They all seem to be ghost stories. Some of the books seem to be moving and a large chair rocks quietly in the corner.",
+      "exits": {
+        "north": 7,
+        "south": 10,
+        "west": 9,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 9,
+      "name": "Library",
+      "description": "You are at the west end of the library. A small table is here and a rickety ladder allows access to the higher shelves.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 0,
+        "east": 8,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 10,
+      "name": "Portrait Hallway",
+      "description": "Creepy pictures line both the west and east walls of this hallway. At the north end is a large portrait of a man holding an axe.",
+      "exits": {
+        "north": 8,
+        "south": 11,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 11,
+      "name": "Bottom of Stairs",
+      "description": "You are at the bottom of a stairway which leads to the second story.",
+      "exits": {
+        "north": 10,
+        "south": 0,
+        "west": 12,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 12,
+      "name": "Hallway",
+      "description": "You are in a plain looking hallway. There is some old furniture here but little else of interest. There is a doorway marked 'Servant's Quarters' on the north wall.",
+      "exits": {
+        "north": 13,
+        "south": 0,
+        "west": 2,
+        "east": 11,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 13,
+      "name": "Servants Quarters",
+      "description": "You are in a small bedroom which is probably for a servant.",
+      "exits": {
+        "north": 0,
+        "south": 12,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 14,
+      "name": "Hallway",
+      "description": "You are in a dark hallway. You can hear piano music to the west and organ music to the east.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 7,
+        "east": 15,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 15,
+      "name": "Grand Ballroom",
+      "description": "You are at the north end of a grand ballroom. There is a large pipe organ here. It is playing even though you see no one sitting on the stool. To the south it an open dance floor and you can see the large dining room table beyond it.",
+      "exits": {
+        "north": 0,
+        "south": 16,
+        "west": 14,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 16,
+      "name": "Grand Ballroom",
+      "description": "You are standing in the middle of a grand ballroom. This area seems to be used for dances. An old organ is to the north and a large dining room is to the south.",
+      "exits": {
+        "north": 15,
+        "south": 17,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 17,
+      "name": "Grand Ballroom",
+      "description": "You are standing next to a large dining room table. It is set as if expecting a large party. You notice an interesting arrangement of plates. There is a decaying birthday cake on the south end of the table.",
+      "exits": {
+        "north": 16,
+        "south": 20,
+        "west": 18,
+        "east": 0,
+        "up": 34,
+        "down": 0
+      }
+    },
+    {
+      "id": 18,
+      "name": "Kitchen",
+      "description": "You are in the south end of a large kitchen.",
+      "exits": {
+        "north": 19,
+        "south": 0,
+        "west": 0,
+        "east": 17,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 19,
+      "name": "Kitchen",
+      "description": "You are in the north end of a large kitchen. A large industrial ice box sits in one corner.",
+      "exits": {
+        "north": 0,
+        "south": 18,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 20,
+      "name": "Grand Ballroom",
+      "description": "You are standing at the south end of a grand ballroom. There is a large fireplace here. There is a large exit to the east leading outside.",
+      "exits": {
+        "north": 17,
+        "south": 0,
+        "west": 0,
+        "east": 21,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 21,
+      "name": "Outside",
+      "description": "You are on a patio area outside of the grand ballroom. A large fence prevents you from going any further, or even seeing what is beyond it.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 20,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 22,
+      "name": "Top of Stairs",
+      "description": "You are at the top of a stairway which leads down to the first floor. You hear strange noises coming from the west and very large spiderwebs hang from the walls.",
+      "exits": {
+        "north": 0,
+        "south": 38,
+        "west": 23,
+        "east": 0,
+        "up": 0,
+        "down": 6
+      }
+    },
+    {
+      "id": 23,
+      "name": "Conservatory",
+      "description": "You are in a neglected conservatory. Dead plants are all around and there is a large coffin here. It sounds like someone is trapped inside.",
+      "exits": {
+        "north": 0,
+        "south": 24,
+        "west": 0,
+        "east": 22,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 24,
+      "name": "Hallway of Doors",
+      "description": "You are at the north end of a long hallway with doors on each wall. Perhaps it is your imagination, but you seem to hear voices from behind some of the doors.",
+      "exits": {
+        "north": 23,
+        "south": 25,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 25,
+      "name": "Hallway of Doors",
+      "description": "You are at the south end of a long hallway with doors on each wall. One of the door handles rattles mysteriously.",
+      "exits": {
+        "north": 24,
+        "south": 26,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 26,
+      "name": "Clock",
+      "description": "You are standing in front of a large grandfather clock. It is very ornate. The pendulum looks like a devil's tail, and the face is numbered to 13.",
+      "exits": {
+        "north": 25,
+        "south": 0,
+        "west": 0,
+        "east": 27,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 27,
+      "name": "Seance Room",
+      "description": "You are in a large dark room. There is a table and chair in the center. On the table is a large crystal ball. A raven is peached on the chair and a large cabinet sits behind that.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 26,
+        "east": 28,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 28,
+      "name": "Hallway",
+      "description": "You are standing in a short dark hallway.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 27,
+        "east": 29,
+        "up": 0,
+        "down": 11
+      }
+    },
+    {
+      "id": 29,
+      "name": "Balcony",
+      "description": "You are at the south end of a long balcony which overlooks the grand ballroom. Down below you can see a fireplace.",
+      "exits": {
+        "north": 30,
+        "south": 0,
+        "west": 28,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 30,
+      "name": "Balcony",
+      "description": "You are on a long balcony which overlooks the grand ballroom. Down below you can see a large table.",
+      "exits": {
+        "north": 31,
+        "south": 29,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 31,
+      "name": "Balcony",
+      "description": "You are on a long balcony which overlooks the grand ballroom. Down below you can see a large open area.",
+      "exits": {
+        "north": 32,
+        "south": 30,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 32,
+      "name": "Balcony",
+      "description": "You are at the north end of a long balcony which overlooks the grand ballroom. Down below you see a large pipe organ.",
+      "exits": {
+        "north": 0,
+        "south": 31,
+        "west": 33,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 33,
+      "name": "Bottom of Stairs",
+      "description": "You are at the bottom of a stairway which leads up to the attic.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 0,
+        "east": 32,
+        "up": 46,
+        "down": 0
+      }
+    },
+    {
+      "id": 34,
+      "name": "Walkway",
+      "description": "You are at the south end of a walkway which overlooks the grand ballroom.",
+      "exits": {
+        "north": 35,
+        "south": 0,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 17
+      }
+    },
+    {
+      "id": 35,
+      "name": "Walkway",
+      "description": "You are in the middle of a walkway which overlooks the grand ballrom. To the east is a large portrait.",
+      "exits": {
+        "north": 36,
+        "south": 34,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 36,
+      "name": "Walkway",
+      "description": "You are at the north end of a walkway which overlooks the grand ballroom. To the east is a large portrait.",
+      "exits": {
+        "north": 0,
+        "south": 35,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 37,
+      "name": "Room",
+      "description": "You are in a room.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 0,
+        "east": 38,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 38,
+      "name": "Endless Hallway",
+      "description": "You are in a long north-south endless hallway. There are doors on the west and east walls.",
+      "exits": {
+        "north": 22,
+        "south": 41,
+        "west": 37,
+        "east": 39,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 39,
+      "name": "Room",
+      "description": "You are in a room.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 38,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 40,
+      "name": "Room",
+      "description": "You are in a room.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 0,
+        "east": 41,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 41,
+      "name": "Endless Hallway",
+      "description": "You are in a long north-south endless hallway. There are doors on the east and west walls.",
+      "exits": {
+        "north": 44,
+        "south": 38,
+        "west": 40,
+        "east": 42,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 42,
+      "name": "Room",
+      "description": "You are in a room.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 41,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 43,
+      "name": "Secret Room",
+      "description": "You are in a secret room.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 0,
+        "east": 44,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 44,
+      "name": "End of Endless Hallway",
+      "description": "You are at the end of a long north-south endless hallway. There are doors on the west and east walls.",
+      "exits": {
+        "north": 38,
+        "south": 0,
+        "west": 43,
+        "east": 45,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 45,
+      "name": "Secret Room",
+      "description": "You are in a secret room.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 44,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 46,
+      "name": "Top of Stairs",
+      "description": "You in the attic at the the top of a stairway which leads down to the second floor.",
+      "exits": {
+        "north": 0,
+        "south": 47,
+        "west": 0,
+        "east": 0,
+        "up": 0,
+        "down": 33
+      }
+    },
+    {
+      "id": 47,
+      "name": "Attic",
+      "description": "You are in the attic.",
+      "exits": {
+        "north": 46,
+        "south": 0,
+        "west": 48,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 48,
+      "name": "Attic",
+      "description": "You are in the attic.",
+      "exits": {
+        "north": 50,
+        "south": 0,
+        "west": 49,
+        "east": 47,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 49,
+      "name": "Attic",
+      "description": "You are in the attic.",
+      "exits": {
+        "north": 51,
+        "south": 0,
+        "west": 0,
+        "east": 48,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 50,
+      "name": "Attic",
+      "description": "You are in the attic.",
+      "exits": {
+        "north": 0,
+        "south": 48,
+        "west": 51,
+        "east": 0,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 51,
+      "name": "Attic",
+      "description": "You are in the attic. There is a ghostly bride here.",
+      "exits": {
+        "north": 0,
+        "south": 49,
+        "west": 52,
+        "east": 50,
+        "up": 0,
+        "down": 0
+      }
+    },
+    {
+      "id": 52,
+      "name": "Ledge",
+      "description": "You are on a ledge next to the attic. Down below you can see the graveyard but there is currently no way to get down there.",
+      "exits": {
+        "north": 0,
+        "south": 0,
+        "west": 0,
+        "east": 51,
+        "up": 0,
+        "down": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "startLocation": 9,
+      "keyword": "book",
+      "name": "a hardback book",
+      "description": "It appears to be a collection of stories by Edgar Allan Poe.",
+      "carryable": true
+    },
+    {
+      "id": 2,
+      "startLocation": 44,
+      "keyword": "candle",
+      "name": "a lit candle",
+      "description": "It is just your basic magically burning candle.",
+      "carryable": true
+    },
+    {
+      "id": 3,
+      "startLocation": 7,
+      "keyword": "music",
+      "name": "some sheet music",
+      "description": "It is sheet music for an eerie piece of piano music.",
+      "carryable": true
+    },
+    {
+      "id": 4,
+      "startLocation": 19,
+      "keyword": "spork",
+      "name": "a plastic spork",
+      "description": "It is one of those weird eating utensils that is both a spoon and fork.",
+      "carryable": true
+    },
+    {
+      "id": 5,
+      "startLocation": 17,
+      "keyword": "plates",
+      "name": "several plates",
+      "description": "Three of the plates seem to be arranged in a pattern. There is a larger plate with two smaller ones on top of it on each side.",
+      "carryable": false
+    },
+    {
+      "id": 6,
+      "startLocation": 13,
+      "keyword": "chicken",
+      "name": "a rubber chicken",
+      "description": "It is a novelty rubber chicken that looks as if it were trying to exit the mansion but took a wrong turn.",
+      "carryable": true
+    },
+    {
+      "id": 7,
+      "startLocation": 20,
+      "keyword": "log",
+      "name": "a log",
+      "description": "It is a small log, partially burned.",
+      "carryable": true
+    },
+    {
+      "id": 8,
+      "startLocation": 23,
+      "keyword": "flowers",
+      "name": "dead flowers",
+      "description": "This small boquet was probably once very pretty, but today it is dead and wilted.",
+      "carryable": true
+    },
+    {
+      "id": 9,
+      "startLocation": 45,
+      "keyword": "item",
+      "name": "secret item",
+      "description": "You have found a secret item which will probably be very useful to solving this game.",
+      "carryable": true
+    },
+    {
+      "id": 10,
+      "startLocation": 36,
+      "keyword": "bullet",
+      "name": "a bullet",
+      "description": "It is a round, lead revolver bullet.",
+      "carryable": true
+    },
+    {
+      "id": 11,
+      "startLocation": 49,
+      "keyword": "hatbox",
+      "name": "a small hatbox",
+      "description": "The hatbox is empty but looks like it could have once held a human head.",
+      "carryable": true
+    },
+    {
+      "id": 12,
+      "startLocation": 39,
+      "keyword": "scroll",
+      "name": "a scroll",
+      "description": "The old faded scroll contains a cryptic message. 'When no end is in site, and you walk south with all your might, start over and repeat these simple steps:  South then south again, then go back up north my friend, and see if you find west and east are swapped.'",
+      "carryable": true
+    },
+    {
+      "id": 13,
+      "startLocation": 35,
+      "keyword": "painting",
+      "name": "a painting",
+      "description": "It is a portrait of a gentleman, shown facing east.  He has a gun raised in his hand as if he is preparing for a duel.",
+      "carryable": false
+    },
+    {
+      "id": 14,
+      "startLocation": 36,
+      "keyword": "painting",
+      "name": "a painting",
+      "description": "It is a portrait of a gentleman, shown facing west.  He also has a gun raised in his hand as if he is preparing for a duel.",
+      "carryable": false
+    },
+    {
+      "id": 15,
+      "startLocation": 4,
+      "keyword": "window",
+      "name": "a window on the west wall",
+      "description": "Looking through the window you see a violent storm brewing outside. Every few moments lightning flashes.",
+      "carryable": false
+    },
+    {
+      "id": 16,
+      "startLocation": 4,
+      "keyword": "paintings",
+      "name": "paintings along the east wall",
+      "description": "There are several paintings here, including one of a lovely young woman named April.  As you gaze upon her beauty she seems to age right before your eyes into an ancient old woman.",
+      "carryable": false
+    },
+    {
+      "id": 17,
+      "startLocation": 3,
+      "keyword": "window",
+      "name": "a window on the west wall",
+      "description": "Looking through the window you see a violent storm brewing outside. Every few moments lightning flashes.",
+      "carryable": false
+    },
+    {
+      "id": 18,
+      "startLocation": 3,
+      "keyword": "paintings",
+      "name": "paintings along the east wall",
+      "description": "There are several paintings here, including one of a ship at sea.  As you blink your eyes, you suddenly see the ship has changed into a battered up ghost ship with torn sails.",
+      "carryable": false
+    },
+    {
+      "id": 19,
+      "startLocation": 23,
+      "keyword": "coffin",
+      "name": "a moving coffin",
+      "description": "The coffin has been nailed shut, but something is trying to get out.",
+      "carryable": false
+    },
+    {
+      "id": 20,
+      "startLocation": 26,
+      "keyword": "clock",
+      "name": "a grandfather clock",
+      "description": "As you gaze at the clock, you see a shodow of a twisted hand pass in front of it. You spin around but there is no one there.  Odd.",
+      "carryable": false
+    },
+    {
+      "id": 21,
+      "startLocation": 27,
+      "keyword": "trumpet",
+      "name": "an old trumpet",
+      "description": "The rusted old trumpet looks worthless.",
+      "carryable": false
+    },
+    {
+      "id": 22,
+      "startLocation": 1,
+      "keyword": "paper",
+      "name": "a slip of paper",
+      "description": "You look at the crumpled slip of paper and notice a faint message.  It says 'Welcome to Allen's Haunted Mansion text adventure. This is just a test and there is little to do here other than walk around and look at things. A few sections of the game have background audio which will load and play while you are there. See how many objects you can find, and you will get a taste of what the real adventure will be like. Pictures will be added soon!",
+      "carryable": true
+    },
+    {
+      "id": 23,
+      "startLocation": 23,
+      "keyword": "raven",
+      "name": "a raven",
+      "description": "The silent black bird notices you looking at it.  It squawks'Nevermore!' then is silent.",
+      "carryable": false
+    },
+    {
+      "id": 24,
+      "startLocation": 16,
+      "keyword": "slipper",
+      "name": "a glass slipper",
+      "description": "It is a small glass slipper, fit for a princess, yet there is no one around who could wear it.",
+      "carryable": true
+    }
+  ]
+}
