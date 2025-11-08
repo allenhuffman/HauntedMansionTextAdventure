@@ -2,11 +2,11 @@ This document was created by GitHub A.I. Read with caution...
 
 # Haunted Mansion Text Adventure
 
-A Java-based text adventure game inspired by Disney's Haunted Mansion attraction, featuring atmospheric audio and faithful recreation of the mansion's iconic locations and mysteries.
+A text adventure game inspired by Disney's Haunted Mansion attraction, featuring atmospheric audio and faithful recreation of the mansion's iconic locations and mysteries. Originally built as a Java applet in 2002, now modernized with JavaScript ES6 and enhanced with advanced interactive features.
 
 ## Overview
 
-This interactive text adventure allows players to explore a virtual version of Disney's Haunted Mansion, complete with the famous rooms, supernatural encounters, and eerie atmosphere that makes the attraction so memorable. Built as a Java applet in 2002, it demonstrates classic adventure game mechanics with modern multimedia integration.
+This interactive text adventure allows players to explore a virtual version of Disney's Haunted Mansion, complete with the famous rooms, supernatural encounters, and eerie atmosphere that makes the attraction so memorable. Originally built as a Java applet in 2002, the game has been modernized with JavaScript ES6, featuring enhanced interactive systems, data-driven configuration, and improved user experience.
 
 ## Features
 
@@ -20,21 +20,33 @@ This interactive text adventure allows players to explore a virtual version of D
 - **And many more iconic locations from the attraction**
 
 ### Interactive Gameplay
-- **Text-based Commands** - Traditional adventure game interface
+- **Text-based Commands** - Traditional adventure game interface with modern enhancements
+- **ActionItem System** - Advanced item interactions with verb/noun combinations
+- **Dynamic World** - Items can unlock doors, reveal secrets, and modify the game world
+- **Hidden Item System** - Pre-defined items revealed through searching and exploration
 - **Inventory System** - Collect and use items throughout the mansion
-- **Atmospheric Audio** - Location-specific background sounds and music
-- **Puzzle Elements** - Solve mysteries and uncover secrets
-- **Exploration** - Navigate freely between connected rooms
+- **Atmospheric Audio** - Location-specific background sounds and music with user control
+- **Puzzle Elements** - Solve mysteries, unlock doors, and uncover secrets
+- **Exploration** - Navigate freely between connected rooms with dynamic exits
 
 ### Multimedia Integration
-- **Background Audio** - Authentic atmospheric sounds for each location
-- **Visual Elements** - Includes mansion map and GUI prototype
-- **Java Applet Interface** - Web-browser playable experience
+- **Background Audio** - Authentic atmospheric sounds for each location with MP3 support
+- **Audio Control** - Player-controlled sound on/off with dynamic zone management
+- **Silent Rooms** - Strategic audio design with dramatic silence for atmospheric effect
+- **Modern Web Interface** - JavaScript-based game running in modern browsers
+- **Error Handling** - In-game feedback for configuration issues and loading errors
 
 ## Technical Architecture
 
-### Core Game Engine
-- **`Adventure.java`** - Main applet class and game controller
+### Modern JavaScript Implementation
+- **`Adventure.js`** - Main game engine with enhanced command processing and ActionItem integration
+- **`CreateWorld.js`** - World generation, JSON data loading, and hidden item management
+- **`Item.js`** - Enhanced item class with ActionItem functionality and action tracking
+- **`Location.js`** - Room management with dynamic exit modification support
+- **`Parse.js`** - Command parsing and natural language processing
+
+### Legacy Java Implementation
+- **`Adventure.java`** - Original applet class and game controller
 - **`CreateWorld.java`** - World generation and data loading system
 - **`Player.java`** - Player state and inventory management
 - **`Parse.java`** - Command parsing and natural language processing
@@ -51,7 +63,12 @@ This interactive text adventure allows players to explore a virtual version of D
 - **`ActionItem.java`** - Items with special behaviors
 - **`carryable.java`** - Items that can be picked up
 
-### Audio System
+### Audio System (JavaScript)
+- **`SoundPlayer.js`** - Modern web audio controller with MP3 support and user interaction compliance
+- **`SoundList.js`** - Audio resource management and caching
+- **Data-driven Audio** - JSON configuration for flexible audio zone management
+
+### Audio System (Legacy Java)
 - **`SoundPlayer.java`** - Audio playback controller
 - **`SoundLoader.java`** - Sound file loading and caching
 - **`SoundList.java`** - Audio resource management
@@ -62,10 +79,15 @@ This interactive text adventure allows players to explore a virtual version of D
 
 ## Game Data
 
-### World Configuration
-- **`hm_map.csv`** - Room definitions, connections, and descriptions
-- **`hm_items.csv`** - Item locations, properties, and descriptions
-- **`audiolist.txt`** - Sound assignments for each location
+### Modern JSON Configuration
+- **`hm_map.json`** - Room definitions, connections, and descriptions in structured JSON
+- **`hm_items.json`** - Enhanced item system with ActionItem support, hidden items, and complex interactions
+- **`hm_audio.json`** - Data-driven audio zone configuration with silent room support
+
+### Legacy CSV Configuration  
+- **`hm_map.csv`** - Original room definitions, connections, and descriptions
+- **`hm_items.csv`** - Original item locations, properties, and descriptions
+- **`audiolist.txt`** - Original sound assignments documentation
 
 ### Map Structure (Sample)
 ```csv
@@ -89,13 +111,17 @@ LocationID,ItemName,ShortDesc,LongDesc,Carryable
 - **Graveyard** - Ghostly choir and supernatural effects
 - **Loading Zone** - Spectral winds and ghostly bells
 
-### Audio Files (`.au` format)
-- `foyer.au` - Foyer background music
-- `ballroom.au` - Ballroom dancing music  
-- `attic.au` - Attic ambient sounds
-- `storm.au` - Thunder and lightning effects
-- `doors.au` - Creaking door sounds
-- `load.au` - Loading area atmosphere
+### Audio Files (Modern MP3 format)
+- `foyer.mp3` - Foyer background music
+- `ballroom.mp3` - Ballroom dancing music  
+- `attic.mp3` - Attic ambient sounds
+- `atticledge.mp3` - Attic ledge overlook atmosphere
+- `storm.mp3` - Thunder and lightning effects
+- `doors.mp3` - Creaking door sounds
+- `load.mp3` - Loading area atmosphere
+
+### Legacy Audio Files (`.au` format)
+- Original Sun Audio format files (deprecated in modern browsers)
 
 ## Commands & Controls
 
@@ -112,11 +138,32 @@ D, DOWN      - Go downstairs
 ### Interaction Commands
 ```
 LOOK         - Examine current location
-EXAMINE item - Look at specific item
-GET/TAKE     - Pick up items
-DROP item    - Drop items from inventory
+EXAMINE item - Look at specific item (fallback support for any item)
+SEARCH item  - Search items for hidden objects (fallback support for any item)
+GET/TAKE     - Pick up items (supports GET ALL)
+DROP item    - Drop items from inventory (supports DROP ALL)
 INVENTORY (I)- Show carried items
 VERBOSE ON/OFF - Toggle detailed descriptions
+SOUND ON/OFF - Control atmospheric audio
+HELP         - Display command reference
+QUIT         - Exit game with confirmation (YES/NO/RESTART options)
+```
+
+### Enhanced ActionItem Commands
+```
+READ book    - Read books and documents
+SEARCH book  - Find hidden bookmarks and secrets
+UNLOCK door  - Use keys to unlock doors  
+LOCK door    - Lock doors with keys
+CLIMB ladder - Use ladder in specific rooms
+MOVE/PUSH painting - Reveal hidden safes
+OPEN safe    - Open safes with required items
+LISTEN door/raven - Atmospheric audio interactions
+```
+
+### Debug Commands
+```
+GOTO <room>  - Teleport to any room by number (debug mode)
 ```
 
 ### Shortcuts
@@ -158,16 +205,63 @@ HauntedMansionMap.png - Visual map reference
 
 ## Running the Game
 
-### Web Browser (Original Method)
-1. Open `adventure.html` in a Java-enabled web browser
+### Modern JavaScript Version (Recommended)
+1. Start a local web server in the `javascript` directory:
+   ```bash
+   cd javascript
+   python3 -m http.server 8080
+   ```
+2. Open `http://localhost:8080` in any modern web browser
+3. Click anywhere to enable atmospheric audio
+4. Type commands in the text field and explore the mansion!
+
+### Legacy Java Applet Version
+1. Open `adventure.html` in a Java-enabled web browser (legacy browsers only)
 2. Wait for the applet to load
 3. Type commands in the text field
 4. Explore the mansion!
 
-### Modern Compatibility Notes
-- Java applets are deprecated in modern browsers
-- Consider converting to standalone Java application
-- Audio format may need updating for current systems
+### Modern Enhancements
+- ✅ **No Java required** - Runs in any modern web browser
+- ✅ **MP3 audio support** - Compatible with current audio standards  
+- ✅ **Enhanced error handling** - In-game feedback for configuration issues
+- ✅ **Improved user experience** - Better command fallbacks and help system
+- ✅ **Data-driven design** - Easy content modification through JSON files
+
+## Modern Enhancements (2025)
+
+### ActionItem System
+- **Complex Interactions** - Items can respond to multiple verbs (READ, SEARCH, UNLOCK, CLIMB, etc.)
+- **Room-Specific Actions** - Items behave differently in different locations
+- **Requirement System** - Actions can require specific items in inventory
+- **Once-Only Actions** - Prevent repetition with custom messages for already-performed actions
+- **Dynamic World Changes** - Items can unlock doors, reveal hidden items, and modify descriptions
+
+### Enhanced Command Processing
+- **Fallback Support** - EXAMINE and SEARCH work on any item, even without custom actions
+- **Grammar Intelligence** - Automatic article stripping for better message grammar
+- **Command Shortcuts** - Single-letter shortcuts (N, S, E, W, U, D, I, L)
+- **Comprehensive Help** - Built-in HELP command with complete command reference
+- **Graceful Quit** - QUIT command with confirmation options (YES/NO/RESTART)
+
+### Hidden Item System
+- **Pre-defined Secrets** - Items stored in "limbo" (room 0) awaiting discovery
+- **Search Mechanics** - Find hidden bookmarks, keys, and mysterious objects
+- **Debug Support** - Hidden items visible with GOTO 0 command for testing
+- **Reveal Tracking** - Items properly move from hidden state to active locations
+
+### Audio Management
+- **Data-Driven Configuration** - JSON-based audio zone assignments
+- **User Control** - SOUND ON/OFF command with immediate feedback
+- **Silent Rooms** - Strategic silence for dramatic atmospheric effect
+- **Modern Format Support** - MP3 audio instead of deprecated .au format
+- **Smart Stopping** - Audio stops in silent rooms, resumes with new zones
+
+### Error Handling & User Experience
+- **In-Game Error Messages** - JSON parsing errors displayed to players
+- **Graceful Degradation** - Game continues even with configuration errors
+- **Real-Time Validation** - Console feedback for debugging and development
+- **User-Friendly Messages** - Clear instructions and helpful feedback
 
 ## Game Features
 
