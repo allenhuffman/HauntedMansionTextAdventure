@@ -161,7 +161,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-26" value="38&lt;div&gt;Endless Hallway&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="1000" y="280" width="80" height="80" as="geometry" />
+          <mxGeometry x="950" y="280" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NtIjfB5tUNKMfuGPDF4m-28" target="NtIjfB5tUNKMfuGPDF4m-32">
           <mxGeometry relative="1" as="geometry" />
@@ -266,7 +266,7 @@
           <mxGeometry x="1240" y="280" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-65" value="37&lt;div&gt;Room&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="880" y="280" width="80" height="80" as="geometry" />
+          <mxGeometry x="850" y="280" width="80" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
