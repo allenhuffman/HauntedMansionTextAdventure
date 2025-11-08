@@ -3,7 +3,7 @@
     {
       "id": 0,
       "name": "Empty",
-      "description": "empty room",
+      "description": "Nothing to see here. Move alond.",
       "exits": {
         "north": 0,
         "south": 0,
@@ -16,7 +16,7 @@
     {
       "id": 1,
       "name": "Foyer",
-      "description": "You are standing in the foyer of the Mansion. A fireplace is on one wall and a portrait of an old man hangs above it. Is it your imagination or does the portrait appear to be aging right before your eyes? You hear faint organ music and notice that the candles are flickering even though the air is deathly still. It is almost as if you fear ghosts are present.",
+      "description": "You are standing in the foyer of the Mansion. A fireplace is on one wall and a portrait of an old man hangs above it. Is it your imagination or does the portrait appear to be aging right before your eyes? You hear faint organ music and notice that the candles are flickering even though the air is deathly still. It is almost as if ghosts are present.",
       "exits": {
         "north": 2,
         "south": 0,
@@ -29,7 +29,7 @@
     {
       "id": 2,
       "name": "Portrait Gallery",
-      "description": "You are in a large portrait gallery. On four of the walls you can see portraits of some of the mansion's guests as they appeared in the former corruptable mortal state. You instintively step all the way in to the dead center as if you are making room for others, though you are all alone. Stone gargoyles holding candles peer down from the rafters. The ceiling is very high.",
+      "description": "You are in a large portrait gallery. On four of the walls you can see portraits of some of the mansion's guests as they appeared in their corruptable mortal state. You instintively step all the way in to the dead center as if you are making room for others, though you are all alone. Stone gargoyles holding candles peer down from the rafters. The ceiling is very high.",
       "exits": {
         "north": 3,
         "south": 1,
