@@ -37,7 +37,16 @@ class Adventure {
         
         // Initialize the world
         this.player = new CreateWorld();
-        await this.player.init();
+        const initResult = await this.player.init();
+        
+        // Show any initialization errors in the game
+        if (initResult && initResult.errors && initResult.errors.length > 0) {
+            this.desc.value += "\n⚠️ GAME LOADING ISSUES:\n";
+            for (const error of initResult.errors) {
+                this.desc.value += "• " + error + "\n";
+            }
+            this.desc.value += "\nThe game may not function properly. Check the browser console for details.\n\n";
+        }
 
         // Display initial location
         this.showLocation();
@@ -524,9 +533,14 @@ class Adventure {
         }
         
         // HACK - Audio system
-        if (this.soundEnabled && this.player.getLocation().getSound() !== null) {
-            // this.desc.value += "[Background sound: " + this.player.getLocation().getSound() + "]\n";
-            this.soundPlayer.loop(this.player.getLocation().getSound());
+        if (this.soundEnabled) {
+            if (this.player.getLocation().getSound() !== null) {
+                // this.desc.value += "[Background sound: " + this.player.getLocation().getSound() + "]\n";
+                this.soundPlayer.loop(this.player.getLocation().getSound());
+            } else {
+                // Stop audio in silent rooms
+                this.soundPlayer.stopLoop();
+            }
         }
         
         // Auto-scroll to bottom

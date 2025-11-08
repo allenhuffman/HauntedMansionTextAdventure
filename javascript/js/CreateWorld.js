@@ -8,6 +8,7 @@ class CreateWorld {
 
     async init() {
         let tempLocation = [];
+        const errors = []; // Collect errors to report to user
 
         try {
             // Load room data from JSON
@@ -53,7 +54,7 @@ class CreateWorld {
 
         } catch (e) {
             console.log("Error loading map -- " + e.toString());
-            return;
+            errors.push("Failed to load game map (hm_map.json): " + e.message);
         }
 
         // Now load items
@@ -86,7 +87,7 @@ class CreateWorld {
 
         } catch (e) {
             console.log("Error loading items -- " + e.toString());
-            return;
+            errors.push("Failed to load game items (hm_items.json): " + e.message);
         }
 
         // Load audio zone assignments from JSON file
@@ -97,10 +98,15 @@ class CreateWorld {
             
             let audioZoneCount = 0;
             for (const zone of audioData.audioZones) {
-                console.log(`Setting up audio zone: ${zone.description} (${zone.soundFile})`);
+                const soundDescription = zone.soundFile ? zone.soundFile : "silence";
+                console.log(`Setting up audio zone: ${zone.description} (${soundDescription})`);
                 for (const roomId of zone.rooms) {
                     if (tempLocation[roomId]) {
-                        tempLocation[roomId].setSound(zone.soundFile);
+                        // Only set sound if soundFile is specified and not null/empty
+                        if (zone.soundFile && zone.soundFile !== "silence") {
+                            tempLocation[roomId].setSound(zone.soundFile);
+                        }
+                        // If soundFile is null, empty, or "silence", leave room with no sound
                         audioZoneCount++;
                     } else {
                         console.log(`Warning: Room ${roomId} not found for audio zone: ${zone.description}`);
@@ -111,8 +117,14 @@ class CreateWorld {
         } catch (e) {
             console.log("Error loading audio configuration -- " + e.toString());
             console.log("Audio zones will not be available.");
-        }        // Store the locations array for ActionItem access
+            errors.push("Failed to load audio configuration (hm_audio.json): " + e.message + " - Audio zones disabled.");
+        }        
+        
+        // Store the locations array for ActionItem access
         this.locations = tempLocation;
+        
+        // Return result with any errors
+        return { errors: errors };
     }
 
     // Player functions.
