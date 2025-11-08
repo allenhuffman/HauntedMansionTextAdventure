@@ -141,7 +141,25 @@
       "keyword": "paintings",
       "name": "paintings along the east wall",
       "description": "There are several paintings here, including one of a lovely young woman named April.  As you gaze upon her beauty she seems to age right before your eyes into an ancient old woman.",
-      "carryable": false
+      "carryable": false,
+        "actions": [
+        {
+          "verb": "move",
+          "useInRoom": 4,
+          "message": "You carefully slide the painting aside, revealing a hidden safe built into the wall!",
+          "revealsItemId": 31,
+          "onceOnly": true,
+          "newDescription": "The painting has been moved aside, exposing the wall behind it.",
+          "alreadyPerformedMessage": "The painting has already been moved. The hidden safe is visible."
+        },
+        {
+          "verb": "push",
+          "useInRoom": 4,
+          "message": "You push against the painting and it slides to one side, revealing a hidden safe!",
+          "revealsItemId": 31,
+          "onceOnly": true
+        }
+      ]
     },
     {
       "id": 17,
@@ -308,6 +326,32 @@
           "message": "You press your ear against the door and listen closely. You hear something scratching on the other side."
         }
       ]
+    },
+    {
+      "id": 31,
+      "startLocation": 0,
+      "keyword": "safe",
+      "name": "a hidden safe",
+      "description": "The safe is built into the wall and has a combination lock. It looks like it could hold something valuable.",
+      "carryable": false,
+      "actions": [
+        {
+          "verb": "open",
+          "useInRoom": 4,
+          "requiresItem": "bookmark",
+          "message": "You enter the correct combination using the leather bookmark and open the safe. Inside you find a mysterious amulet!",
+          "revealsItemId": 32,
+          "onceOnly": true
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "startLocation": 0,
+      "keyword": "amulet",
+      "name": "a mysterious amulet",
+      "description": "The amulet is intricately designed with symbols that seem to shimmer and change when you look at them. It feels warm to the touch.",
+      "carryable": true
     }
   ]
 }
