@@ -16,8 +16,7 @@ class Parse {
             if (this.verb === null) {
                 this.verb = next;
             } else {
-                this.noun = next;
-                break; // Only take the first noun, matching Java behavior
+                this.noun = next; // Keep overwriting - last word becomes noun (matches Java)
             }
         }
     }
