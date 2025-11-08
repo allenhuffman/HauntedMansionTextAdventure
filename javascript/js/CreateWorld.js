@@ -89,33 +89,29 @@ class CreateWorld {
             return;
         }
 
-        // Sound hack - hardcoded sound zones matching the Java original
-        // Zone where foyer music plays.
-        tempLocation[1].setSound("foyer.au");
-        tempLocation[2].setSound("foyer.au");
-        // Zone where storm plays
-        tempLocation[3].setSound("storm.au");
-        tempLocation[4].setSound("storm.au");
-        // Zones where load music plays.
-        tempLocation[5].setSound("load.au");
-        tempLocation[6].setSound("load.au");
-        tempLocation[14].setSound("load.au");
-        tempLocation[11].setSound("load.au");
-        tempLocation[12].setSound("load.au");
-        // Zone where ballroom music plays.
-        tempLocation[15].setSound("ballroom.au");
-        tempLocation[32].setSound("ballroom.au");
-        tempLocation[29].setSound("ballroom.au");
-        // Zone where attic music plays.
-        tempLocation[46].setSound("attic.au");
-        tempLocation[51].setSound("attic.au");
-        // Zone where attic ledge music plays.
-        tempLocation[52].setSound("atticledge.au");
-        // Zone where doors play.
-        tempLocation[23].setSound("doors.au");
-        tempLocation[25].setSound("doors.au");
-        
-        // Store the locations array for ActionItem access
+        // Load audio zone assignments from JSON file
+        try {
+            console.log("Loading audio zone configuration from: data/hm_audio.json");
+            const audioResponse = await fetch('data/hm_audio.json');
+            const audioData = await audioResponse.json();
+            
+            let audioZoneCount = 0;
+            for (const zone of audioData.audioZones) {
+                console.log(`Setting up audio zone: ${zone.description} (${zone.soundFile})`);
+                for (const roomId of zone.rooms) {
+                    if (tempLocation[roomId]) {
+                        tempLocation[roomId].setSound(zone.soundFile);
+                        audioZoneCount++;
+                    } else {
+                        console.log(`Warning: Room ${roomId} not found for audio zone: ${zone.description}`);
+                    }
+                }
+            }
+            console.log(`${audioZoneCount} rooms assigned audio zones.`);
+        } catch (e) {
+            console.log("Error loading audio configuration -- " + e.toString());
+            console.log("Audio zones will not be available.");
+        }        // Store the locations array for ActionItem access
         this.locations = tempLocation;
     }
 

@@ -72,39 +72,19 @@ class SoundPlayer {
             console.log(`Attempting to load sound file '${soundFile}'.`);
             
             const audio = new Audio();
+            const audioPath = this.baseURL + soundFile;
             
             audio.oncanplaythrough = () => {
-                console.log(`Sound file '${soundFile}' loaded.`);
+                console.log(`Sound file '${soundFile}' loaded successfully from '${audioPath}'.`);
                 resolve(audio);
             };
             
             audio.onerror = () => {
-                console.log(`Unable to load sound file '${soundFile}'.`);
+                console.log(`Unable to load sound file '${soundFile}' from '${audioPath}'.`);
                 resolve(null);
             };
             
-            // Try multiple formats - convert .au to more common formats
-            const baseName = soundFile.replace('.au', '');
-            
-            // Try common web audio formats
-            const formats = ['.mp3', '.ogg', '.wav'];
-            let formatIndex = 0;
-            
-            const tryNextFormat = () => {
-                if (formatIndex < formats.length) {
-                    audio.src = this.baseURL + baseName + formats[formatIndex];
-                    formatIndex++;
-                } else {
-                    console.log(`No compatible audio format found for '${soundFile}'.`);
-                    resolve(null);
-                }
-            };
-            
-            audio.onerror = () => {
-                tryNextFormat();
-            };
-            
-            tryNextFormat();
+            audio.src = audioPath;
         });
     }
 
@@ -113,6 +93,9 @@ class SoundPlayer {
             console.log(`Halting current sound file '${this.nowPlaying}'.`);
             this.loopClip.pause();
             this.loopClip.currentTime = 0;
+            this.loopClip = null;     // Clear the reference
+            this.nowPlaying = null;   // Clear the current playing track
+            this.zone = null;         // Clear the zone
         }
     }
 }

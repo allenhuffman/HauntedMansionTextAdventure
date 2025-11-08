@@ -1,0 +1,39 @@
+{
+  "audioZones": [
+    {
+      "rooms": [1, 2],
+      "soundFile": "foyer.mp3",
+      "description": "Foyer entrance music"
+    },
+    {
+      "rooms": [3, 4], 
+      "soundFile": "storm.mp3",
+      "description": "Storm sounds for portrait gallery"
+    },
+    {
+      "rooms": [5, 6, 11, 12, 14],
+      "soundFile": "load.mp3", 
+      "description": "Loading/transition areas"
+    },
+    {
+      "rooms": [15, 29, 32],
+      "soundFile": "ballroom.mp3",
+      "description": "Grand ballroom and balcony"
+    },
+    {
+      "rooms": [46, 51],
+      "soundFile": "attic.mp3",
+      "description": "Attic areas"
+    },
+    {
+      "rooms": [52],
+      "soundFile": "atticledge.mp3", 
+      "description": "Attic ledge overlook"
+    },
+    {
+      "rooms": [23, 25],
+      "soundFile": "doors.mp3",
+      "description": "Corridor of doors"
+    }
+  ]
+}

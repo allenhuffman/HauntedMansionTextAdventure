@@ -3,6 +3,7 @@ class Adventure {
         this.desc = null;          // TextArea equivalent
         this.input = null;         // TextField equivalent
         this.verbose = false;
+        this.soundEnabled = true;  // Sound enabled by default
         this.player = null;        // CreateWorld instance
         this.soundPlayer = null;
     }
@@ -186,6 +187,28 @@ class Adventure {
                 this.desc.value += "Verbose mode is ON.\n";
             } else {
                 this.desc.value += "Verbose mode is OFF.\n";
+            }
+        }
+        else if (verb && verb.toUpperCase() === "SOUND") {
+            if (noun === null || noun.toUpperCase() === "ON") {
+                this.soundEnabled = true;
+                if (this.soundPlayer) {
+                    this.soundPlayer.enableAudio();
+                    // Restart current room's audio if it has sound
+                    if (this.player && this.player.getLocation().getSound() !== null) {
+                        this.soundPlayer.loop(this.player.getLocation().getSound());
+                    }
+                }
+            } else if (noun.toUpperCase() === "OFF") {
+                this.soundEnabled = false;
+                if (this.soundPlayer) {
+                    this.soundPlayer.stopLoop();
+                }
+            }
+            if (this.soundEnabled === true) {
+                this.desc.value += "Sound is ON.\n";
+            } else {
+                this.desc.value += "Sound is OFF.\n";
             }
         }
         else if (verb && (verb.toUpperCase() === "LOOK" || verb.toUpperCase() === "EXAMINE")) {
@@ -501,7 +524,7 @@ class Adventure {
         }
         
         // HACK - Audio system
-        if (this.player.getLocation().getSound() !== null) {
+        if (this.soundEnabled && this.player.getLocation().getSound() !== null) {
             // this.desc.value += "[Background sound: " + this.player.getLocation().getSound() + "]\n";
             this.soundPlayer.loop(this.player.getLocation().getSound());
         }
