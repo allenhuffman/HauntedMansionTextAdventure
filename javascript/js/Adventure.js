@@ -104,45 +104,62 @@ class Adventure {
         }
         else if (verb && (verb.toUpperCase() === "GET" || verb.toUpperCase() === "TAKE")) {
             let items = false;
-            const locationItems = this.player.getLocation().getItems();
             
-            for (const anItem of locationItems) {
-                // An item is here, see if this is what they want to take.
-                if ((anItem.getKeyword() && anItem.getKeyword().toUpperCase() === (noun || "").toUpperCase()) ||
-                    (noun && noun.toUpperCase() === "ALL")) {
-                    // Set location to the location pointed to by exit
-                    if (anItem.isGetable() === true) {
-                        this.player.getLocation().removeItem(anItem);
-                        this.player.addItem(anItem);
-                        this.desc.value += anItem.getKeyword() + " taken.\n";
-                        // If "ALL" is given, we need to restart the loop since we modified the array
-                        if (noun && noun.toUpperCase() === "ALL") {
-                            // Restart the loop by calling this method recursively for remaining items
-                            // This matches the Java HACK comment
+            // Use while loop with fresh array each iteration to handle "ALL" case
+            // This matches the Java HACK: e = player.getLocation().getItems().elements();
+            let foundItem = true;
+            while (foundItem) {
+                foundItem = false;
+                const locationItems = this.player.getLocation().getItems();
+                
+                for (const anItem of locationItems) {
+                    // An item is here, see if this is what they want to take.
+                    if ((anItem.getKeyword() && anItem.getKeyword().toUpperCase() === (noun || "").toUpperCase()) ||
+                        (noun && noun.toUpperCase() === "ALL")) {
+                        // Set location to the location pointed to by exit
+                        if (anItem.isGetable() === true) {
+                            this.player.getLocation().removeItem(anItem);
+                            this.player.addItem(anItem);
+                            this.desc.value += anItem.getKeyword() + " taken.\n";
+                            foundItem = true; // Continue searching for more items
+                            break; // Restart the loop with fresh item list
+                        } else {
+                            this.desc.value += "You can't get the " + anItem.getKeyword() + ".\n";
+                        }
+                        items = true;
+                        if (noun && noun.toUpperCase() !== "ALL") {
+                            foundItem = false; // Only take one item unless ALL
                             break;
                         }
-                    } else {
-                        this.desc.value += "You can't get the " + anItem.getKeyword() + ".\n";
                     }
-                    items = true;
-                    if (noun && noun.toUpperCase() !== "ALL") break; // Only take one item unless ALL
                 }
             }
             if (!items) this.desc.value += "I don't see that here.\n";
         }
         else if (verb && verb.toUpperCase() === "DROP") {
             let items = false;
-            const playerItems = this.player.getItems();
             
-            for (const anItem of playerItems) {
-                // Item is here, see if this is what they want to drop.
-                if ((anItem.getKeyword() && anItem.getKeyword().toUpperCase() === (noun || "").toUpperCase()) ||
-                    (noun && noun.toUpperCase() === "ALL")) {
-                    this.player.removeItem(anItem);
-                    this.player.getLocation().addItem(anItem);
-                    this.desc.value += anItem.getKeyword() + " dropped.\n";
-                    items = true;
-                    if (noun && noun.toUpperCase() !== "ALL") break; // Only drop one item unless ALL
+            // Use while loop with fresh array each iteration to handle "ALL" case
+            // This matches the Java HACK: e = player.getItems().elements();
+            let foundItem = true;
+            while (foundItem) {
+                foundItem = false;
+                const playerItems = this.player.getItems();
+                
+                for (const anItem of playerItems) {
+                    // Item is here, see if this is what they want to drop.
+                    if ((anItem.getKeyword() && anItem.getKeyword().toUpperCase() === (noun || "").toUpperCase()) ||
+                        (noun && noun.toUpperCase() === "ALL")) {
+                        this.player.removeItem(anItem);
+                        this.player.getLocation().addItem(anItem);
+                        this.desc.value += anItem.getKeyword() + " dropped.\n";
+                        foundItem = true; // Continue searching for more items
+                        items = true;
+                        if (noun && noun.toUpperCase() !== "ALL") {
+                            foundItem = false; // Only drop one item unless ALL
+                        }
+                        break; // Restart the loop with fresh item list
+                    }
                 }
             }
             if (!items) this.desc.value += "You don't seem to be carrying that.\n";
