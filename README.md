@@ -58,42 +58,42 @@ This interactive text adventure allows players to explore a virtual version of D
 - **`java/Parse.java`** - Command parsing and natural language processing
 
 ### World System
-- **`Location.java`** - Individual room/area implementation
-- **`Exit.java`** - Movement connections between locations
-- **`SpecialLocation.java`** - Locations with unique behaviors
-- **`SpecialExit.java`** - Exits with special conditions or effects
+- **`java/Location.java`** - Individual room/area implementation
+- **`java/Exit.java`** - Movement connections between locations
+- **`java/SpecialLocation.java`** - Locations with unique behaviors
+- **`java/SpecialExit.java`** - Exits with special conditions or effects
 
-### Item & Inventory
-- **`Item.java`** - Base item class for objects in the game
-- **`Inventory.java`** - Player inventory management
-- **`ActionItem.java`** - Items with special behaviors
-- **`carryable.java`** - Items that can be picked up
+### Item System
+- **`java/Item.java`** - Base item class for objects in the game
+- **`java/Inventory.java`** - Player inventory management
+- **`java/ActionItem.java`** - Items with special behaviors
+- **`java/carryable.java`** - Items that can be picked up
 
 ### Audio System (JavaScript)
-- **`SoundPlayer.js`** - Modern web audio controller with MP3 support and user interaction compliance
-- **`SoundList.js`** - Audio resource management and caching
+- **`javascript/js/SoundPlayer.js`** - Modern web audio controller with MP3 support and user interaction compliance
+- **`javascript/js/SoundList.js`** - Audio resource management and caching
 - **Data-driven Audio** - JSON configuration for flexible audio zone management
 
 ### Audio System (Legacy Java)
-- **`SoundPlayer.java`** - Audio playback controller
-- **`SoundLoader.java`** - Sound file loading and caching
-- **`SoundList.java`** - Audio resource management
+- **`java/SoundPlayer.java`** - Audio playback controller
+- **`java/SoundLoader.java`** - Sound file loading and caching
+- **`java/SoundList.java`** - Audio resource management
 
 ### User Interface
-- **`Display.java`** - Text output and formatting
-- **`GUI.java`** - Graphical user interface components
+- **`java/Display.java`** - Text output and formatting
+- **`java/GUI.java`** - Graphical user interface components
 
 ## Game Data
 
 ### Modern JSON Configuration
-- **`hm_map.json`** - Room definitions, connections, and descriptions in structured JSON
-- **`hm_items.json`** - Enhanced item system with ActionItem support, hidden items, and complex interactions
-- **`hm_audio.json`** - Data-driven audio zone configuration with silent room support
+- **`javascript/data/hm_map.json`** - Room definitions, connections, and descriptions in structured JSON
+- **`javascript/data/hm_items.json`** - Enhanced item system with ActionItem support, hidden items, and complex interactions
+- **`javascript/data/hm_audio.json`** - Data-driven audio zone configuration with silent room support
 
 ### Legacy CSV Configuration  
-- **`hm_map.csv`** - Original room definitions, connections, and descriptions
-- **`hm_items.csv`** - Original item locations, properties, and descriptions
-- **`audiolist.txt`** - Original sound assignments documentation
+- **`java/hm_map.csv`** - Original room definitions, connections, and descriptions
+- **`java/hm_items.csv`** - Original item locations, properties, and descriptions
+- **`java/audiolist.txt`** - Original sound assignments documentation
 
 ### Map Structure (Sample)
 ```csv
@@ -118,16 +118,22 @@ LocationID,ItemName,ShortDesc,LongDesc,Carryable
 - **Loading Zone** - Spectral winds and ghostly bells
 
 ### Audio Files (Modern MP3 format)
-- `foyer.mp3` - Foyer background music
-- `ballroom.mp3` - Ballroom dancing music  
-- `attic.mp3` - Attic ambient sounds
-- `atticledge.mp3` - Attic ledge overlook atmosphere
-- `storm.mp3` - Thunder and lightning effects
-- `doors.mp3` - Creaking door sounds
-- `load.mp3` - Loading area atmosphere
+- `javascript/audio/foyer.mp3` - Foyer background music
+- `javascript/audio/ballroom.mp3` - Ballroom dancing music  
+- `javascript/audio/attic.mp3` - Attic ambient sounds
+- `javascript/audio/atticledge.mp3` - Attic ledge overlook atmosphere
+- `javascript/audio/storm.mp3` - Thunder and lightning effects
+- `javascript/audio/doors.mp3` - Creaking door sounds
+- `javascript/audio/load.mp3` - Loading area atmosphere
 
 ### Legacy Audio Files (`.au` format)
-- Original Sun Audio format files (deprecated in modern browsers)
+- `java/foyer.au` - Original foyer background music
+- `java/ballroom.au` - Original ballroom dancing music  
+- `java/attic.au` - Original attic ambient sounds
+- `java/atticledge.au` - Original attic ledge atmosphere
+- `java/storm.au` - Original thunder and lightning effects
+- `java/doors.au` - Original door sound effects
+- `java/load.au` - Original loading area atmosphere
 
 ## Commands & Controls
 
