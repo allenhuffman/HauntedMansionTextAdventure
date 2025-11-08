@@ -4,6 +4,12 @@ This document was created by GitHub A.I. Read with caution...
 
 A text adventure game inspired by Disney's Haunted Mansion attraction, featuring atmospheric audio and faithful recreation of the mansion's iconic locations and mysteries. Originally built as a Java applet in 2002, now modernized with JavaScript ES6 and enhanced with advanced interactive features.
 
+## Project Structure
+
+- **`java/`** - Original 2002 Java applet implementation with CSV data and .au audio files
+- **`javascript/`** - Modern 2025 JavaScript version with JSON data, MP3 audio, and enhanced features
+- **`java-to-javascript-conversion/`** - Development notes and conversion documentation
+
 ## Overview
 
 This interactive text adventure allows players to explore a virtual version of Disney's Haunted Mansion, complete with the famous rooms, supernatural encounters, and eerie atmosphere that makes the attraction so memorable. Originally built as a Java applet in 2002, the game has been modernized with JavaScript ES6, featuring enhanced interactive systems, data-driven configuration, and improved user experience.
@@ -39,17 +45,17 @@ This interactive text adventure allows players to explore a virtual version of D
 ## Technical Architecture
 
 ### Modern JavaScript Implementation
-- **`Adventure.js`** - Main game engine with enhanced command processing and ActionItem integration
-- **`CreateWorld.js`** - World generation, JSON data loading, and hidden item management
-- **`Item.js`** - Enhanced item class with ActionItem functionality and action tracking
-- **`Location.js`** - Room management with dynamic exit modification support
-- **`Parse.js`** - Command parsing and natural language processing
+- **`javascript/js/Adventure.js`** - Main game engine with enhanced command processing and ActionItem integration
+- **`javascript/js/CreateWorld.js`** - World generation, JSON data loading, and hidden item management
+- **`javascript/js/Item.js`** - Enhanced item class with ActionItem functionality and action tracking
+- **`javascript/js/Location.js`** - Room management with dynamic exit modification support
+- **`javascript/js/Parse.js`** - Command parsing and natural language processing
 
 ### Legacy Java Implementation
-- **`Adventure.java`** - Original applet class and game controller
-- **`CreateWorld.java`** - World generation and data loading system
-- **`Player.java`** - Player state and inventory management
-- **`Parse.java`** - Command parsing and natural language processing
+- **`java/Adventure.java`** - Original applet class and game controller
+- **`java/CreateWorld.java`** - World generation and data loading system
+- **`java/Player.java`** - Player state and inventory management
+- **`java/Parse.java`** - Command parsing and natural language processing
 
 ### World System
 - **`Location.java`** - Individual room/area implementation
@@ -206,7 +212,7 @@ HauntedMansionMap.png - Visual map reference
 ## Running the Game
 
 ### Modern JavaScript Version (Recommended)
-1. Start a local web server in the `javascript` directory:
+1. Start a local web server in the JavaScript directory:
    ```bash
    cd javascript
    python3 -m http.server 8080
@@ -216,7 +222,11 @@ HauntedMansionMap.png - Visual map reference
 4. Type commands in the text field and explore the mansion!
 
 ### Legacy Java Applet Version
-1. Open `adventure.html` in a Java-enabled web browser (legacy browsers only)
+1. Navigate to the Java directory and open `adventure.html` in a Java-enabled web browser (legacy browsers only)
+   ```bash
+   cd java
+   # Open adventure.html in legacy browser
+   ```
 2. Wait for the applet to load
 3. Type commands in the text field
 4. Explore the mansion!
