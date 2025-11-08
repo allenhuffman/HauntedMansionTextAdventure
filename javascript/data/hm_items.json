@@ -278,6 +278,36 @@
       "name": "a leather bookmark",
       "description": "An old leather bookmark with strange mystical symbols etched into its surface. It feels warm to the touch.",
       "carryable": true
+    },
+    {
+      "id": 29,
+      "startLocation": 24,
+      "keyword": "door",
+      "name": "a door",
+      "description": "The doors are all identical, lined up in a row. Each one looks like it could lead to a different place.",
+      "carryable": false,
+      "actions": [
+        {
+          "verb": "listen",
+          "useInRoom": 24,
+          "message": "You press your ear against the door and listen closely. You can hear faint whispers coming from the other side. Creepy."
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "startLocation": 25,
+      "keyword": "door",
+      "name": "a door",
+      "description": "The doors are all identical, lined up in a row. Each one looks like it could lead to a different place.",
+      "carryable": false,
+      "actions": [
+        {
+          "verb": "listen",
+          "useInRoom": 25,
+          "message": "You press your ear against the door and listen closely. You hear something scratching on the other side."
+        }
+      ]
     }
   ]
 }
