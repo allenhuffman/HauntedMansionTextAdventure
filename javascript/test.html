@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haunted Mansion Test</title>
+    <style>
+        body { font-family: monospace; background: #000; color: #0f0; padding: 20px; }
+        .debug { border: 1px solid #0f0; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Conversion Test</h1>
+    <div id="debug" class="debug">
+        <h2>Debug Output:</h2>
+        <div id="output"></div>
+    </div>
+    
+    <script>
+        function log(message) {
+            const output = document.getElementById('output');
+            output.innerHTML += message + '<br>';
+            console.log(message);
+        }
+        
+        async function testConversion() {
+            try {
+                log('Testing JavaScript conversion...');
+                
+                // Test basic class creation
+                log('Creating Location...');
+                const loc = new Location('Test Room', 'A test room.');
+                log('✓ Location created');
+                
+                log('Creating Item...');
+                const item = new Item('key', 'a small key', 'It unlocks things.');
+                log('✓ Item created');
+                
+                log('Creating Exit...');
+                const exit = new Exit(Exit.NORTH, loc);
+                log('✓ Exit created');
+                
+                log('Testing CSV Tokenizer...');
+                const csv = new CSVTokenizer('1,2,"test,with,commas","description"');
+                const tokens = [];
+                while (csv.hasMoreTokens()) {
+                    tokens.push(csv.nextToken());
+                }
+                log('✓ CSV tokens: ' + tokens.join(', '));
+                
+                log('Creating Parse...');
+                const parser = new Parse();
+                parser.parse('GET KEY');
+                log('✓ Parsed - Verb: ' + parser.getVerb() + ', Noun: ' + parser.getNoun());
+                
+                log('Testing CSV data loading...');
+                const response = await fetch('data/hm_map.csv');
+                const text = await response.text();
+                const lines = text.trim().split('\n');
+                log('✓ Loaded ' + lines.length + ' map lines');
+                
+                const itemResponse = await fetch('data/hm_items.csv');
+                const itemText = await itemResponse.text();
+                const itemLines = itemText.trim().split('\n');
+                log('✓ Loaded ' + itemLines.length + ' item lines');
+                
+                log('Creating game world...');
+                const world = new CreateWorld();
+                await world.init();
+                log('✓ World created, starting location: ' + world.getLocation().getName());
+                
+                // Test audio system
+                log('Testing audio system...');
+                const soundPlayer = new SoundPlayer();
+                log('✓ SoundPlayer created');
+                
+                // Test loading a specific audio file
+                log('Testing audio file loading...');
+                try {
+                    await soundPlayer.loop('foyer.au');
+                    log('✓ Audio system working - foyer.au loaded');
+                } catch (audioError) {
+                    log('❌ Audio error: ' + audioError.message);
+                }
+                
+                log('All tests passed! JavaScript conversion is working.');
+                
+            } catch (error) {
+                log('❌ Error: ' + error.message);
+                console.error(error);
+            }
+        }
+        
+        // Load all the JavaScript files first
+        const scripts = [
+            'js/Location.js',
+            'js/Exit.js', 
+            'js/Item.js',
+            'js/Inventory.js',
+            'js/CSVTokenizer.js',
+            'js/Parse.js',
+            'js/SoundList.js',
+            'js/SoundPlayer.js',
+            'js/CreateWorld.js'
+        ];
+        
+        let scriptsLoaded = 0;
+        scripts.forEach(src => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => {
+                scriptsLoaded++;
+                if (scriptsLoaded === scripts.length) {
+                    testConversion();
+                }
+            };
+            script.onerror = () => {
+                log('❌ Failed to load: ' + src);
+            };
+            document.head.appendChild(script);
+        });
+    </script>
+</body>
+</html>

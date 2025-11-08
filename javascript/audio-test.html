@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Test - Haunted Mansion</title>
+    <style>
+        body { font-family: monospace; background: #000; color: #0f0; padding: 20px; }
+        .debug { border: 1px solid #0f0; padding: 10px; margin: 10px 0; }
+        button { background: #000; color: #0f0; border: 1px solid #0f0; padding: 10px; margin: 5px; cursor: pointer; }
+        button:hover { background: #0f0; color: #000; }
+    </style>
+</head>
+<body>
+    <h1>Audio System Test</h1>
+    <div class="debug">
+        <h2>Manual Audio Tests:</h2>
+        <button onclick="testBasicAudio()">Test Basic HTML Audio</button>
+        <button onclick="testFoyerMP3()">Test Foyer MP3</button>
+        <button onclick="testSoundPlayer()">Test SoundPlayer Class</button>
+        <button onclick="stopAllAudio()">Stop All Audio</button>
+    </div>
+    
+    <div id="debug" class="debug">
+        <h2>Debug Output:</h2>
+        <div id="output"></div>
+    </div>
+    
+    <script src="js/SoundList.js"></script>
+    <script src="js/SoundPlayer.js"></script>
+    
+    <script>
+        function log(message) {
+            const output = document.getElementById('output');
+            output.innerHTML += message + '<br>';
+            console.log(message);
+        }
+        
+        let testAudio = null;
+        let soundPlayer = null;
+        
+        async function testBasicAudio() {
+            try {
+                log('Testing basic HTML5 Audio...');
+                testAudio = new Audio('audio/foyer.mp3');
+                
+                testAudio.oncanplaythrough = () => {
+                    log('✓ foyer.mp3 loaded successfully');
+                };
+                
+                testAudio.onerror = (e) => {
+                    log('❌ Error loading foyer.mp3: ' + e.message);
+                };
+                
+                testAudio.onplay = () => {
+                    log('✓ Audio started playing');
+                };
+                
+                log('Attempting to play foyer.mp3...');
+                await testAudio.play();
+                
+            } catch (error) {
+                log('❌ Basic audio test failed: ' + error.message);
+                
+                // Check if it's an autoplay policy issue
+                if (error.name === 'NotAllowedError') {
+                    log('ℹ️ This is likely a browser autoplay policy issue.');
+                    log('ℹ️ Try clicking a button to interact with the page first.');
+                }
+            }
+        }
+        
+        async function testFoyerMP3() {
+            try {
+                log('Testing direct MP3 access...');
+                const response = await fetch('audio/foyer.mp3');
+                if (response.ok) {
+                    log('✓ foyer.mp3 is accessible via fetch');
+                    log('File size: ' + response.headers.get('content-length') + ' bytes');
+                } else {
+                    log('❌ foyer.mp3 not accessible: ' + response.status);
+                }
+            } catch (error) {
+                log('❌ Fetch test failed: ' + error.message);
+            }
+        }
+        
+        async function testSoundPlayer() {
+            try {
+                log('Testing SoundPlayer class...');
+                soundPlayer = new SoundPlayer();
+                log('✓ SoundPlayer created');
+                
+                log('Attempting to play foyer.au through SoundPlayer...');
+                await soundPlayer.loop('foyer.au');
+                
+            } catch (error) {
+                log('❌ SoundPlayer test failed: ' + error.message);
+            }
+        }
+        
+        function stopAllAudio() {
+            log('Stopping all audio...');
+            if (testAudio) {
+                testAudio.pause();
+                testAudio.currentTime = 0;
+                log('✓ Basic audio stopped');
+            }
+            if (soundPlayer) {
+                soundPlayer.stopLoop();
+                log('✓ SoundPlayer stopped');
+            }
+        }
+        
+        // Initial checks
+        window.addEventListener('load', function() {
+            log('Audio test page loaded');
+            log('User agent: ' + navigator.userAgent);
+            
+            // Check for audio support
+            const audio = document.createElement('audio');
+            const canPlayMP3 = audio.canPlayType('audio/mpeg');
+            log('MP3 support: ' + (canPlayMP3 ? '✓ ' + canPlayMP3 : '❌ Not supported'));
+            
+            // List available audio files
+            log('Expected audio files: foyer.mp3, ballroom.mp3, attic.mp3, storm.mp3, load.mp3, doors.mp3, atticledge.mp3');
+        });
+    </script>
+</body>
+</html>

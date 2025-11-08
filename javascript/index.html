@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haunted Mansion Text Adventure</title>
+    <style>
+        body {
+            font-family: monospace;
+            background-color: #000;
+            color: #0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid #0f0;
+            padding: 10px;
+        }
+        
+        #desc {
+            width: 100%;
+            height: 400px;
+            background-color: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            resize: none;
+            overflow-y: scroll;
+        }
+        
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        label {
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+        
+        #input {
+            flex: 1;
+            background-color: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 5px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        #input:focus {
+            outline: none;
+            border-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <textarea id="desc" readonly>Welcome, foolish mortal.
+
+Loading game map and items...
+</textarea>
+        <div class="input-container">
+            <label for="input">What do you want to do now?</label>
+            <input type="text" id="input" autocomplete="off">
+        </div>
+    </div>
+
+    <!-- Load JavaScript modules -->
+    <script src="js/Location.js"></script>
+    <script src="js/Exit.js"></script>
+    <script src="js/Item.js"></script>
+    <script src="js/Inventory.js"></script>
+    <script src="js/CSVTokenizer.js"></script>
+    <script src="js/Parse.js"></script>
+    <script src="js/SoundList.js"></script>
+    <script src="js/SoundPlayer.js"></script>
+    <script src="js/CreateWorld.js"></script>
+    <script src="js/Adventure.js"></script>
+    
+    <script>
+        // Initialize the game when page loads
+        window.addEventListener('load', function() {
+            const adventure = new Adventure();
+            adventure.init();
+        });
+    </script>
+</body>
+</html>
