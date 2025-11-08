@@ -71,9 +71,13 @@ Loading game map and items...
             <label for="input">What do you want to do now?</label>
             <input type="text" id="input" autocomplete="off">
         </div>
+        <div style="text-align: center; margin-top: 10px; font-size: 12px; color: #666;">
+            <span id="version-info">Loading version...</span>
+        </div>
     </div>
 
     <!-- Load JavaScript modules -->
+    <script src="Versions.js"></script>
     <script src="js/Location.js"></script>
     <script src="js/Exit.js"></script>
     <script src="js/Item.js"></script>
@@ -96,6 +100,12 @@ Loading game map and items...
     <script>
         // Initialize the game when page loads
         window.addEventListener('load', function() {
+            // Display version information
+            const versionElement = document.getElementById('version-info');
+            if (versionElement && window.Versions) {
+                versionElement.textContent = window.Versions.getFullVersionString();
+            }
+            
             const adventure = new Adventure();
             adventure.init();
         });

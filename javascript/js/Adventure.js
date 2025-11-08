@@ -34,7 +34,7 @@ class Adventure {
         // Focus on input field
         this.input.focus();
 
-        this.desc.value = "Welcome, foolish mortal.\n\nLoading game map and items...\n\n(Type 'sound on/off' to enable/disable atmospheric audio.)\n";
+        this.desc.value = "Welcome, foolish mortal, to the Haunted Mansion Adventure Game.\n\nLoading game map and items...\n\n(Type 'sound on/off' to enable/disable atmospheric audio.)\n";
         
         // Initialize the world
         this.player = new CreateWorld();
@@ -227,8 +227,22 @@ class Adventure {
             this.desc.value += "Items: GET <item>, DROP <item>, INVENTORY (or I)\n";
             this.desc.value += "Interaction: LOOK <item>, EXAMINE <item>, SEARCH <item>\n";
             this.desc.value += "Settings: SOUND ON/OFF, VERBOSE ON/OFF\n";
-            this.desc.value += "Other: LOOK (redisplay room), HELP, QUIT\n\n";
+            this.desc.value += "Other: LOOK (redisplay room), HELP, QUIT, VERSION\n\n";
             this.desc.value += "Try interacting with objects using different verbs - some items have special actions!\n";
+        }
+        else if (verb && verb.toUpperCase() === "VERSION") {
+            if (window.Versions) {
+                this.desc.value += "=== VERSION INFORMATION ===\n";
+                this.desc.value += `${window.Versions.getFullVersionString()}\n`;
+                const buildInfo = window.Versions.getBuildInfo();
+                if (buildInfo.commitHash) {
+                    this.desc.value += `Commit: ${buildInfo.commitHash}\n`;
+                }
+                this.desc.value += `Environment: ${buildInfo.environment}\n`;
+                this.desc.value += "===========================\n";
+            } else {
+                this.desc.value += "Version information not available.\n";
+            }
         }
         else if (verb && verb.toUpperCase() === "QUIT") {
             this.desc.value += "Are you sure you want to quit?\n";
