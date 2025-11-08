@@ -280,6 +280,7 @@
           "verb": "lock",
           "useInRoom": 12,
           "requiresItem": "key",
+          "requiresItemMessage": "You need a key to do that.",
           "addExit": {
             "direction": "north",
             "destination": 0
@@ -345,6 +346,7 @@
           "verb": "open",
           "useInRoom": 4,
           "requiresItem": "bookmark",
+          "requiresItemMessage": "You need a bookmark to do that. (Yeah, I know. This is just debug code.)",
           "message": "You enter the correct combination using the leather bookmark and open the safe. Inside you find a mysterious amulet!",
           "revealsItemId": 32,
           "onceOnly": true
