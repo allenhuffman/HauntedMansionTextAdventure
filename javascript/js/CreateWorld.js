@@ -76,6 +76,8 @@ class CreateWorld {
                 
                 if (itemInfo.startLocation === 0) { // Hidden items (limbo)
                     this.hiddenItems[itemInfo.id] = item;
+                    // Also add to room 0 so they're visible with GOTO 0 debug command
+                    tempLocation[0].addItem(item);
                 } else { // In a location
                     tempLocation[itemInfo.startLocation].addItem(item);
                 }
@@ -142,8 +144,10 @@ class CreateWorld {
     revealItemById(itemId, targetLocation) {
         const item = this.hiddenItems[itemId];
         if (item) {
-            // Remove from hidden items
+            // Remove from hidden items tracking
             delete this.hiddenItems[itemId];
+            // Remove from room 0 (limbo)
+            this.locations[0].removeItem(item);
             // Add to target location
             targetLocation.addItem(item);
             return item;

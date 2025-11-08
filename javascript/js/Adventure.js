@@ -368,8 +368,76 @@ class Adventure {
                 }
             }
             
+            // Fallback behavior for common adventure verbs
             if (!actionHandled && moved === false) {
-                this.desc.value += "I have no idea what you are trying to do.\n";
+                // Handle EXAMINE/LOOK fallback - show basic item description if item exists
+                if ((verb.toUpperCase() === "EXAMINE" || verb.toUpperCase() === "LOOK") && noun) {
+                    let itemFound = false;
+                    
+                    // Check player inventory
+                    const playerItems = this.player.getItems();
+                    for (const item of playerItems) {
+                        if (item.getKeyword().toUpperCase() === noun.toUpperCase()) {
+                            this.desc.value += item.getDescription() + "\n";
+                            itemFound = true;
+                            break;
+                        }
+                    }
+                    
+                    // Check room items if not found in inventory
+                    if (!itemFound) {
+                        const locationItems = this.player.getLocation().getItems();
+                        for (const item of locationItems) {
+                            if (item.getKeyword().toUpperCase() === noun.toUpperCase()) {
+                                this.desc.value += item.getDescription() + "\n";
+                                itemFound = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (!itemFound) {
+                        this.desc.value += "You don't see any " + noun + " here.\n";
+                    }
+                }
+                // Handle SEARCH fallback - generic search message for existing items
+                else if (verb.toUpperCase() === "SEARCH" && noun) {
+                    let itemFound = false;
+                    
+                    // Check player inventory
+                    const playerItems = this.player.getItems();
+                    for (const item of playerItems) {
+                        if (item.getKeyword().toUpperCase() === noun.toUpperCase()) {
+                            // Strip leading articles for better grammar in search messages
+                            const cleanName = item.getName().replace(/^(a |an |the |some |several )/i, '');
+                            this.desc.value += "You search the " + cleanName + " but find nothing of interest.\n";
+                            itemFound = true;
+                            break;
+                        }
+                    }
+                    
+                    // Check room items if not found in inventory
+                    if (!itemFound) {
+                        const locationItems = this.player.getLocation().getItems();
+                        for (const item of locationItems) {
+                            if (item.getKeyword().toUpperCase() === noun.toUpperCase()) {
+                                // Strip leading articles for better grammar in search messages
+                                const cleanName = item.getName().replace(/^(a |an |the |some |several )/i, '');
+                                this.desc.value += "You search the " + cleanName + " but find nothing of interest.\n";
+                                itemFound = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (!itemFound) {
+                        this.desc.value += "You don't see any " + noun + " here to search.\n";
+                    }
+                }
+                // Generic fallback for other unrecognized commands
+                else {
+                    this.desc.value += "I have no idea what you are trying to do.\n";
+                }
             }
         }
 
