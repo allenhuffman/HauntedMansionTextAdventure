@@ -1,0 +1,106 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0.1 Safari/605.1.15" version="28.2.9">
+  <diagram name="Page-1" id="eJmXXb0IufuB-SfE6dvh">
+    <mxGraphModel dx="976" dy="665" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-5" target="XFvt_UEOTAQln3iDIMkE-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-5" value="1&lt;div&gt;Foyer&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="40" y="640" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-6" target="XFvt_UEOTAQln3iDIMkE-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-6" target="XFvt_UEOTAQln3iDIMkE-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-6" value="2&lt;div&gt;Portrait Gallery&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="40" y="520" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-8" target="XFvt_UEOTAQln3iDIMkE-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-8" value="3&lt;div&gt;Hallway&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="40" y="400" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-10" value="12&lt;div&gt;Hallway&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="160" y="520" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-12" target="XFvt_UEOTAQln3iDIMkE-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-12" value="4&lt;div&gt;Hallway&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-14" target="XFvt_UEOTAQln3iDIMkE-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-14" value="5&lt;div&gt;Marble Busts&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="40" y="160" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-16" target="XFvt_UEOTAQln3iDIMkE-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-43" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-16" target="XFvt_UEOTAQln3iDIMkE-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-16" value="6&lt;div&gt;Bottom of Stairs&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="160" y="160" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-19" target="XFvt_UEOTAQln3iDIMkE-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-19" value="7&lt;div&gt;Piano Room&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="160" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-23" target="XFvt_UEOTAQln3iDIMkE-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-23" target="XFvt_UEOTAQln3iDIMkE-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-23" target="XFvt_UEOTAQln3iDIMkE-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-23" value="8&lt;div&gt;Library&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="280" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-25" value="9&lt;div&gt;Library&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="160" y="280" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-27" value="14" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-34" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-29" target="XFvt_UEOTAQln3iDIMkE-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-29" value="10&lt;div&gt;Portrait Hallway&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="400" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-35" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-33" target="XFvt_UEOTAQln3iDIMkE-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-41" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-33" target="XFvt_UEOTAQln3iDIMkE-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-33" value="11&lt;div&gt;Bottom of Stairs&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="520" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-40" value="UP&lt;div&gt;28&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="640" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-42" value="UP&lt;div&gt;22&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="40" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-45" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XFvt_UEOTAQln3iDIMkE-44" target="XFvt_UEOTAQln3iDIMkE-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XFvt_UEOTAQln3iDIMkE-44" value="13&lt;div&gt;Servant&#39;s Quarters&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="160" y="400" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
