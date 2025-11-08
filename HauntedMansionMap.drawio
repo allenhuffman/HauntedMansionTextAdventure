@@ -111,13 +111,13 @@
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-157" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-158" target="NtIjfB5tUNKMfuGPDF4m-160" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NtIjfB5tUNKMfuGPDF4m-158" value="15&lt;div&gt;Grand Ballroom&lt;/div&gt;&lt;div&gt;(pipe organ)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-122" vertex="1">
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-158" value="15&lt;div&gt;Grand Hall&lt;/div&gt;&lt;div&gt;(pipe organ)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-122" vertex="1">
           <mxGeometry x="640" y="240" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-159" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-160" target="NtIjfB5tUNKMfuGPDF4m-164" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NtIjfB5tUNKMfuGPDF4m-160" value="16&lt;div&gt;Grand Ballroom (dancers)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-122" vertex="1">
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-160" value="16&lt;div&gt;Grand Hall (dancers)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-122" vertex="1">
           <mxGeometry x="640" y="360" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-161" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-164" target="NtIjfB5tUNKMfuGPDF4m-166" edge="1">
@@ -129,7 +129,7 @@
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-163" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-164" target="NtIjfB5tUNKMfuGPDF4m-171" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NtIjfB5tUNKMfuGPDF4m-164" value="17&lt;div&gt;Grand Ballroom&lt;/div&gt;&lt;div&gt;(table)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-122" vertex="1">
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-164" value="17&lt;div&gt;Grand Hall&lt;/div&gt;&lt;div&gt;(table)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-122" vertex="1">
           <mxGeometry x="640" y="480" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-165" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-166" target="NtIjfB5tUNKMfuGPDF4m-167" edge="1">
@@ -144,7 +144,7 @@
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-168" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-169" target="NtIjfB5tUNKMfuGPDF4m-170" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NtIjfB5tUNKMfuGPDF4m-169" value="20&lt;br&gt;&lt;div&gt;Grand Ballroom&lt;/div&gt;&lt;div&gt;(fireplace)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-122" vertex="1">
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-169" value="20&lt;br&gt;&lt;div&gt;Grand Hall&lt;/div&gt;&lt;div&gt;(fireplace)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-122" vertex="1">
           <mxGeometry x="640" y="600" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-170" value="21&lt;div&gt;Outside&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-122" vertex="1">
