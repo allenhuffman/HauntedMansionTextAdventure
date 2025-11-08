@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0.1 Safari/605.1.15" version="28.2.9">
   <diagram name="Page-1" id="eJmXXb0IufuB-SfE6dvh">
-    <mxGraphModel dx="1902" dy="1023" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1427" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -172,7 +172,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-252" value="Secret Entrance" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
-          <mxGeometry x="40" y="240" width="80" height="80" as="geometry" />
+          <mxGeometry x="40" y="600" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-221" value="Second Floor" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="-120" y="800" width="1240" height="680" as="geometry" />
@@ -432,11 +432,80 @@
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-237" value="51&lt;div&gt;Attic&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-222">
           <mxGeometry x="160" y="120" width="80" height="80" as="geometry" />
         </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-409" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-222" source="NtIjfB5tUNKMfuGPDF4m-238" target="NtIjfB5tUNKMfuGPDF4m-408">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-238" value="52&lt;div&gt;Ledge&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-222">
           <mxGeometry x="40" y="120" width="80" height="80" as="geometry" />
         </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-408" value="ROPE" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-222">
+          <mxGeometry x="55" y="40" width="50" height="40" as="geometry" />
+        </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-370" value="Graveyard" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="-120" y="1920" width="1240" height="360" as="geometry" />
+          <mxGeometry x="-120" y="1920" width="1240" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-389" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-370" source="NtIjfB5tUNKMfuGPDF4m-387" target="NtIjfB5tUNKMfuGPDF4m-388">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-407" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-370" source="NtIjfB5tUNKMfuGPDF4m-387" target="NtIjfB5tUNKMfuGPDF4m-406">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-387" value="Trees" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-370">
+          <mxGeometry x="40" y="280" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-391" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-370" source="NtIjfB5tUNKMfuGPDF4m-388" target="NtIjfB5tUNKMfuGPDF4m-390">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-388" value="Cemetery Gates (caretaker)" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-370">
+          <mxGeometry x="40" y="160" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-393" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-370" source="NtIjfB5tUNKMfuGPDF4m-390" target="NtIjfB5tUNKMfuGPDF4m-392">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-390" value="Graveyard" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-370">
+          <mxGeometry x="160" y="160" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-395" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-370" source="NtIjfB5tUNKMfuGPDF4m-392" target="NtIjfB5tUNKMfuGPDF4m-394">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-392" value="Graveyard&lt;div&gt;(singing busts)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-370">
+          <mxGeometry x="280" y="160" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-397" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-370" source="NtIjfB5tUNKMfuGPDF4m-394" target="NtIjfB5tUNKMfuGPDF4m-396">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-394" value="Graveyard" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-370">
+          <mxGeometry x="280" y="280" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-399" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-370" source="NtIjfB5tUNKMfuGPDF4m-396" target="NtIjfB5tUNKMfuGPDF4m-398">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-396" value="Crypt (hitchhiking ghosts)" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-370">
+          <mxGeometry x="400" y="280" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-401" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-370" source="NtIjfB5tUNKMfuGPDF4m-398" target="NtIjfB5tUNKMfuGPDF4m-400">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-398" value="Mirrors" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-370">
+          <mxGeometry x="400" y="160" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-403" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-370" source="NtIjfB5tUNKMfuGPDF4m-400" target="NtIjfB5tUNKMfuGPDF4m-402">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-400" value="Mirrors" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-370">
+          <mxGeometry x="520" y="160" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-405" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-370" source="NtIjfB5tUNKMfuGPDF4m-402" target="NtIjfB5tUNKMfuGPDF4m-404">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-402" value="Mirrors" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-370">
+          <mxGeometry x="640" y="160" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-404" value="Exit" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-370">
+          <mxGeometry x="640" y="40" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-406" value="CLIMB&lt;div&gt;52&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-370">
+          <mxGeometry x="160" y="300" width="50" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
