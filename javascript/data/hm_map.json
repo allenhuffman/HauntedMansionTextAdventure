@@ -159,7 +159,7 @@
     {
       "id": 12,
       "name": "Hallway",
-      "description": "You are in a plain looking hallway. There is some old furniture here but little else of interest. There is a door marked 'Servants Quarters' on the north wall.",
+      "description": "You are in a plain looking hallway. There is some old furniture here but little else of interest. There is a door marked Servant's Quarters on the north wall.",
       "exits": {
         "north": 0,
         "south": 0,
