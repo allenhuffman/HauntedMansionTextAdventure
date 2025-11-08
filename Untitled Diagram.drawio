@@ -52,7 +52,7 @@
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-41" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="NtIjfB5tUNKMfuGPDF4m-38" target="NtIjfB5tUNKMfuGPDF4m-40">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NtIjfB5tUNKMfuGPDF4m-38" value="27&lt;div&gt;Seance Room&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-38" value="27&lt;div&gt;Seance Circle (crystal ball)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
           <mxGeometry x="160" y="1280" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-43" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="NtIjfB5tUNKMfuGPDF4m-40" target="NtIjfB5tUNKMfuGPDF4m-42">
@@ -144,13 +144,13 @@
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-127" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-128" target="NtIjfB5tUNKMfuGPDF4m-131">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NtIjfB5tUNKMfuGPDF4m-128" value="2&lt;div&gt;Gallery&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-128" value="2&lt;div&gt;Portrait Gallery&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
           <mxGeometry x="160" y="480" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-129" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-130" target="NtIjfB5tUNKMfuGPDF4m-133">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NtIjfB5tUNKMfuGPDF4m-130" value="3&lt;div&gt;Hallway&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-130" value="3&lt;div&gt;Portrait Corridor&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
           <mxGeometry x="160" y="360" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-131" value="12&lt;div&gt;Hallway&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
@@ -159,7 +159,7 @@
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-132" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-133" target="NtIjfB5tUNKMfuGPDF4m-135">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NtIjfB5tUNKMfuGPDF4m-133" value="4&lt;div&gt;Hallway&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-133" value="4&lt;div&gt;Portrait Corridor&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
           <mxGeometry x="160" y="240" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-134" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-135" target="NtIjfB5tUNKMfuGPDF4m-138">
@@ -207,7 +207,7 @@
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-148" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-149" target="NtIjfB5tUNKMfuGPDF4m-152">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NtIjfB5tUNKMfuGPDF4m-149" value="10&lt;div&gt;Portrait Corridor&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-149" value="10&lt;div&gt;Portrait Hall (Sinister 11)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
           <mxGeometry x="400" y="360" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-150" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-152" target="NtIjfB5tUNKMfuGPDF4m-131">
@@ -290,6 +290,12 @@
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-250" value="DOWN&lt;div&gt;9&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
           <mxGeometry x="640" y="140" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-253" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-122" source="NtIjfB5tUNKMfuGPDF4m-252" target="NtIjfB5tUNKMfuGPDF4m-130">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NtIjfB5tUNKMfuGPDF4m-252" value="Secret Entrance" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
+          <mxGeometry x="40" y="240" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-221" value="Second Floor" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="-120" y="800" width="1200" height="680" as="geometry" />
