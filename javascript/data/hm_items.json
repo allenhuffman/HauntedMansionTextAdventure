@@ -6,7 +6,14 @@
       "keyword": "book",
       "name": "a hardback book",
       "description": "It appears to be a collection of stories by Edgar Allan Poe.",
-      "carryable": true
+      "carryable": true,
+      "actions": [
+        {
+          "verb": "read",
+          "useInRoom": "*",
+          "message": "You read several spine-chilling tales that send shivers down your spine. The stories seem to come alive in this haunted place."
+        }
+      ]
     },
     {
       "id": 2,
@@ -191,6 +198,70 @@
       "name": "a glass slipper",
       "description": "It is a small glass slipper, fit for a princess, yet there is no one around who could wear it.",
       "carryable": true
+    },
+    {
+      "id": 25,
+      "startLocation": 9,
+      "keyword": "ladder",
+      "name": "a wooden ladder",
+      "description": "A sturdy wooden ladder perfect for reaching high places. You could probably climb it if you were in the right location.",
+      "carryable": true,
+      "actions": [
+        {
+          "verb": "climb",
+          "useInRoom": 51,
+          "leadsTo": 52,
+          "message": "You carefully climb the ladder up to the attic ledge. From here you can see the graveyard far below."
+        },
+        {
+          "verb": "climb", 
+          "useInRoom": 15,
+          "leadsTo": 32,
+          "message": "You climb the ladder up to get a better view of the grand ballroom from the balcony above."
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "startLocation": 23,
+      "keyword": "key",
+      "name": "a brass key",
+      "description": "An ornate brass key with strange mystical symbols etched into its surface. It looks like it might unlock something important.",
+      "carryable": true
+    },
+    {
+      "id": 27,
+      "startLocation": 12,
+      "keyword": "door",
+      "name": "a locked door",
+      "description": "A heavy wooden door with an ornate brass lock. The door is marked 'Servants Quarters'.",
+      "carryable": false,
+      "actions": [
+        {
+          "verb": "unlock",
+          "useInRoom": 12,
+          "requiresItem": "key",
+          "addExit": {
+            "direction": "north",
+            "destination": 13
+          },
+          "message": "The brass key turns with a satisfying click in the lock. The door to the Servants Quarters swings open!",
+          "newName": "an unlocked door",
+          "newDescription": "A heavy wooden door that now stands ajar. The ornate brass lock is no longer securing it, and you can see the Servants Quarters beyond."
+        },
+        {
+          "verb": "lock",
+          "useInRoom": 12,
+          "requiresItem": "key",
+          "addExit": {
+            "direction": "north",
+            "destination": 0
+          },
+          "message": "The brass key turns with a satisfying click in the lock. You close and lock the door to the Servants Quarters.",
+          "newName": "",
+          "newDescription": ""
+        }
+      ]
     }
   ]
 }

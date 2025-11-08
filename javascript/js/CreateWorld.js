@@ -21,7 +21,7 @@ class CreateWorld {
             // Create Location objects
             for (let i = 0; i < numRooms; i++) {
                 const room = mapData.rooms[i];
-                tempLocation[room.id] = new Location(room.name, room.description);
+                tempLocation[room.id] = new Location(room.name, room.description, room.id);
             }
             console.log(numRooms + " rooms added to game.");
 
@@ -64,11 +64,12 @@ class CreateWorld {
 
             // Create item objects
             for (const itemInfo of itemData.items) {
+                const actions = itemInfo.actions || [];
                 if (itemInfo.startLocation === 0) { // Player inventory
-                    this.inventory.addItem(new Item(itemInfo.keyword, itemInfo.name, itemInfo.description));
+                    this.inventory.addItem(new Item(itemInfo.keyword, itemInfo.name, itemInfo.description, true, actions));
                 } else { // In a location
                     tempLocation[itemInfo.startLocation].addItem(
-                        new Item(itemInfo.keyword, itemInfo.name, itemInfo.description, itemInfo.carryable)
+                        new Item(itemInfo.keyword, itemInfo.name, itemInfo.description, itemInfo.carryable, actions)
                     );
                 }
             }
@@ -104,6 +105,9 @@ class CreateWorld {
         // Zone where doors play.
         tempLocation[23].setSound("doors.au");
         tempLocation[25].setSound("doors.au");
+        
+        // Store the locations array for ActionItem access
+        this.locations = tempLocation;
     }
 
     // Player functions.

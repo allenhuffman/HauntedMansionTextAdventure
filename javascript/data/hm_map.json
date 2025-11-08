@@ -152,16 +152,16 @@
         "south": 0,
         "west": 12,
         "east": 0,
-        "up": 0,
+        "up": 28,
         "down": 0
       }
     },
     {
       "id": 12,
       "name": "Hallway",
-      "description": "You are in a plain looking hallway. There is some old furniture here but little else of interest. There is a doorway marked 'Servant's Quarters' on the north wall.",
+      "description": "You are in a plain looking hallway. There is some old furniture here but little else of interest. There is a door marked 'Servants Quarters' on the north wall.",
       "exits": {
-        "north": 13,
+        "north": 0,
         "south": 0,
         "west": 2,
         "east": 11,
@@ -171,7 +171,7 @@
     },
     {
       "id": 13,
-      "name": "Servants Quarters",
+      "name": "Servant's Quarters",
       "description": "You are in a small bedroom which is probably for a servant.",
       "exits": {
         "north": 0,

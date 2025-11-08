@@ -105,32 +105,44 @@ class Adventure {
         else if (verb && (verb.toUpperCase() === "GET" || verb.toUpperCase() === "TAKE")) {
             let items = false;
             
-            // Use while loop with fresh array each iteration to handle "ALL" case
-            // This matches the Java HACK: e = player.getLocation().getItems().elements();
-            let foundItem = true;
-            while (foundItem) {
-                foundItem = false;
-                const locationItems = this.player.getLocation().getItems();
-                
-                for (const anItem of locationItems) {
-                    // An item is here, see if this is what they want to take.
-                    if ((anItem.getKeyword() && anItem.getKeyword().toUpperCase() === (noun || "").toUpperCase()) ||
-                        (noun && noun.toUpperCase() === "ALL")) {
-                        // Set location to the location pointed to by exit
+            if (noun && noun.toUpperCase() === "ALL") {
+                // Handle "GET ALL" - process all items once, restart only when item is taken
+                let foundItem = true;
+                while (foundItem) {
+                    foundItem = false;
+                    const locationItems = this.player.getLocation().getItems();
+                    
+                    for (const anItem of locationItems) {
                         if (anItem.isGetable() === true) {
                             this.player.getLocation().removeItem(anItem);
                             this.player.addItem(anItem);
                             this.desc.value += anItem.getKeyword() + " taken.\n";
-                            foundItem = true; // Continue searching for more items
-                            break; // Restart the loop with fresh item list
+                            items = true;
+                            foundItem = true; // Found a getable item, restart to get fresh item list
+                            break;
+                        }
+                    }
+                }
+                // Now handle non-getable items (only show message once each)
+                const remainingItems = this.player.getLocation().getItems();
+                for (const anItem of remainingItems) {
+                    this.desc.value += "You can't get the " + anItem.getKeyword() + ".\n";
+                }
+                if (remainingItems.length > 0) items = true; // Mark that we found items
+            } else {
+                // Handle specific item
+                const locationItems = this.player.getLocation().getItems();
+                for (const anItem of locationItems) {
+                    if (anItem.getKeyword() && anItem.getKeyword().toUpperCase() === (noun || "").toUpperCase()) {
+                        items = true;
+                        if (anItem.isGetable() === true) {
+                            this.player.getLocation().removeItem(anItem);
+                            this.player.addItem(anItem);
+                            this.desc.value += anItem.getKeyword() + " taken.\n";
                         } else {
                             this.desc.value += "You can't get the " + anItem.getKeyword() + ".\n";
                         }
-                        items = true;
-                        if (noun && noun.toUpperCase() !== "ALL") {
-                            foundItem = false; // Only take one item unless ALL
-                            break;
-                        }
+                        break;
                     }
                 }
             }
@@ -210,8 +222,123 @@ class Adventure {
 
                 if (!items) this.desc.value += "I don't see that around here.\n";
             } // end of (noun===null)
+        }
+        else if (verb && verb.toUpperCase() === "GOTO") {
+            // Debug command: teleport to any room by number
+            if (noun && !isNaN(noun)) {
+                const roomId = parseInt(noun);
+                if (this.player.locations[roomId]) {
+                    this.player.setLocation(this.player.locations[roomId]);
+                    this.desc.value += `[DEBUG: Teleported to room ${roomId}]\n`;
+                    moved = true;
+                } else {
+                    this.desc.value += `[DEBUG: Room ${roomId} does not exist]\n`;
+                }
+            } else {
+                this.desc.value += "[DEBUG: Usage: GOTO <room_number>]\n";
+            }
         } else {
-            if (moved === false) this.desc.value += "I have no idea what you are trying to do.\n";
+            // Check for ActionItems - items that respond to custom verbs
+            let actionHandled = false;
+            if (verb && noun) {
+                const currentRoomId = this.player.getLocation().getId ? this.player.getLocation().getId() : 1;
+                
+                // Check player inventory for ActionItems
+                const playerItems = this.player.getItems();
+                for (const anItem of playerItems) {
+                    if (anItem.isSpecial() && anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
+                        const result = anItem.executeAction(verb, currentRoomId, this.world, playerItems);
+                        if (result && result.success) {
+                            this.desc.value += result.message + "\n";
+                            
+                            // Handle location change
+                            if (result.newLocation) {
+                                // Find the location by ID in the locations array
+                                const newLoc = this.player.locations[result.newLocation];
+                                if (newLoc) {
+                                    this.player.setLocation(newLoc);
+                                    moved = true;
+                                }
+                            }
+                            
+                            // Handle dynamic exit creation
+                            if (result.addExit) {
+                                const destinationLocation = this.player.locations[result.addExit.destination];
+                                if (destinationLocation) {
+                                    this.player.getLocation().addExitByDirection(result.addExit.direction, destinationLocation);
+                                }
+                            }
+                            
+                            // Handle item description/name changes
+                            if (result.newDescription) {
+                                anItem.setDescription(result.newDescription);
+                            }
+                            if (result.newName) {
+                                anItem.setName(result.newName);
+                            }
+                            
+                            // Handle item consumption
+                            if (result.consumeItem) {
+                                this.player.removeItem(anItem);
+                            }
+                            
+                            actionHandled = true;
+                            break;
+                        }
+                    }
+                }
+                
+                // Check room items for ActionItems
+                if (!actionHandled) {
+                    const locationItems = this.player.getLocation().getItems();
+                    for (const anItem of locationItems) {
+                        if (anItem.isSpecial() && anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
+                            const result = anItem.executeAction(verb, currentRoomId, this.world, playerItems);
+                            if (result && result.success) {
+                                this.desc.value += result.message + "\n";
+                                
+                                // Handle location change
+                                if (result.newLocation) {
+                                    // Find the location by ID in the locations array
+                                    const newLoc = this.player.locations[result.newLocation];
+                                    if (newLoc) {
+                                        this.player.setLocation(newLoc);
+                                        moved = true;
+                                    }
+                                }
+                                
+                                // Handle dynamic exit creation
+                                if (result.addExit) {
+                                    const destinationLocation = this.player.locations[result.addExit.destination];
+                                    if (destinationLocation) {
+                                        this.player.getLocation().addExitByDirection(result.addExit.direction, destinationLocation);
+                                    }
+                                }
+                                
+                                // Handle item description/name changes
+                                if (result.newDescription) {
+                                    anItem.setDescription(result.newDescription);
+                                }
+                                if (result.newName) {
+                                    anItem.setName(result.newName);
+                                }
+                                
+                                // Handle item consumption
+                                if (result.consumeItem) {
+                                    this.player.getLocation().removeItem(anItem);
+                                }
+                                
+                                actionHandled = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if (!actionHandled && moved === false) {
+                this.desc.value += "I have no idea what you are trying to do.\n";
+            }
         }
 
         // See if we have to redisplay the location stuff.
@@ -234,7 +361,9 @@ class Adventure {
         }
 
         flag = false; // No exits found yet.
-        const exits = this.player.getLocation().getExits();
+        const allExits = this.player.getLocation().getExits();
+        // Filter out exits that point to room 0 or null (blocked exits)
+        const exits = allExits.filter(exit => exit.getLeadsTo() && exit.getLeadsTo().getId && exit.getLeadsTo().getId() !== 0);
         
         for (let i = 0; i < exits.length; i++) {
             const anExit = exits[i];
@@ -273,7 +402,7 @@ class Adventure {
         
         // HACK - Audio system
         if (this.player.getLocation().getSound() !== null) {
-            //this.desc.value += "[Background sound: " + this.player.getLocation().getSound() + "]\n";
+            this.desc.value += "[Background sound: " + this.player.getLocation().getSound() + "]\n";
             this.soundPlayer.loop(this.player.getLocation().getSound());
         }
         
