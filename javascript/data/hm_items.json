@@ -183,7 +183,7 @@
       "startLocation": 26,
       "keyword": "clock",
       "name": "a grandfather clock",
-      "description": "It almost looks like it is alive. Is that a face with fangs? The pendulum even looks like a pointed tail and the base looks like clawed feet. It appears to have run down and is stuck at 12:59 p.m.",
+      "description": "It almost looks like it is alive. Is that a face with fangs? The pendulum even looks like a pointed tail and the base looks like clawed feet. It appears to have run down and is stuck at 12:59.",
       "carryable": false,
     "actions": [
         {
@@ -443,6 +443,14 @@
       "name": "a winding crank",
       "description": "A small metal crank that looks like it could be used to wind something up.",
       "carryable": true
+    },
+    {
+      "id": 41,
+      "startLocation": 0,
+      "keyword": "stone",
+      "name": "a stone",
+      "description": "The stone is engraved with the name M.T. Tombs.",
+      "carryable": false
     }
   ]
 }
