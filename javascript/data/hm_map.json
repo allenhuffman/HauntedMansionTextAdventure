@@ -341,7 +341,7 @@
     {
       "id": 26,
       "name": "Clock",
-      "description": "You are standing in front of a large grandfather clock. It is very ornate. The pendulum looks like a devil's tail, and the face is numbered to 13.",
+      "description": "You are standing in front of a large grandfather clock. It is very ornate.",
       "exits": {
         "north": 25,
         "south": 0,

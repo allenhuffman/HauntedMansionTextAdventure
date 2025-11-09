@@ -18,7 +18,7 @@
           "useInRoom": "*",
           "message": "As you carefully flip through the pages of the book, a leather bookmark falls out and lands on the floor!",
           "alreadyPerformedMessage": "You have already searched through the book thoroughly. There is nothing else hidden within its pages.",
-          "revealsItemId": 28,
+                    "revealsItemId": 40,
           "onceOnly": true
         }
       ]
@@ -108,7 +108,7 @@
       "startLocation": 39,
       "keyword": "scroll",
       "name": "a scroll",
-      "description": "The old faded scroll contains a cryptic message. 'When no end is in site, and you walk south with all your might, start over and repeat these simple steps:  South then south again, then go back up north my friend, and see if you find west and east are swapped.'",
+      "description": "The old faded scroll contains a cryptic message. 'When there seems no end in sight, and you walk south with all your might, start over and repeat these steps: South then north to find the end, then find a place you haven't been.'",
       "carryable": true
     },
     {
@@ -116,7 +116,7 @@
       "startLocation": 35,
       "keyword": "painting",
       "name": "a painting",
-      "description": "It is a portrait of a gentleman, shown facing east.  He has a gun raised in his hand as if he is preparing for a duel.",
+      "description": "It is a portrait of a gentleman, shown facing left. He has a gun raised in his hand as if he is preparing for a duel.",
       "carryable": false
     },
     {
@@ -124,7 +124,7 @@
       "startLocation": 36,
       "keyword": "painting",
       "name": "a painting",
-      "description": "It is a portrait of a gentleman, shown facing west.  He also has a gun raised in his hand as if he is preparing for a duel.",
+      "description": "It is a portrait of a gentleman, shown facing right. He has a gun raised in his hand as if he is preparing for a duel",
       "carryable": false
     },
     {
@@ -140,7 +140,7 @@
       "startLocation": 4,
       "keyword": "paintings",
       "name": "paintings along the east wall",
-      "description": "There are several paintings here, including one of a lovely young woman named April.  As you gaze upon her beauty she seems to age right before your eyes into an ancient old woman.",
+      "description": "There are several paintings here, including one of a lovely young woman named April. As you gaze upon her beauty she seems to age right before your eyes into an ancient old hag.",
       "carryable": false,
         "actions": [
         {
@@ -151,13 +151,6 @@
           "onceOnly": true,
           "newDescription": "The painting has been moved aside, exposing the wall behind it.",
           "alreadyPerformedMessage": "The painting has already been moved. The hidden safe is visible."
-        },
-        {
-          "verb": "push",
-          "useInRoom": 4,
-          "message": "You push against the painting and it slides to one side, revealing a hidden safe!",
-          "revealsItemId": 31,
-          "onceOnly": true
         }
       ]
     },
@@ -174,7 +167,7 @@
       "startLocation": 3,
       "keyword": "paintings",
       "name": "paintings along the east wall",
-      "description": "There are several paintings here, including one of a ship at sea.  As you blink your eyes, you suddenly see the ship has changed into a battered up ghost ship with torn sails.",
+      "description": "There are several paintings here, including one of a ship at sea. As you blink your eyes, you suddenly see the ship has changed into a battered up ghost ship with torn sails.",
       "carryable": false
     },
     {
@@ -190,8 +183,28 @@
       "startLocation": 26,
       "keyword": "clock",
       "name": "a grandfather clock",
-      "description": "As you gaze at the clock, you see a shodow of a twisted hand pass in front of it. You spin around but there is no one there.  Odd.",
-      "carryable": false
+      "description": "It almost looks like it is alive. Is that a face with fangs? The pendulum even looks like a pointed tail and the base looks like clawed feet. It appears to have run down and is stuck at 12:59 p.m.",
+      "carryable": false,
+    "actions": [
+        {
+          "verb": "wind",
+          "requiresItem": "crank",
+          "requiresItemMessage": "You need a winding crank to do that.",
+          "useInRoom": 26,
+          "message": "You reach up and wind the clock. As you do, the clock springs to life and starts ticking. The hands move forward to 13 and the clock begins to gong.",
+          "alreadyPerformedMessage": "The clock is already wound up and ticking.",
+          "newDescription": "It almost looks like it is alive. Is that a face with fangs? The pendulum even looks like a pointed tail and the base looks like clawed feet. The clock hands seem to be running backwards, and the little hand is pointing to 13. You hear ticking and gonging sounds coming from the clock.",
+          "onceOnly": true
+        },
+        {
+          "verb": "search",
+          "useInRoom": 26,
+          "message": "You search the clock and find a winding crank stored inside.",
+          "alreadyPerformedMessage": "You have already searched the clock thoroughly. There is nothing else hidden within it.",
+          "revealsItemId": 40,
+          "onceOnly": true
+        }
+      ]
     },
     {
       "id": 21,
@@ -199,14 +212,14 @@
       "keyword": "trumpet",
       "name": "an old trumpet",
       "description": "The rusted old trumpet looks worthless.",
-      "carryable": false
+      "carryable": true
     },
     {
       "id": 22,
       "startLocation": 1,
       "keyword": "paper",
       "name": "a slip of paper",
-      "description": "You look at the crumpled slip of paper and notice a faint message.  It says 'Welcome to Allen's Haunted Mansion text adventure. This is just a test and there is little to do here other than walk around and look at things. A few sections of the game have background audio which will load and play while you are there. See how many objects you can find, and you will get a taste of what the real adventure will be like. Pictures will be added soon!",
+      "description": "You look at the crumpled slip of paper and notice a faint message. It says 'Welcome to Allen's Haunted Mansion text adventure, originally created in 2002. This is a work-in-progress. Right now, you can explore the mansion and collect objects. Some sections of the game have background audio which will load and play while you are there. There are even a few puzzles to solve, but no way to win the game yet.'",
       "carryable": true
     },
     {
@@ -214,7 +227,7 @@
       "startLocation": 23,
       "keyword": "raven",
       "name": "a raven",
-      "description": "The silent black bird notices you looking at it.  It squawks'Nevermore!' then is silent.",
+      "description": "The silent black bird notices you looking at it. It squawks 'Nevermore!' then is silent.",
       "carryable": false
     },
     {
@@ -231,28 +244,14 @@
       "keyword": "ladder",
       "name": "a wooden ladder",
       "description": "A sturdy wooden ladder perfect for reaching high places. You could probably climb it if you were in the right location.",
-      "carryable": true,
-      "actions": [
-        {
-          "verb": "climb",
-          "useInRoom": 51,
-          "leadsTo": 52,
-          "message": "You carefully climb the ladder up to the attic ledge. From here you can see the graveyard far below."
-        },
-        {
-          "verb": "climb", 
-          "useInRoom": 15,
-          "leadsTo": 32,
-          "message": "You climb the ladder up to get a better view of the grand ballroom from the balcony above."
-        }
-      ]
+      "carryable": true
     },
     {
       "id": 26,
       "startLocation": 0,
       "keyword": "key",
       "name": "a brass key",
-      "description": "An ornate brass key with a skeleton design. It looks like it might unlock something important.",
+      "description": "An ornate brass key with the initials 'M.G.' engraved on it. It looks like it might unlock something important.",
       "carryable": true
     },
     {
@@ -436,6 +435,14 @@
           "onceOnly": true
         }
       ]
+    },
+    {
+      "id": 40,
+      "startLocation": 0,
+      "keyword": "crank",
+      "name": "a winding crank",
+      "description": "A small metal crank that looks like it could be used to wind something up.",
+      "carryable": true
     }
   ]
 }

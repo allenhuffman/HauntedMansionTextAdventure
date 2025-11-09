@@ -15,7 +15,7 @@ class Versions {
             buildDate: "2025-11-08",
             
             // Build number (increment for each release)
-            buildNumber: 9,
+            buildNumber: 10,
             
             // Release name (optional, for named releases)
             releaseName: "Work-in-progress",

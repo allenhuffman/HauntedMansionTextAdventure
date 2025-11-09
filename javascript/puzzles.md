@@ -10,6 +10,9 @@ The new game engine has actions that can do things like make an object appear in
 
 # Puzzles #
 
+## Graveyard Band ##
+One will be missing an instructment. You can find an instrument in the Seance Circle and give it to the ghost later.
+
 ## Secret Entrance ##
 A Secret Entrance in the crypt area leads directly to the Portrait Corridor, bypassing the foryer and stretching room. This could use something from the comic. "In the comic story "The Pickwick Capers", the Pun Crypts contain a secret entrance into the Mansion that opens when pressing a button on the "M.T. Tomb" crypt."
 
