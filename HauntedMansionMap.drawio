@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0.1 Safari/605.1.15" version="28.2.9">
   <diagram name="Page-1" id="eJmXXb0IufuB-SfE6dvh">
-    <mxGraphModel dx="1213" dy="1354" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1588" dy="1485" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -173,6 +173,15 @@
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-252" value="Secret Entrance" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-122" vertex="1">
           <mxGeometry x="40" y="600" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="_tIOIGK4imfzDmzX5xBq-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-122" source="_tIOIGK4imfzDmzX5xBq-30" target="_tIOIGK4imfzDmzX5xBq-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_tIOIGK4imfzDmzX5xBq-30" value="Estcher Stairway (could be 6)" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
+          <mxGeometry x="465" y="30" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="_tIOIGK4imfzDmzX5xBq-31" value="Eyes" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="NtIjfB5tUNKMfuGPDF4m-122">
+          <mxGeometry x="360" y="30" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-221" value="Second Floor" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-120" y="800" width="1240" height="680" as="geometry" />
@@ -380,6 +389,9 @@
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-368" value="45&lt;div&gt;Master Gracey&#39;s Bedchamber&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-221" vertex="1">
           <mxGeometry x="1120" y="360" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="_tIOIGK4imfzDmzX5xBq-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="NtIjfB5tUNKMfuGPDF4m-221" source="NtIjfB5tUNKMfuGPDF4m-369" target="NtIjfB5tUNKMfuGPDF4m-345">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="NtIjfB5tUNKMfuGPDF4m-369" value="Alcove&lt;div&gt;(Christmas)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="NtIjfB5tUNKMfuGPDF4m-221" vertex="1">
           <mxGeometry x="760" y="240" width="80" height="80" as="geometry" />
