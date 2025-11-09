@@ -520,13 +520,13 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-11" value="Gate" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="_tIOIGK4imfzDmzX5xBq-10">
-          <mxGeometry x="40" y="320" width="80" height="80" as="geometry" />
+          <mxGeometry x="160" y="320" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="_tIOIGK4imfzDmzX5xBq-10" source="_tIOIGK4imfzDmzX5xBq-12" target="_tIOIGK4imfzDmzX5xBq-14">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-12" value="Hearse" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="_tIOIGK4imfzDmzX5xBq-10">
-          <mxGeometry x="160" y="320" width="80" height="80" as="geometry" />
+          <mxGeometry x="280" y="320" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="_tIOIGK4imfzDmzX5xBq-10" source="_tIOIGK4imfzDmzX5xBq-14" target="_tIOIGK4imfzDmzX5xBq-16">
           <mxGeometry relative="1" as="geometry" />
@@ -535,31 +535,37 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-14" value="Front Door" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="_tIOIGK4imfzDmzX5xBq-10">
-          <mxGeometry x="160" y="200" width="80" height="80" as="geometry" />
+          <mxGeometry x="280" y="200" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="_tIOIGK4imfzDmzX5xBq-10" source="_tIOIGK4imfzDmzX5xBq-16" target="_tIOIGK4imfzDmzX5xBq-20">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-16" value="Pet Cemetery" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="_tIOIGK4imfzDmzX5xBq-10">
-          <mxGeometry x="40" y="200" width="80" height="80" as="geometry" />
+          <mxGeometry x="160" y="200" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-18" value="EAST&lt;div&gt;1&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="_tIOIGK4imfzDmzX5xBq-10">
-          <mxGeometry x="280" y="220" width="50" height="40" as="geometry" />
+          <mxGeometry x="400" y="220" width="50" height="40" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-20" value="Pun Crypts" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="_tIOIGK4imfzDmzX5xBq-10">
-          <mxGeometry x="40" y="80" width="80" height="80" as="geometry" />
+          <mxGeometry x="160" y="80" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="_tIOIGK4imfzDmzX5xBq-10" source="_tIOIGK4imfzDmzX5xBq-22" target="_tIOIGK4imfzDmzX5xBq-24">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-22" value="Secret Entrance" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="_tIOIGK4imfzDmzX5xBq-10">
-          <mxGeometry x="160" y="80" width="80" height="80" as="geometry" />
+          <mxGeometry x="280" y="80" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-24" value="3" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="_tIOIGK4imfzDmzX5xBq-10">
-          <mxGeometry x="280" y="100" width="50" height="40" as="geometry" />
+          <mxGeometry x="400" y="100" width="50" height="40" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-26" value="TRIVIA: In the comic story &quot;The Pickwick Capers&quot;, the Pun Crypts contain a secret entrance into the Mansion that opens when pressing a button on the &quot;M.T. Tomb&quot; crypt." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" vertex="1" parent="_tIOIGK4imfzDmzX5xBq-10">
-          <mxGeometry x="360" y="80" width="220" height="80" as="geometry" />
+          <mxGeometry x="480" y="80" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="_tIOIGK4imfzDmzX5xBq-28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="_tIOIGK4imfzDmzX5xBq-10" source="_tIOIGK4imfzDmzX5xBq-27" target="_tIOIGK4imfzDmzX5xBq-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_tIOIGK4imfzDmzX5xBq-27" value="Outside the Gate" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="_tIOIGK4imfzDmzX5xBq-10">
+          <mxGeometry x="40" y="320" width="80" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
