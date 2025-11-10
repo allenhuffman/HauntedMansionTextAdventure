@@ -1,39 +1,42 @@
 {
-  "audioZones": [
-    {
-      "rooms": [1, 2],
+  "zones": {
+    "foyer": {
       "soundFile": "foyer.mp3",
+      "rooms": [1, 2],
       "description": "Foyer entrance music"
     },
-    {
-      "rooms": [3, 4], 
+    "storm": {
       "soundFile": "storm.mp3",
+      "rooms": [3, 4],
       "description": "Storm sounds for portrait gallery"
     },
-    {
-      "rooms": [5, 6, 11, 12, 14],
-      "soundFile": "load.mp3", 
-      "description": "Loading/transition areas"
+    "library": {
+      "soundFile": "load.mp3",
+      "rooms": [5, 6, 9, 11, 12, 14],
+      "description": "Library and transition areas"
     },
-    {
-      "rooms": [15, 29, 32],
-      "soundFile": "ballroom.mp3",
-      "description": "Grand ballroom and balcony"
+    "ballroom": {
+      "rooms": [15, 16, 17, 20, 21, 29, 30, 31, 32, 34, 35, 36],
+      "description": "Grand ballroom complex - starts silent, puzzle enables music"
     },
-    {
-      "rooms": [46, 51],
+    "seance": {
+      "rooms": [27],
+      "description": "Seance circle - silent until clock is wound"
+    },
+    "attic": {
       "soundFile": "attic.mp3",
+      "rooms": [46, 47, 48, 49, 50, 51],
       "description": "Attic areas"
     },
-    {
+    "atticledge": {
+      "soundFile": "atticledge.mp3",
       "rooms": [52],
-      "soundFile": "atticledge.mp3", 
       "description": "Attic ledge overlook"
     },
-    {
-      "rooms": [23, 25],
+    "doors": {
       "soundFile": "doors.mp3",
+      "rooms": [23, 24, 25],
       "description": "Corridor of doors"
     }
-  ]
+  }
 }

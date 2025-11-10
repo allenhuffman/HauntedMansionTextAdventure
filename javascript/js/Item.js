@@ -87,6 +87,8 @@ class Item {
             newLocation: null,
             consumeItem: action.consumeItem || false,
             addExit: action.addExit || null,
+            addSound: action.addSound || null,
+            removeSound: action.removeSound || null,
             newDescription: newDescription,
             newName: newName,
             revealsItem: action.revealsItem || null,

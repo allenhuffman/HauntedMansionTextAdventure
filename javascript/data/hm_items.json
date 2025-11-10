@@ -191,9 +191,19 @@
           "requiresItem": "crank",
           "requiresItemMessage": "You need a winding crank to do that.",
           "useInRoom": 26,
-          "message": "You reach up and wind the clock. As you do, the clock springs to life and starts ticking. The hands move forward to 13 and the clock begins to gong.",
+          "message": "You reach up and wind the clock. As you do, the clock springs to life and starts ticking. The hands move forward to 13 and the clock begins to gong. Mystical energy flows through the mansion, and you hear eerie sounds echoing from the seance circle!",
           "alreadyPerformedMessage": "The clock is already wound up and ticking.",
           "newDescription": "It almost looks like it is alive. Is that a face with fangs? The pendulum even looks like a pointed tail and the base looks like clawed feet. The clock hands seem to be running backwards, and the little hand is pointing to 13. You hear ticking and gonging sounds coming from the clock.",
+          "addSound": [
+            {
+              "roomId": 26,
+              "soundFile": "clock.mp3"
+            },
+            {
+              "roomId": 27,
+              "soundFile": "seance.mp3"
+            }
+          ],
           "onceOnly": true
         },
         {
@@ -378,7 +388,7 @@
     },
     {
       "id": 35,
-      "startLocation": 29,
+      "startLocation": 27,
       "keyword": "candelabra",
       "name": "a candelabra",
       "description": "The candelabra is made of tarnished silver and holds five candles. The candles are unlit but seem to emit a faint warmth.",
@@ -386,7 +396,7 @@
     },
     {
       "id": 36,
-      "startLocation": 29,
+      "startLocation": 27,
       "keyword": "raven",
       "name": "a raven",
       "description": "The raven is perched on the chair. It eyes you suspisciously.",
@@ -394,7 +404,7 @@
     },
     {
       "id": 37,
-      "startLocation": 29,
+      "startLocation": 27,
       "keyword": "ball",
       "name": "a crystal ball",
       "description": "The crystal ball is perfectly clear and smooth, but when you look into it, you see a face looking back at you.",

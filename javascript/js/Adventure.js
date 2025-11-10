@@ -383,6 +383,59 @@ class Adventure {
                                 }
                             }
                             
+                            // Handle dynamic sound changes
+                            if (result.addSound) {
+                                const soundChanges = Array.isArray(result.addSound) ? result.addSound : [result.addSound];
+                                soundChanges.forEach(soundChange => {
+                                    const targetLocation = this.player.locations[soundChange.roomId];
+                                    if (targetLocation) {
+                                        targetLocation.setSound(soundChange.soundFile);
+                                        console.log(`Audio added to room ${soundChange.roomId}: ${soundChange.soundFile}`);
+                                        
+                                        // If the sound change is in the current room, start playing immediately
+                                        if (soundChange.roomId === currentRoomId) {
+                                            this.soundPlayer.loop(soundChange.soundFile);
+                                        }
+                                    }
+                                });
+                            }
+                            
+                            if (result.removeSound) {
+                                const targetLocation = this.player.locations[result.removeSound.roomId];
+                                if (targetLocation) {
+                                    targetLocation.setSound(null);
+                                    console.log(`Audio removed from room ${result.removeSound.roomId}`);
+                                    
+                                    // If the sound change is in the current room, stop playing immediately
+                                    if (result.removeSound.roomId === currentRoomId) {
+                                        this.soundPlayer.stopLoop();
+                                    }
+                                }
+                            }
+                            
+                            // Handle zone-based sound changes
+                            if (result.setZoneSound) {
+                                const success = this.player.setZoneSound(result.setZoneSound.zoneName, result.setZoneSound.soundFile);
+                                if (success) {
+                                    // Check if current room is in the affected zone
+                                    const zone = this.player.audioZones[result.setZoneSound.zoneName];
+                                    if (zone && zone.rooms.includes(currentRoomId)) {
+                                        this.soundPlayer.loop(result.setZoneSound.soundFile);
+                                    }
+                                }
+                            }
+                            
+                            if (result.removeZoneSound) {
+                                const success = this.player.removeZoneSound(result.removeZoneSound.zoneName);
+                                if (success) {
+                                    // Check if current room is in the affected zone
+                                    const zone = this.player.audioZones[result.removeZoneSound.zoneName];
+                                    if (zone && zone.rooms.includes(currentRoomId)) {
+                                        this.soundPlayer.stopLoop();
+                                    }
+                                }
+                            }
+                            
                             // Handle item description/name changes
                             if (result.newDescription) {
                                 anItem.setDescription(result.newDescription);
@@ -442,6 +495,59 @@ class Adventure {
                                     const destinationLocation = this.player.locations[result.addExit.destination];
                                     if (destinationLocation) {
                                         this.player.getLocation().addExitByDirection(result.addExit.direction, destinationLocation);
+                                    }
+                                }
+                                
+                                // Handle dynamic sound changes
+                                if (result.addSound) {
+                                    const soundChanges = Array.isArray(result.addSound) ? result.addSound : [result.addSound];
+                                    soundChanges.forEach(soundChange => {
+                                        const targetLocation = this.player.locations[soundChange.roomId];
+                                        if (targetLocation) {
+                                            targetLocation.setSound(soundChange.soundFile);
+                                            console.log(`Audio added to room ${soundChange.roomId}: ${soundChange.soundFile}`);
+                                            
+                                            // If the sound change is in the current room, start playing immediately
+                                            if (soundChange.roomId === currentRoomId) {
+                                                this.soundPlayer.loop(soundChange.soundFile);
+                                            }
+                                        }
+                                    });
+                                }
+                                
+                                if (result.removeSound) {
+                                    const targetLocation = this.player.locations[result.removeSound.roomId];
+                                    if (targetLocation) {
+                                        targetLocation.setSound(null);
+                                        console.log(`Audio removed from room ${result.removeSound.roomId}`);
+                                        
+                                        // If the sound change is in the current room, stop playing immediately
+                                        if (result.removeSound.roomId === currentRoomId) {
+                                            this.soundPlayer.stopLoop();
+                                        }
+                                    }
+                                }
+                                
+                                // Handle zone-based sound changes
+                                if (result.setZoneSound) {
+                                    const success = this.player.setZoneSound(result.setZoneSound.zoneName, result.setZoneSound.soundFile);
+                                    if (success) {
+                                        // Check if current room is in the affected zone
+                                        const zone = this.player.audioZones[result.setZoneSound.zoneName];
+                                        if (zone && zone.rooms.includes(currentRoomId)) {
+                                            this.soundPlayer.loop(result.setZoneSound.soundFile);
+                                        }
+                                    }
+                                }
+                                
+                                if (result.removeZoneSound) {
+                                    const success = this.player.removeZoneSound(result.removeZoneSound.zoneName);
+                                    if (success) {
+                                        // Check if current room is in the affected zone
+                                        const zone = this.player.audioZones[result.removeZoneSound.zoneName];
+                                        if (zone && zone.rooms.includes(currentRoomId)) {
+                                            this.soundPlayer.stopLoop();
+                                        }
                                     }
                                 }
                                 

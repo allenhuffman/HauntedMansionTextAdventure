@@ -90,34 +90,49 @@ class CreateWorld {
             errors.push("Failed to load game items (hm_items.json): " + e.message);
         }
 
-        // Load audio zone assignments from JSON file
+        // Set up audio zones and room-specific overrides
         try {
-            console.log("Loading audio zone configuration from: data/hm_audio.json");
+            // First, load audio zones
+            console.log("Loading audio zones from: data/hm_audio.json");
             const audioResponse = await fetch('data/hm_audio.json');
             const audioData = await audioResponse.json();
             
-            let audioZoneCount = 0;
-            for (const zone of audioData.audioZones) {
-                const soundDescription = zone.soundFile ? zone.soundFile : "silence";
-                console.log(`Setting up audio zone: ${zone.description} (${soundDescription})`);
-                for (const roomId of zone.rooms) {
-                    if (tempLocation[roomId]) {
-                        // Only set sound if soundFile is specified and not null/empty
-                        if (zone.soundFile && zone.soundFile !== "silence") {
-                            tempLocation[roomId].setSound(zone.soundFile);
+            // Store zones for dynamic updates
+            this.audioZones = audioData.zones;
+            
+            let audioRoomCount = 0;
+            
+            // Apply zone audio to rooms (only if zone has soundFile)
+            for (const [zoneName, zoneData] of Object.entries(audioData.zones)) {
+                if (zoneData.soundFile) { // Only apply if zone has audio
+                    for (const roomId of zoneData.rooms) {
+                        if (tempLocation[roomId]) {
+                            tempLocation[roomId].setSound(zoneData.soundFile);
+                            console.log(`Zone ${zoneName} - Room ${roomId}: ${zoneData.soundFile}`);
+                            audioRoomCount++;
                         }
-                        // If soundFile is null, empty, or "silence", leave room with no sound
-                        audioZoneCount++;
-                    } else {
-                        console.log(`Warning: Room ${roomId} not found for audio zone: ${zone.description}`);
                     }
+                } else {
+                    console.log(`Zone ${zoneName} - Silent zone (${zoneData.rooms.length} rooms)`);
                 }
             }
-            console.log(`${audioZoneCount} rooms assigned audio zones.`);
+            
+            // Then, apply room-specific overrides from hm_map.json
+            const mapResponse = await fetch('data/hm_map.json');
+            const mapData = await mapResponse.json();
+            
+            for (const room of mapData.rooms) {
+                if (room.soundFile && tempLocation[room.id]) {
+                    tempLocation[room.id].setSound(room.soundFile);
+                    console.log(`Room override ${room.id} (${room.name}): ${room.soundFile}`);
+                    audioRoomCount++;
+                }
+            }
+            
+            console.log(`${audioRoomCount} rooms have background audio.`);
         } catch (e) {
-            console.log("Error loading audio configuration -- " + e.toString());
-            console.log("Audio zones will not be available.");
-            errors.push("Failed to load audio configuration (hm_audio.json): " + e.message + " - Audio zones disabled.");
+            console.log("Error setting up room audio -- " + e.toString());
+            errors.push("Failed to set up room audio: " + e.message);
         }        
         
         // Store the locations array for ActionItem access
@@ -161,5 +176,43 @@ class CreateWorld {
             return item;
         }
         return null;
+    }
+
+    // Set audio for an entire zone
+    setZoneSound(zoneName, soundFile) {
+        if (this.audioZones && this.audioZones[zoneName]) {
+            const zone = this.audioZones[zoneName];
+            zone.soundFile = soundFile; // Update zone definition
+            
+            // Apply to all rooms in the zone
+            for (const roomId of zone.rooms) {
+                if (this.locations[roomId]) {
+                    this.locations[roomId].setSound(soundFile);
+                }
+            }
+            console.log(`Zone ${zoneName} audio set to: ${soundFile}`);
+            return true;
+        }
+        console.log(`Zone ${zoneName} not found`);
+        return false;
+    }
+
+    // Remove audio from an entire zone
+    removeZoneSound(zoneName) {
+        if (this.audioZones && this.audioZones[zoneName]) {
+            const zone = this.audioZones[zoneName];
+            delete zone.soundFile; // Remove from zone definition
+            
+            // Remove from all rooms in the zone
+            for (const roomId of zone.rooms) {
+                if (this.locations[roomId]) {
+                    this.locations[roomId].setSound(null);
+                }
+            }
+            console.log(`Zone ${zoneName} audio removed`);
+            return true;
+        }
+        console.log(`Zone ${zoneName} not found`);
+        return false;
     }
 }
