@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0.1 Safari/605.1.15" version="28.2.9">
   <diagram name="Page-1" id="eJmXXb0IufuB-SfE6dvh">
-    <mxGraphModel dx="1588" dy="1485" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1213" dy="1354" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -628,7 +628,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-49" value="Gate (ring?)" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="-80" width="80" height="80" as="geometry" />
+          <mxGeometry x="840" y="-80" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-70" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="_tIOIGK4imfzDmzX5xBq-50" target="_tIOIGK4imfzDmzX5xBq-51">
           <mxGeometry relative="1" as="geometry" />
@@ -637,28 +637,28 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-50" value="Hearse" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="-200" width="80" height="80" as="geometry" />
+          <mxGeometry x="840" y="-200" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-71" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="_tIOIGK4imfzDmzX5xBq-51" target="_tIOIGK4imfzDmzX5xBq-52">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-51" value="Pet Cemetery" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="1200" y="-200" width="80" height="80" as="geometry" />
+          <mxGeometry x="960" y="-200" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-52" value="Pun Crypts" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="1200" y="-320" width="80" height="80" as="geometry" />
+          <mxGeometry x="960" y="-320" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-53" value="Entrance Door" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="-320" width="80" height="80" as="geometry" />
+          <mxGeometry x="840" y="-320" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-54" value="Family Cemetery" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="-440" width="80" height="80" as="geometry" />
+          <mxGeometry x="840" y="-440" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-77" value="Disneyland" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="610" y="-440" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="_tIOIGK4imfzDmzX5xBq-78" value="Magic Kingdom" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="1200" y="-400" width="60" height="30" as="geometry" />
+          <mxGeometry x="960" y="-400" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
