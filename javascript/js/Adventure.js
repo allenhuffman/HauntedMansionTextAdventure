@@ -444,10 +444,25 @@ class Adventure {
                                 anItem.setName(result.newName);
                             }
                             
-                            // Handle revealed items
+                            // Handle revealed items - support both single and array formats
                             if (result.revealsItemId) {
-                                // Reveal pre-defined hidden item by ID
-                                this.player.revealItemById(result.revealsItemId, this.player.getLocation());
+                                const itemReveals = Array.isArray(result.revealsItemId) ? 
+                                    result.revealsItemId : 
+                                    [{
+                                        itemId: result.revealsItemId,
+                                        location: result.revealsItemLocation || this.player.getLocation().id
+                                    }];
+                                
+                                itemReveals.forEach(reveal => {
+                                    const targetLocation = reveal.location ? 
+                                        this.player.locations[reveal.location] : 
+                                        this.player.getLocation();
+                                    
+                                    if (targetLocation) {
+                                        this.player.revealItemById(reveal.itemId, targetLocation);
+                                        console.log(`Item ${reveal.itemId} revealed in room ${targetLocation.id}`);
+                                    }
+                                });
                             } else if (result.revealsItem) {
                                 // Fallback: create item dynamically (legacy support)
                                 const revealedItem = new Item(
@@ -559,10 +574,25 @@ class Adventure {
                                     anItem.setName(result.newName);
                                 }
                                 
-                                // Handle revealed items
+                                // Handle revealed items - support both single and array formats
                                 if (result.revealsItemId) {
-                                    // Reveal pre-defined hidden item by ID
-                                    this.player.revealItemById(result.revealsItemId, this.player.getLocation());
+                                    const itemReveals = Array.isArray(result.revealsItemId) ? 
+                                        result.revealsItemId : 
+                                        [{
+                                            itemId: result.revealsItemId,
+                                            location: result.revealsItemLocation || this.player.getLocation().id
+                                        }];
+                                    
+                                    itemReveals.forEach(reveal => {
+                                        const targetLocation = reveal.location ? 
+                                            this.player.locations[reveal.location] : 
+                                            this.player.getLocation();
+                                        
+                                        if (targetLocation) {
+                                            this.player.revealItemById(reveal.itemId, targetLocation);
+                                            console.log(`Item ${reveal.itemId} revealed in room ${targetLocation.id}`);
+                                        }
+                                    });
                                 } else if (result.revealsItem) {
                                     // Fallback: create item dynamically (legacy support)
                                     const revealedItem = new Item(

@@ -1,3 +1,1 @@
-python3 -m http.server 8080
-
-cd "/Users/allenh/Library/Mobile Documents/com~apple~CloudDocs/Others/Development/GitHub/AllenHuffman/HauntedMansionTextAdventure/javascript" && python3 -m http.server 8080
+pkill -f "python.*http.server" 2>/dev/null; cd "/Users/allenh/Library/Mobile Documents/com~apple~CloudDocs/Others/Development/GitHub/AllenHuffman/HauntedMansionTextAdventure/javascript" && python3 -m http.server 8080
