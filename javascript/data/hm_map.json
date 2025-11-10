@@ -354,7 +354,7 @@
     {
       "id": 27,
       "name": "Seance Circle",
-      "description": "You are in a large dark room. There is a table and chair in the center. On the table is a large crystal ball. A raven is perched on the chair and a large cabinet sits behind that.",
+      "description": "You are in a large dark room. There is a table and chair in the center. A raven is perched on the chair and a large cabinet sits behind that.",
       "exits": {
         "north": 0,
         "south": 0,

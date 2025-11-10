@@ -191,7 +191,7 @@
           "requiresItem": "crank",
           "requiresItemMessage": "You need a winding crank to do that.",
           "useInRoom": 26,
-          "message": "You reach up and wind the clock. As you do, the clock springs to life and starts ticking. The hands move forward to 13 and the clock begins to gong. Mystical energy flows through the mansion, and you hear eerie sounds echoing from the seance circle!",
+          "message": "You reach up and wind the clock. As you do, the clock springs to life and starts ticking. The hands move forward to 13 and the clock begins to gong.",
           "alreadyPerformedMessage": "The clock is already wound up and ticking.",
           "newDescription": "It almost looks like it is alive. Is that a face with fangs? The pendulum even looks like a pointed tail and the base looks like clawed feet. The clock hands seem to be running backwards, and the little hand is pointing to 13. You hear ticking and gonging sounds coming from the clock.",
           "addSound": [
@@ -204,6 +204,8 @@
               "soundFile": "seance.mp3"
             }
           ],
+          "revealsItemId": 37,
+          "revealsItemLocation": 27,
           "onceOnly": true
         },
         {
@@ -404,7 +406,7 @@
     },
     {
       "id": 37,
-      "startLocation": 27,
+      "startLocation": 0,
       "keyword": "ball",
       "name": "a crystal ball",
       "description": "The crystal ball is perfectly clear and smooth, but when you look into it, you see a face looking back at you.",
