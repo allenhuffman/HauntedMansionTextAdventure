@@ -269,6 +269,8 @@ HauntedMansionMap.png - Visual map reference
 
 ### Enhanced Command Processing
 - **Smart Item Matching** - Whole-word matching system finds items by any word in their name
+- **Multi-word Item Support** - Commands like "look stone key" and "get blue key" work naturally
+- **Consistent Handler Behavior** - Both ExamineHandler and ItemHandler use same smart matching logic
 - **Fallback Support** - EXAMINE and SEARCH work on any item, even without custom actions
 - **Grammar Intelligence** - Automatic article stripping for better message grammar
 - **Command Shortcuts** - Single-letter shortcuts (N, S, E, W, U, D, I, L)
@@ -293,6 +295,7 @@ HauntedMansionMap.png - Visual map reference
 - **Graceful Degradation** - Game continues even with configuration errors
 - **Real-Time Validation** - Console feedback for debugging and development
 - **User-Friendly Messages** - Clear instructions and helpful feedback
+- **Unified Command Processing** - All handlers (Examine, Item, Action) use consistent multi-word matching
 
 ## Game Features
 

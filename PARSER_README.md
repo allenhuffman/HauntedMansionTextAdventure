@@ -223,25 +223,31 @@ User Input: "get key"
 4. User responds: "get red key" → Works perfectly!
 ```
 
-### Example 3: Complex Multi-word Command
+### Example 3: Multi-word Examine Commands (Recent Fix)
 ```
-User Input: "examine the old portrait carefully"
+User Input: "look stone key"
 
 1. Parse.js extracts:
-   - Verb: "examine"
-   - Noun: "the"
-   - Full Noun: "the old portrait carefully"
+   - Verb: "look"
+   - Noun: "key" 
+   - Full Noun: "stone key"
 
 2. CommandRouter routes to ExamineHandler
 
-3. ItemMatcher processes "the old portrait":
-   - Removes articles: "old portrait"
-   - Searches for matches
-   - Ignores context words like "carefully"
+3. ExamineHandler now uses fullNoun (recent fix):
+   - Previously used only "key" (last word)
+   - Now uses "stone key" (complete phrase) 
+   - Matches "hidden stone key" with 95% confidence
 
-4. Finds match: "an old portrait"
+4. Smart matching finds correct item:
+   - ItemMatcher processes "stone key"
+   - Finds "hidden stone key" 
+   - Returns detailed item description
 
-5. ExamineHandler shows item description
+5. Result: "look stone key" works as expected!
+
+Previous Behavior: Only matched items ending in "key"
+Fixed Behavior: Matches complete multi-word item names
 ```
 
 ## Backward Compatibility
@@ -357,6 +363,27 @@ You see a blue key, a red key, and an old lantern here.
 # Consistent formatting throughout: commas for lists, "and" for final item
 ```
 
+## Recent Improvements (November 2025)
+
+### ExamineHandler Multi-word Fix
+**Problem**: The ExamineHandler was only using the last word of multi-word commands, causing "look stone key" to be processed as "look key".
+
+**Solution**: Updated ExamineHandler to use the same fullNoun pattern as ItemHandler:
+```javascript
+// Before (broken):
+const searchTerm = noun; // Only "key" from "look stone key"
+
+// After (fixed):
+const fullNoun = parseResult && parseResult.getFullNoun ? parseResult.getFullNoun() : noun;
+const searchTerm = fullNoun || noun; // Full "stone key" phrase
+```
+
+**Impact**: Commands like "look stone key", "examine red key", and "look blue book" now work consistently across all handlers.
+
+**Files Changed**: 
+- `ExamineHandler.js` - Added fullNoun extraction and logging
+- Added debug logging to track noun vs fullNoun usage
+
 ## Future Enhancements
 
 - **Synonym Database**: Expand vocabulary recognition
@@ -384,6 +411,7 @@ You see a blue key, a red key, and an old lantern here.
 - **Reverse-Matching**: Works backwards from full input to find most specific matches
 - **Confidence Scoring**: Multi-tier scoring system (100=exact, 90=prefix, 80=suffix, etc.)
 - **Natural Language Formatting**: Consistent "item1, item2, and item3" formatting across all game text
+- **Unified Multi-word Support**: Both ExamineHandler and ItemHandler use fullNoun for consistent matching behavior
 
 ### Integration Points
 - Game state through Adventure.js with unified showLocation() formatting

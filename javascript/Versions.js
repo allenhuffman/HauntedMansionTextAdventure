@@ -9,7 +9,7 @@ class Versions {
     static getVersionInfo() {
         return {
             // Main version number (semantic versioning)
-            version: "0.1.0",
+            version: "0.2.0",
             
             // Build date (update manually when releasing)
             buildDate: "2025-11-11",
@@ -18,7 +18,7 @@ class Versions {
             buildNumber: 11,
             
             // Release name (optional, for named releases)
-            releaseName: "Work-in-progress",
+            releaseName: "Enhanced Command System",
             
             // Git commit hash (update manually if desired)
             commitHash: null,

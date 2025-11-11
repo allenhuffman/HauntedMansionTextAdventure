@@ -17,7 +17,12 @@ class CreateWorld {
             const mapData = await mapResponse.json();
 
             const numRooms = mapData.rooms.length;
-            tempLocation = new Array(numRooms);
+            // Size array to accommodate highest room ID + limbo (room 0)
+            const maxRoomId = Math.max(...mapData.rooms.map(room => room.id));
+            tempLocation = new Array(maxRoomId + 1);
+
+            // Create limbo room (room 0) for hidden items
+            tempLocation[0] = new Location("Limbo", "A place for hidden items (debug only)", 0);
 
             // Create Location objects
             for (let i = 0; i < numRooms; i++) {
