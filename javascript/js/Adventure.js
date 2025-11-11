@@ -143,7 +143,7 @@ class Adventure {
     showLocation() {
         let flag = false;
 
-        this.desc.value += "\nLOCATION: " + this.player.getLocation().getName() + "\n";
+        this.desc.value += "\nLOCATION: " + this.player.getLocation().getName() + " (Room " + this.player.getLocation().getId() + ")\n";
         
         if (this.player.getLocation().beenHere() === false || this.verbose === true) {
             this.desc.value += this.player.getLocation().getDescription() + "\n";

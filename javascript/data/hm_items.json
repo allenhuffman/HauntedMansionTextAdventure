@@ -87,10 +87,31 @@
     },
     {
       "id": 11,
-      "startLocation": 49,
-      "name": "a small hatbox",
-      "description": "The hatbox is empty but looks like it could have once held a human head.",
-      "carryable": true
+      "startLocation": 51,
+      "name": "a headless figure",
+      "description": "He is wearing formal Victorian attire, and appears quite grumpy. (You would be too, if you were missing a head.) His formal dress and stance suggest he might be the famous Hat Box Ghost. He seems to be blocking the path to the west.",
+      "carryable": false,
+      "actions": [
+        {
+          "verb": "give,offer",
+          "useInRoom": 51,
+          "requiresItem": "crystal ball",
+          "requiresItemMessage": "You need something to give him. Perhaps something with a head in it?",
+          "message": "You hold the crystal ball out to the headless figure. Madame Leota's head materializes from the crystal ball and hovers above his shoulders. 'Thank you, mortal,' she whispers. The headless figure, now complete with a ghostly head, nods appreciatively and steps aside, no longer blocking your path to the ledge.",
+          "onceOnly": true,
+          "alreadyPerformedMessage": "The Hat Box Ghost already has his head and has moved aside.",
+          "modifyLocation": {
+            "roomId": 51,
+            "addExit": {
+              "direction": "west",
+              "destination": 52,
+              "description": "west to the Attic Ledge"
+            },
+            "changeRoomDescription": "You are in the attic. There is a ghostly bride here. The Hat Box Ghost now stands peacefully in the corner, his spectral head floating above his shoulders, no longer blocking the path to the ledge.",
+            "hidesItemId": 37
+          }
+        }
+      ]
     },
     {
       "id": 12,
@@ -380,7 +401,28 @@
       "startLocation": 0,
       "name": "a crystal ball",
       "description": "The crystal ball is perfectly clear and smooth. When you gaze into it, you see the head of Madame Leota staring back at you.",
-      "carryable": true
+      "carryable": true,
+      "actions": [
+        {
+          "verb": "give",
+          "useInRoom": 51,
+          "requiresItem": "crystal ball",
+          "requiresItemMessage": "You need to be holding the crystal ball to do that.",
+          "message": "You hold the crystal ball out to the headless figure. Madame Leota's head materializes from the crystal ball and hovers above his shoulders. 'Thank you, mortal,' she whispers. The headless figure, now complete with a ghostly head, nods appreciatively and steps aside, no longer blocking your path to the ledge.",
+          "onceOnly": true,
+          "alreadyPerformedMessage": "The Hat Box Ghost already has his head and has moved aside.",
+          "modifyLocation": {
+            "roomId": 51,
+            "addExit": {
+              "direction": "west",
+              "destination": 52,
+              "description": "west to the Attic Ledge"
+            },
+            "changeRoomDescription": "You are in the attic. There is a ghostly bride here. The Hat Box Ghost now stands peacefully in the corner, his spectral head floating above his shoulders, no longer blocking the path to the ledge.",
+            "hidesItemId": 37
+          }
+        }
+      ]
     },
     {
       "id": 38,

@@ -640,7 +640,7 @@
     {
       "id": 49,
       "name": "Attic",
-      "description": "You are in the attic.",
+      "description": "You are in the attic. There is a ghostly bride here.",
       "exits": {
         "north": 51,
         "south": 0,
@@ -655,7 +655,7 @@
       "name": "Attic",
       "description": "You are in the attic.",
       "exits": {
-        "north": 0,
+        "north": 51,
         "south": 48,
         "west": 51,
         "east": 0,
@@ -666,11 +666,11 @@
     {
       "id": 51,
       "name": "Attic",
-      "description": "You are in the attic. There is a ghostly bride here.",
+      "description": "You are in the attic.  On the west wall you see a large open window that leads to a ledge outside. A headless figure is staring out the window, blocking it.",
       "exits": {
         "north": 0,
         "south": 49,
-        "west": 52,
+        "west": 0,
         "east": 50,
         "up": 0,
         "down": 0
