@@ -99,6 +99,10 @@ This interactive text adventure allows players to explore a virtual version of D
 - **`javascript/data/hm_items.json`** - Enhanced item system with ActionItem support, hidden items, and complex interactions
 - **`javascript/data/hm_audio.json`** - Data-driven audio zone configuration with silent room support
 
+### Developer Documentation
+- **[`javascript/data/ITEMS-README.md`](javascript/data/ITEMS-README.md)** - Complete guide to the item system, ActionItem capabilities, and smart matching
+- **[`javascript/data/LOCATIONS-README.md`](javascript/data/LOCATIONS-README.md)** - Room design guide, navigation system, and best practices
+
 ### Legacy CSV Configuration  
 - **`java/hm_map.csv`** - Original room definitions, connections, and descriptions
 - **`java/hm_items.csv`** - Original item locations, properties, and descriptions
@@ -263,6 +267,7 @@ HauntedMansionMap.png - Visual map reference
 - **Dynamic World Changes** - Items can unlock doors, reveal hidden items, and modify descriptions
 
 ### Enhanced Command Processing
+- **Smart Item Matching** - Whole-word matching system finds items by any word in their name
 - **Fallback Support** - EXAMINE and SEARCH work on any item, even without custom actions
 - **Grammar Intelligence** - Automatic article stripping for better message grammar
 - **Command Shortcuts** - Single-letter shortcuts (N, S, E, W, U, D, I, L)
