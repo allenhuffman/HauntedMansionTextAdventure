@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Parse Results</title>
+    <style>
+        body { font-family: monospace; margin: 20px; background-color: #1a1a1a; color: #00ff00; }
+        .debug { border: 1px solid #00ff00; padding: 10px; margin: 10px 0; }
+        .error { color: #ff4444; }
+        .info { color: #4444ff; }
+        .success { color: #44ff44; }
+        .highlight { background-color: #333; color: #ffff00; padding: 2px; }
+        button { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 5px 10px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Debug Parse Results - What does Parse.js extract from "look at door"?</h1>
+    
+    <div class="debug">
+        <h3>Test Controls</h3>
+        <button onclick="testParseResults()">Test Parse Results</button>
+        <button onclick="testSearchTerms()">Test Different Search Terms</button>
+    </div>
+    
+    <div class="debug">
+        <h3>Debug Output</h3>
+        <div id="debug-output"></div>
+    </div>
+
+    <script src="js/Parse.js"></script>
+    <script src="js/Location.js"></script>
+    <script src="js/Item.js"></script>
+    <script src="js/ActionItem.js"></script>
+    <script src="js/TextUtils.js"></script>
+    <script src="js/ItemMatcher.js"></script>
+
+    <script>
+        function log(message, type = 'info') {
+            const output = document.getElementById('debug-output');
+            const div = document.createElement('div');
+            div.className = type;
+            div.innerHTML = message;
+            output.appendChild(div);
+            console.log(message);
+        }
+        
+        function testParseResults() {
+            log("=== TESTING PARSE RESULTS ===", 'info');
+            
+            const testInputs = [
+                "look at door",
+                "look door", 
+                "examine door",
+                "examine the door",
+                "look at the door"
+            ];
+            
+            testInputs.forEach(input => {
+                log(`\n--- Testing: "${input}" ---`, 'info');
+                
+                const parse = new Parse();
+                parse.parseString(input);
+                
+                const verb = parse.getVerb();
+                const noun = parse.getNoun();
+                const fullNoun = parse.getFullNoun();
+                const variations = parse.getNounVariations();
+                
+                log(`Verb: "${verb}"`, 'success');
+                log(`Noun: "${noun}"`, 'success');
+                log(`FullNoun: "${fullNoun}"`, 'success');
+                log(`Variations: [${variations.map(v => `"${v}"`).join(', ')}]`, 'success');
+                
+                // What ExamineHandler would use as searchTerm
+                const searchTerm = fullNoun || noun;
+                log(`<span class="highlight">SearchTerm for ItemMatcher: "${searchTerm}"</span>`, 'highlight');
+            });
+        }
+        
+        function testSearchTerms() {
+            log("=== TESTING DIFFERENT SEARCH TERMS WITH ITEMMATCHER ===", 'info');
+            
+            // Create test items like in room 44
+            const testItems = [
+                new ActionItem({
+                    name: "a locked door to the east", 
+                    description: "A door", 
+                    getable: false,
+                    actions: [{ verb: "unlock" }]
+                }),
+                new Item({ name: "a lit candle", description: "A candle", getable: true }),
+                new Item({ name: "a slip of paper", description: "A paper", getable: true }),
+                new Item({ name: "a red key", description: "A key", getable: true }),
+                new Item({ name: "a blue key", description: "A key", getable: true })
+            ];
+            
+            log("Test items:", 'info');
+            testItems.forEach((item, index) => {
+                log(`  ${index + 1}. "${item.getName()}"`, 'info');
+            });
+            
+            const searchTerms = [
+                "door",
+                "at door", 
+                "door at",
+                "the door",
+                "look at door",
+                "at"
+            ];
+            
+            const matcher = new ItemMatcher();
+            
+            searchTerms.forEach(searchTerm => {
+                log(`\n--- Testing searchTerm: "${searchTerm}" ---`, 'info');
+                
+                const result = matcher.findBestMatch(searchTerm, testItems);
+                log(`Matches found: ${result.matches.length}`, 'info');
+                
+                result.matches.forEach((match, index) => {
+                    log(`  Match ${index + 1}: "${match.item.getName()}" (score: ${match.score})`, 'success');
+                });
+                
+                const disambigResult = matcher.handleDisambiguation(result.matches, searchTerm);
+                
+                if (disambigResult.needsDisambiguation) {
+                    log(`<span class="highlight">DISAMBIGUATION: ${disambigResult.message}</span>`, 'error');
+                } else if (disambigResult.selectedItem) {
+                    log(`✅ Selected: "${disambigResult.selectedItem.getName()}"`, 'success');
+                } else {
+                    log("❌ No matches", 'info');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

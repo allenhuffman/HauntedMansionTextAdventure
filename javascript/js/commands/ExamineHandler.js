@@ -31,7 +31,6 @@ class ExamineHandler {
         if (noun === null) {
             // Just looking at the room
             this.adventure.player.getLocation().beenHere(false); // Force room redisplay
-            this.adventure.showLocation();
             return { success: true, moved: true }; // moved=true to trigger location display
         } else {
             // Looking at something specific
@@ -47,8 +46,9 @@ class ExamineHandler {
      * @returns {Object} Result object
      */
     examineItem(verb, noun, parseResult) {
-        const fullNoun = parseResult && parseResult.getFullNoun ? parseResult.getFullNoun() : noun;
-        const searchTerm = fullNoun || noun;
+        // For LOOK/EXAMINE commands, use the simple noun rather than fullNoun to avoid 
+        // matching issues with prepositions like "look at door" -> "at door"
+        const searchTerm = noun;
         
         // First check for ActionItem actions (EXAMINE/LOOK with custom actions)
         let actionHandled = false;

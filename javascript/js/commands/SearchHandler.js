@@ -27,8 +27,14 @@ class SearchHandler {
      * @returns {Object} Result object with success flag and any location changes
      */
     handle(verb, noun, parseResult) {
-        const fullNoun = parseResult && parseResult.getFullNoun ? parseResult.getFullNoun() : noun;
-        const searchTerm = fullNoun || noun;
+        // For SEARCH commands, use simple noun to avoid preposition issues
+        const searchTerm = noun;
+        
+        // Don't allow searching "all" - require specific targets
+        if (searchTerm.toLowerCase() === "all" || searchTerm.toLowerCase() === "everything") {
+            this.adventure.desc.value += "You need to search something specific, not everything at once.\n";
+            return { success: true, moved: false };
+        }
         
         // SEARCH is typically handled by ActionItems with custom actions
         // This handler provides a fallback for when no ActionItem handles it

@@ -300,13 +300,28 @@
         {
           "verb": "unlock",
           "useInRoom": 44,
-          "requiresItem": "key",
+          "requiresItem": "brass key",
           "requiresItemMessage": "You need a key to do that.",
           "addExit": {
             "direction": "east",
             "destination": 45
           },
           "message": "The brass key turns with a satisfying click in the lock. The door swings open automatically and now stands ajar.",
+          "newName": "an unlocked door to the east",
+          "newDescription": "A heavy wooden door that now stands ajar. It is marked Master Gracey.",
+          "onceOnly": true,
+          "alreadyPerformedMessage": "The door is already unlocked and standing ajar."
+        },
+        {
+          "verb": "open",
+          "useInRoom": 44,
+          "requiresItem": "brass key",
+          "requiresItemMessage": "You need the proper key to do that.",
+          "addExit": {
+            "direction": "east",
+            "destination": 45
+          },
+          "message": "You use the brass key to unlock the door. It swings open automatically and now stands ajar.",
           "newName": "an unlocked door to the east",
           "newDescription": "A heavy wooden door that now stands ajar. It is marked Master Gracey.",
           "onceOnly": true,
@@ -327,7 +342,7 @@
       "startLocation": 24,
       "keyword": "door",
       "name": "a door",
-      "description": "The doors are all identical, lined up in a row. Each one looks like it could lead to a different place.",
+      "description": "The doors are all identical, lined up in a row.",
       "carryable": false,
       "actions": [
         {
@@ -342,7 +357,7 @@
       "startLocation": 25,
       "keyword": "door",
       "name": "a door",
-      "description": "The doors are all identical, lined up in a row. Each one looks like it could lead to a different place.",
+      "description": "The doors are all identical, lined up in a row.",
       "carryable": false,
       "actions": [
         {

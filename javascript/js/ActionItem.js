@@ -88,11 +88,13 @@ class ActionItem extends Item {
             return { success: false, message: "You can't do that here." };
         }
 
-        // Check item requirement
+        // Check item requirement using exact string matching
         if (actionDef.requiresItem && player) {
+            const requiredItem = actionDef.requiresItem.toLowerCase();
             const hasRequiredItem = player.getItems().some(item => 
-                item.getKeyword().toLowerCase() === actionDef.requiresItem.toLowerCase()
+                item.getName().toLowerCase().includes(requiredItem)
             );
+            
             if (!hasRequiredItem) {
                 return { 
                     success: true, 
