@@ -350,8 +350,8 @@
     {
       "id": 33,
       "startLocation": 27,
-      "name": "Madame Leota's spellbook",
-      "description": "The spellbook is ancient and worn, filled with arcane symbols and illustrations. It seems to hum with a faint magical energy.",
+      "name": "a spellbook",
+      "description": "The spellbook is ancient and worn, filled with arcane symbols and illustrations. It is open to page 1313 which has a note scribbled in the corner: \"Seance 13 o'clock.\"",
       "carryable": true
     },
     {
@@ -379,7 +379,7 @@
       "id": 37,
       "startLocation": 0,
       "name": "a crystal ball",
-      "description": "The crystal ball is perfectly clear and smooth, but when you look into it, you see a face looking back at you.",
+      "description": "The crystal ball is perfectly clear and smooth. When you gaze into it, you see the head of Madame Leota staring back at you.",
       "carryable": true
     },
     {
