@@ -4,6 +4,13 @@ Here are some ideas for the types of puzzles that might end up in the game. It m
 
 The new game engine has actions that can do things like make an object appear in the room ("search bushes", "you found a sneaker!"), make a new exit appear ("unlock door"), or teleport to new locations ("climb tree"). They can have requirements ("open door" requires "key").
 
+**Advanced Features (2025)**: The game now includes a comprehensive `modifyLocation` system that allows puzzles to:
+- Add exits to any room in the mansion (not just current location)
+- Change room descriptions dynamically for story progression
+- Hide items/ghosts from the world (`hideItem` functionality)  
+- Modify multiple rooms simultaneously for complex puzzle solutions
+- See `javascript/data/ITEMS-README.md` for full technical documentation
+
 # Objectives #
 1. One "win" would simply be to find 13 specific Haunted Mansion-related items in the game, like a treasure hunt. Special objects could have a description like "it is warm to the touch" or "it vibrates with energy". These items would all be in accessible areas without needing to solve any puzzles. "Congratulations, you have collected all the special items. There are still puzzles to be solved, if you want to continue playing."
 2. More advanced would be trying to solve a series of puzzles that allow the player to "escape" the Mansion. Ideally, there would be several ways to do this so if a player got stuck, they could try another approach. It would also offer a bit of replyability.
@@ -13,7 +20,7 @@ The new game engine has actions that can do things like make an object appear in
 2. Access Master Gracey's Bedchamber - The door is locked. A key can be found by searching the key holder panel in the Servant's Chamber. (Clue: bell board mentions only one bell is not covered in dust.)
 3. Make the Seance Begin (Grandfather Clock) - The clock is stopped. Searching it will find a winding crank, which can be used to start the clock. It will advance to 13 o'clock and the seance will begin. (Clue: Seance Cirlce has a sign "be back at 13 o'clock" or a calendar can be found with "Seance 13 o'clock").
 4. Access the Graveyard from the Attic Ledge - A rope is needed to get down to the graveyard. The rope can be found by taking a ladder from the Library into the stretched stretching room and climbing it up to the cupola where the hanging body is. (Dependent on Stretching Room) (Clue: "You need something long to lower yourself down.")
-5. Access the Grand Hall Alcove (Pipe Organ) - Ghosts in the ballroom are not dancing. Instead, they are blocking the stairway. The pipe organists has nothing to play, so sheet music from the Music Room must be obtained and given to the organist. When he begins playing, the ghosts will leave the stairs to dance, allowing access to that upper level (dueling portraits room). (Clue: "The organist has nothing to play." and "The ghosts are bored and sitting on the stairway.")
+5. ✅ **IMPLEMENTED** - Access the Grand Hall Alcove (Pipe Organ) - Playing the pipe organ in the ballroom causes haunting music to echo through the mansion, opening a new doorway to the east and causing the ghostly organist to fade away peacefully. (Commands: PLAY ORGAN, USE ORGAN) - Uses advanced `modifyLocation` system to add exit from room 17 to 18 and hide the organist ghost.
 6. Hat Box Ghost - In the attic is a headless figure blocking the ledge/window. Giving him Madame Leota's head in the crystal ball will make him happy and move out of the way, allowing access to the ledge. (Clue: "You'd be angry too if you were missing a head.")
 7. TBD
 8. TBD

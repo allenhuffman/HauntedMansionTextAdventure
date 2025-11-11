@@ -2,6 +2,57 @@
 
 All notable changes to the Haunted Mansion Text Adventure JavaScript version.
 
+## [2.1.0] - 2025-01-06
+
+### 🎮 Advanced ActionItem System
+
+#### ModifyLocation System
+- **NEW**: Comprehensive `modifyLocation` API for complex puzzle mechanics
+- **Multi-room support**: Single actions can modify multiple rooms simultaneously
+- **Exit management**: Add exits to any room with optional descriptions
+- **Room transformation**: Change room descriptions dynamically for story progression
+- **Clean architecture**: Replaces scattered room modification approaches with unified system
+
+#### Ghost Banishment System
+- **NEW**: `hideItem` functionality for removing entities from the world
+- **Auto-search**: Automatically finds and removes items from any room
+- **Puzzle integration**: Perfect for banishing ghosts, removing obstacles, etc.
+- **Seamless operation**: Items disappear cleanly without trace
+
+#### Enhanced ActionItem Features
+- **Legacy support**: Backward compatibility with existing ActionItem properties
+- **Modular design**: New systems work alongside existing ActionItem capabilities
+- **Complex puzzles**: Enable sophisticated multi-step puzzle solutions
+- **Story progression**: Support dramatic world changes and transformations
+
+### 🎵 Implemented Puzzles
+
+#### Pipe Organ Puzzle
+- **COMPLETED**: Ballroom pipe organ puzzle using new modifyLocation system
+- **Multi-effect**: Playing organ adds exit to room 17 AND banishes organist ghost
+- **Atmospheric**: Custom messages explain the haunting musical effects
+- **Once-only**: Prevents repeated puzzle solving with appropriate messaging
+
+### 🔧 Technical Improvements
+
+#### ActionItem.js Enhancement
+- **Fixed**: ExecuteAction method now passes through all new properties
+- **Property support**: modifyLocation and hidesItemId properly included in results
+- **Complete integration**: All new features now work correctly with ActionItemHandler
+
+#### Debug System
+- **Enhanced**: Comprehensive debug logging for modifyLocation operations
+- **Visibility**: Clear console output for room modifications and item hiding
+- **Troubleshooting**: Easier debugging of complex puzzle interactions
+
+### 📝 Documentation Updates
+
+#### Comprehensive Documentation
+- **Updated**: ITEMS-README.md with complete modifyLocation system documentation
+- **Enhanced**: Main README.md with new ActionItem capabilities
+- **Examples**: Multiple usage patterns and best practices
+- **Migration guide**: Legacy property support and modern approaches
+
 ## [2.0.0] - 2025-11-11
 
 ### 🎯 Major Refactoring - Command Pattern Implementation

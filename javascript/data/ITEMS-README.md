@@ -139,10 +139,22 @@ Actions allow items to respond to player commands with custom behavior beyond th
 - Used for revealing hidden items, dropping objects, etc.
 - The revealed item must exist in the items database
 
+#### `hidesItemId` (number, optional)
+- ID of an item to remove from the game world when action succeeds
+- Item is automatically searched for and removed from any room
+- Used for making items disappear, solving puzzles, etc.
+- The item must exist somewhere in the world to be hidden
+
 #### `newLocation` (number, optional)
 - Room ID to transport player to when action succeeds
 - Used for teleportation, secret passages, etc.
 - Must be a valid room ID from `hm_map.json`
+
+#### `modifyLocation` (object or array, optional)
+- Comprehensive room modification system for advanced interactions
+- Can modify single room or multiple rooms simultaneously
+- Supports adding exits, changing descriptions, and hiding items
+- See "Room Modification System" section below for details
 
 ## Item Matching System
 
@@ -242,6 +254,165 @@ The game uses intelligent whole-word matching for item references:
 - Use invisible items sparingly for special effects
 - Balance carryable vs. fixed items for gameplay
 
+## Room Modification System
+
+The `modifyLocation` system provides comprehensive room modification capabilities for advanced puzzle mechanics and world changes. This system replaces older scattered approaches with a unified, powerful interface.
+
+### Basic Structure
+
+```json
+{
+  "verb": "PLAY",
+  "modifyLocation": {
+    "roomId": 17,
+    "addExit": {
+      "direction": "east",
+      "destination": 18,
+      "description": "east to the Conservatory"
+    },
+    "changeRoomDescription": "The music echoes through the mansion as a new doorway opens to the east.",
+    "hidesItemId": 45
+  }
+}
+```
+
+### Multiple Room Modifications
+
+```json
+{
+  "verb": "ACTIVATE",
+  "modifyLocation": [
+    {
+      "roomId": 10,
+      "addExit": {
+        "direction": "up",
+        "destination": 20
+      }
+    },
+    {
+      "roomId": 15,
+      "changeRoomDescription": "The room transforms as ancient magic awakens."
+    }
+  ]
+}
+```
+
+### ModifyLocation Fields
+
+#### `roomId` (number, required)
+- ID of the room to modify
+- Must be a valid room ID from `hm_map.json`
+- Can target any room, not just the current player location
+
+#### `addExit` (object, optional)
+- Adds a new exit to the specified room
+- **`direction`** (string): "north", "south", "east", "west", "up", "down"
+- **`destination`** (number): Target room ID for the new exit
+- **`description`** (string, optional): Description text for the exit
+
+#### `changeRoomDescription` (string, optional)
+- Updates the room's description text
+- Replaces the existing description entirely
+- Use for dramatic story moments or puzzle solutions
+
+#### `hidesItemId` (number, optional)
+- ID of an item to remove from the game world
+- Item is automatically found and removed from any room
+- Useful for making ghosts disappear, removing obstacles, etc.
+
+### Usage Examples
+
+#### Simple Exit Addition
+```json
+{
+  "name": "a crystal orb",
+  "actions": [
+    {
+      "verb": "TOUCH,ACTIVATE",
+      "message": "The orb glows brightly, opening a passage to the north!",
+      "modifyLocation": {
+        "roomId": 12,
+        "addExit": {
+          "direction": "north",
+          "destination": 25
+        }
+      }
+    }
+  ]
+}
+```
+
+#### Complex Puzzle Solution
+```json
+{
+  "name": "the pipe organ",
+  "actions": [
+    {
+      "verb": "PLAY,USE",
+      "message": "As you play the haunting melody, ghostly music echoes through the mansion. You hear a door opening in the distance, and the ghost of the organist fades away.",
+      "onceOnly": true,
+      "modifyLocation": {
+        "roomId": 17,
+        "addExit": {
+          "direction": "east",
+          "destination": 18,
+          "description": "east to the Conservatory"
+        },
+        "changeRoomDescription": "The ballroom's pipe organ sits silent now, its ghostly organist finally at peace. A new doorway has opened to the east.",
+        "hidesItemId": 52
+      }
+    }
+  ]
+}
+```
+
+#### Multi-Room Transformation
+```json
+{
+  "name": "master switch",
+  "actions": [
+    {
+      "verb": "PULL,ACTIVATE",
+      "message": "The master switch activates, transforming the entire mansion!",
+      "modifyLocation": [
+        {
+          "roomId": 1,
+          "addExit": {
+            "direction": "up",
+            "destination": 50
+          },
+          "changeRoomDescription": "The foyer now has a grand staircase leading upward."
+        },
+        {
+          "roomId": 10,
+          "hidesItemId": 30
+        },
+        {
+          "roomId": 15,
+          "changeRoomDescription": "This room has been completely transformed by ancient magic."
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Legacy Support
+
+For backward compatibility, the following individual properties are still supported but should be avoided in new implementations:
+
+- `revealsItemId` - Use `modifyLocation.revealsItemId` instead
+- `hidesItemId` - Use `modifyLocation.hidesItemId` instead  
+- `newLocation` - For player teleportation only (not room modification)
+
+### Best Practices
+
+1. **Use descriptive messages** - Explain what's happening to the player
+2. **Consider room context** - Make sure new exits make sense spatially
+3. **Test modifications** - Verify room IDs and connections work correctly
+4. **Plan puzzle sequences** - Use `onceOnly` to prevent repeated modifications
+5. **Provide exit descriptions** - Help players understand new navigation options
+
 ## Common Patterns
 
 ### Key-Door Pattern
@@ -303,4 +474,55 @@ The game uses intelligent whole-word matching for item references:
 }
 ```
 
-This system provides rich interactivity while maintaining intuitive player interaction through natural language commands.
+### Modern Puzzle Pattern (Using modifyLocation)
+```json
+{
+  "name": "ancient lever",
+  "carryable": false,
+  "actions": [
+    {
+      "verb": "PULL,USE,ACTIVATE",
+      "message": "The lever clicks into place. You hear stone grinding against stone as hidden mechanisms activate throughout the mansion!",
+      "onceOnly": true,
+      "modifyLocation": [
+        {
+          "roomId": 5,
+          "addExit": {
+            "direction": "down",
+            "destination": 42,
+            "description": "down into a newly revealed cellar"
+          },
+          "changeRoomDescription": "The library now has a trapdoor in the floor that has opened to reveal stairs leading down."
+        },
+        {
+          "roomId": 20,
+          "hidesItemId": 35,
+          "changeRoomDescription": "The blocking stone has disappeared, and the room feels more open."
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Ghost Banishment Pattern
+```json
+{
+  "name": "holy relic",
+  "actions": [
+    {
+      "verb": "USE,RAISE,HOLD",
+      "useInRoom": "13",
+      "message": "The holy relic glows with divine light! The malevolent spirit shrieks and vanishes into the ethereal realm.",
+      "onceOnly": true,
+      "modifyLocation": {
+        "roomId": 13,
+        "hidesItemId": 66,
+        "changeRoomDescription": "The chapel feels peaceful now, free from the malevolent presence that once haunted it."
+      }
+    }
+  ]
+}
+```
+
+This system provides rich interactivity while maintaining intuitive player interaction through natural language commands. The `modifyLocation` system enables complex puzzle mechanics that can transform multiple rooms simultaneously, creating dynamic storytelling opportunities.

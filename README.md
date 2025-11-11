@@ -184,6 +184,9 @@ CLIMB ladder - Use ladder in specific rooms
 MOVE/PUSH painting - Reveal hidden safes
 OPEN safe    - Open safes with required items
 LISTEN door/raven - Atmospheric audio interactions
+PLAY organ   - Complex puzzle interactions that modify multiple rooms
+USE relic    - Banish ghosts and transform room descriptions
+ACTIVATE lever - Trigger mansion-wide mechanical changes
 ```
 
 ### Debug Commands
@@ -266,6 +269,8 @@ HauntedMansionMap.png - Visual map reference
 - **Requirement System** - Actions can require specific items in inventory
 - **Once-Only Actions** - Prevent repetition with custom messages for already-performed actions
 - **Dynamic World Changes** - Items can unlock doors, reveal hidden items, and modify descriptions
+- **Room Modification System** - Advanced `modifyLocation` API for complex puzzle mechanics
+- **Ghost Banishment** - `hideItem` functionality for making entities disappear from the world
 
 ### Enhanced Command Processing
 - **Smart Item Matching** - Whole-word matching system finds items by any word in their name
