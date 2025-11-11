@@ -5,7 +5,7 @@
 class SearchHandler {
     constructor(adventure) {
         this.adventure = adventure;
-        this.itemMatcher = new ItemMatcher();
+        this.centralMatcher = new CentralMatcher(adventure);
     }
 
     /**
@@ -98,40 +98,18 @@ class SearchHandler {
             }
         }
         
-        // Fallback: if no ActionItem handled it, provide generic search behavior with smart matching
-        let itemFound = false;
+        // Fallback: if no ActionItem handled it, provide generic search behavior using CentralMatcher
+        const matchResult = this.centralMatcher.findItem(searchTerm);
         
-        // Try smart matching on all available items
-        const allItems = [...playerItems, ...locationItems];
-        const itemMatch = this.itemMatcher.findBestMatch(searchTerm, allItems);
+        // Debug logging can be enabled here if needed
+        // console.log(`SearchHandler: searchTerm="${searchTerm}", success=${matchResult.success}, needsDisambiguation=${matchResult.needsDisambiguation}`);
         
-        console.log(`SearchHandler DEBUG: searchTerm="${searchTerm}", found item="${itemMatch.item ? itemMatch.item.getName() : 'none'}", confidence=${itemMatch.confidence}, matches count=${itemMatch.matches ? itemMatch.matches.length : 0}`);
-        if (itemMatch.matches) {
-            itemMatch.matches.forEach((match, i) => {
-                console.log(`  Match ${i}: "${match.item.getName()}" score=${match.score}`);
-            });
-        }
-        
-        // If we found a high-confidence single match AND it was found by reverse matching, use it directly
-        if (itemMatch.item && itemMatch.confidence >= 90 && itemMatch.matches && itemMatch.matches.length === 1) {
-            console.log(`SearchHandler: Using single high-confidence match`);
-            this.adventure.desc.value += "You search the " + itemMatch.item.getName() + " but find nothing special.\n";
-            itemFound = true;
+        if (matchResult.needsDisambiguation) {
+            this.adventure.desc.value += matchResult.message + "\n";
+        } else if (matchResult.success && matchResult.item) {
+            this.adventure.desc.value += "You search the " + matchResult.item.getName() + " but find nothing special.\n";
         } else {
-            // Check if disambiguation is needed for multiple matches or lower-confidence matches
-            const disambigResult = this.itemMatcher.handleDisambiguation(itemMatch.matches, searchTerm);
-            
-            if (disambigResult.needsDisambiguation) {
-                this.adventure.desc.value += disambigResult.message + "\n";
-                itemFound = true; // Mark as handled
-            } else if (disambigResult.selectedItem) {
-                this.adventure.desc.value += "You search the " + disambigResult.selectedItem.getName() + " but find nothing special.\n";
-                itemFound = true;
-            }
-        }
-        
-        if (!itemFound) {
-            this.adventure.desc.value += "I don't see that around here to search.\n";
+            this.adventure.desc.value += matchResult.message || "I don't see that around here to search.\n";
         }
         
         return { success: true, moved: false };

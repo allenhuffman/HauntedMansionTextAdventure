@@ -25,7 +25,7 @@ class ItemMatcher {
         // Try reverse-matching strategy first: work backwards from the full input
         const reverseMatch = this.findBestMatchReverse(inputLower, items);
         if (reverseMatch.confidence >= 90) { // High confidence reverse match
-            console.log(`ItemMatcher: Reverse match found with confidence ${reverseMatch.confidence}`);
+            // console.log(`ItemMatcher: Reverse match found with confidence ${reverseMatch.confidence}`);
             return reverseMatch;
         }
 
@@ -63,7 +63,8 @@ class ItemMatcher {
      */
     findBestMatchReverse(input, items) {
         const words = input.split(' ').filter(word => word.length > 0);
-        console.log(`ItemMatcher: Starting reverse match for "${input}", words: [${words.join(', ')}]`);
+        // Debug logging can be enabled for development
+        // console.log(`ItemMatcher: Starting reverse match for "${input}", words: [${words.join(', ')}]`);
         
         let bestSingleMatch = null;
         let bestSingleMatchLength = 0;
@@ -71,7 +72,7 @@ class ItemMatcher {
         // Try each suffix of the input, starting from the end
         for (let i = words.length - 1; i >= 0; i--) {
             const suffix = words.slice(i).join(' ');
-            console.log(`ItemMatcher: Trying reverse match with "${suffix}" (i=${i})`);
+            // console.log(`ItemMatcher: Trying reverse match with "${suffix}" (i=${i})`);
             
             // Find exact or very close matches for this suffix
             const matches = [];
@@ -86,11 +87,11 @@ class ItemMatcher {
                 }
             }
             
-            console.log(`ItemMatcher: Found ${matches.length} high-confidence matches for "${suffix}"`);
+            // console.log(`ItemMatcher: Found ${matches.length} high-confidence matches for "${suffix}"`);
             
             if (matches.length === 1) {
                 // Found exactly one high-confidence match
-                console.log(`ItemMatcher: Single reverse match found for "${suffix}": "${matches[0].item.getName()}"`);
+                // console.log(`ItemMatcher: Single reverse match found for "${suffix}": "${matches[0].item.getName()}"`);
                 
                 // If this is a longer phrase than our previous best, prefer it
                 if (suffix.length > bestSingleMatchLength) {
@@ -100,21 +101,21 @@ class ItemMatcher {
                         confidence: matches[0].score
                     };
                     bestSingleMatchLength = suffix.length;
-                    console.log(`ItemMatcher: New best single match: "${bestSingleMatch.item.getName()}" (length: ${bestSingleMatchLength})`);
+                    // console.log(`ItemMatcher: New best single match: "${bestSingleMatch.item.getName()}" (length: ${bestSingleMatchLength})`);
                 }
             } else if (matches.length > 1) {
                 // Multiple high-confidence matches - continue to next iteration
-                console.log(`ItemMatcher: Multiple reverse matches for "${suffix}" (${matches.length}), trying next phrase`);
+                // console.log(`ItemMatcher: Multiple reverse matches for "${suffix}" (${matches.length}), trying next phrase`);
                 // Don't continue here - let the loop continue naturally
             } else {
-                console.log(`ItemMatcher: No high-confidence matches for "${suffix}"`);
+                // console.log(`ItemMatcher: No high-confidence matches for "${suffix}"`);
             }
             // Continue to next shorter phrase regardless
         }
         
         // Return the best single match found (longest phrase wins)
         if (bestSingleMatch) {
-            console.log(`ItemMatcher: Best reverse match selected: "${bestSingleMatch.item.getName()}" (phrase length: ${bestSingleMatchLength})`);
+            // console.log(`ItemMatcher: Best reverse match selected: "${bestSingleMatch.item.getName()}" (phrase length: ${bestSingleMatchLength})`);
             return bestSingleMatch;
         }
         
