@@ -118,26 +118,6 @@ class ExamineHandler {
             } else if (disambigResult.selectedItem) {
                 this.adventure.desc.value += disambigResult.selectedItem.getDescription() + "\n";
                 items = true;
-            } else {
-                // Fallback to exact matching for backward compatibility
-                for (const anItem of playerItems) {
-                    if (anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
-                        this.adventure.desc.value += anItem.getDescription() + "\n";
-                        items = true;
-                        break;
-                    }
-                }
-                
-                if (!items) {
-                    const locationItems = this.adventure.player.getLocation().getItems();
-                    for (const anItem of locationItems) {
-                        if (anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
-                            this.adventure.desc.value += anItem.getDescription() + "\n";
-                            items = true;
-                            break;
-                        }
-                    }
-                }
             }
             
             if (!items) {

@@ -110,28 +110,6 @@ class ItemHandler {
                     console.log(`ItemHandler: Item "${anItem.getKeyword()}" is not getable`);
                     items = true;
                 }
-            } else {
-                // Fallback to old exact matching for backward compatibility
-                console.log(`ItemHandler: No smart match found, trying exact keyword matching`);
-                for (const anItem of locationItems) {
-                    console.log(`ItemHandler: Checking item "${anItem.getKeyword()}" (getable: ${anItem.isGetable()})`);
-                    if (anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
-                        console.log(`ItemHandler: Found exact match "${anItem.getKeyword()}"`);
-                        if (anItem.isGetable() === true) {
-                            this.adventure.player.getLocation().removeItem(anItem);
-                            this.adventure.player.addItem(anItem);
-                            this.adventure.desc.value += anItem.getKeyword() + " taken.\n";
-                            console.log(`ItemHandler: Successfully took "${anItem.getKeyword()}"`);
-                            items = true;
-                            break;
-                        } else {
-                            this.adventure.desc.value += "You can't take the " + anItem.getKeyword() + ".\n";
-                            console.log(`ItemHandler: Item "${anItem.getKeyword()}" is not getable`);
-                            items = true;
-                            break;
-                        }
-                    }
-                }
             }
         }
         
@@ -187,21 +165,6 @@ class ItemHandler {
                 this.adventure.desc.value += anItem.getKeyword() + " dropped.\n";
                 console.log(`ItemHandler: Successfully dropped "${anItem.getKeyword()}"`);
                 items = true;
-            } else {
-                // Fallback to old exact matching for backward compatibility
-                console.log(`ItemHandler: No smart match found, trying exact keyword matching`);
-                for (const anItem of playerItems) {
-                    console.log(`ItemHandler: Checking player item "${anItem.getKeyword()}"`);
-                    if (anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
-                        console.log(`ItemHandler: Found exact match "${anItem.getKeyword()}"`);
-                        this.adventure.player.removeItem(anItem);
-                        this.adventure.player.getLocation().addItem(anItem);
-                        this.adventure.desc.value += anItem.getKeyword() + " dropped.\n";
-                        console.log(`ItemHandler: Successfully dropped "${anItem.getKeyword()}"`);
-                        items = true;
-                        break;
-                    }
-                }
             }
         }
         

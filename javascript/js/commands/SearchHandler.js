@@ -16,7 +16,7 @@ class SearchHandler {
      * @returns {boolean} True if this handler can process the command
      */
     canHandle(verb, noun, parseResult) {
-        return verb && verb.toUpperCase() === "SEARCH" && noun;
+        return verb && verb.toUpperCase() === "SEARCH";
     }
 
     /**
@@ -27,8 +27,14 @@ class SearchHandler {
      * @returns {Object} Result object with success flag and any location changes
      */
     handle(verb, noun, parseResult) {
-        // For SEARCH commands, use simple noun to avoid preposition issues
-        const searchTerm = noun;
+        // Check if no noun was provided
+        if (!noun && (!parseResult || !parseResult.getFullNoun())) {
+            this.adventure.desc.value += "You need to search something specific.\n";
+            return { success: true, moved: false };
+        }
+        
+        // For SEARCH commands, use full noun phrase from parseResult if available
+        const searchTerm = (parseResult && parseResult.getFullNoun()) ? parseResult.getFullNoun() : noun;
         
         // Don't allow searching "all" - require specific targets
         if (searchTerm.toLowerCase() === "all" || searchTerm.toLowerCase() === "everything") {
@@ -99,33 +105,28 @@ class SearchHandler {
         const allItems = [...playerItems, ...locationItems];
         const itemMatch = this.itemMatcher.findBestMatch(searchTerm, allItems);
         
-        // Check if disambiguation is needed
-        const disambigResult = this.itemMatcher.handleDisambiguation(itemMatch.matches, searchTerm);
+        console.log(`SearchHandler DEBUG: searchTerm="${searchTerm}", found item="${itemMatch.item ? itemMatch.item.getName() : 'none'}", confidence=${itemMatch.confidence}, matches count=${itemMatch.matches ? itemMatch.matches.length : 0}`);
+        if (itemMatch.matches) {
+            itemMatch.matches.forEach((match, i) => {
+                console.log(`  Match ${i}: "${match.item.getName()}" score=${match.score}`);
+            });
+        }
         
-        if (disambigResult.needsDisambiguation) {
-            this.adventure.desc.value += disambigResult.message + "\n";
-            itemFound = true; // Mark as handled
-        } else if (disambigResult.selectedItem) {
-            this.adventure.desc.value += "You search the " + disambigResult.selectedItem.getName() + " but find nothing special.\n";
+        // If we found a high-confidence single match AND it was found by reverse matching, use it directly
+        if (itemMatch.item && itemMatch.confidence >= 90 && itemMatch.matches && itemMatch.matches.length === 1) {
+            console.log(`SearchHandler: Using single high-confidence match`);
+            this.adventure.desc.value += "You search the " + itemMatch.item.getName() + " but find nothing special.\n";
             itemFound = true;
         } else {
-            // Fallback to exact matching for backward compatibility
-            for (const anItem of playerItems) {
-                if (anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
-                    this.adventure.desc.value += "You search the " + anItem.getName() + " but find nothing special.\n";
-                    itemFound = true;
-                    break;
-                }
-            }
+            // Check if disambiguation is needed for multiple matches or lower-confidence matches
+            const disambigResult = this.itemMatcher.handleDisambiguation(itemMatch.matches, searchTerm);
             
-            if (!itemFound) {
-                for (const anItem of locationItems) {
-                    if (anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
-                        this.adventure.desc.value += "You search the " + anItem.getName() + " but find nothing special.\n";
-                        itemFound = true;
-                        break;
-                    }
-                }
+            if (disambigResult.needsDisambiguation) {
+                this.adventure.desc.value += disambigResult.message + "\n";
+                itemFound = true; // Mark as handled
+            } else if (disambigResult.selectedItem) {
+                this.adventure.desc.value += "You search the " + disambigResult.selectedItem.getName() + " but find nothing special.\n";
+                itemFound = true;
             }
         }
         
