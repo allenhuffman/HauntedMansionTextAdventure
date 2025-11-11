@@ -151,6 +151,29 @@
           "onceOnly": true,
           "newDescription": "The painting has been moved aside, exposing the wall behind it.",
           "alreadyPerformedMessage": "The painting has already been moved. The hidden safe is visible."
+        },
+        {
+          "verb": "push",
+          "useInRoom": 4,
+          "message": "You carefully slide the painting aside, revealing a hidden safe built into the wall!",
+          "revealsItemId": 31,
+          "onceOnly": true,
+          "newDescription": "The painting has been moved aside, exposing the wall behind it.",
+          "alreadyPerformedMessage": "The painting has already been moved. The hidden safe is visible."
+        },
+        {
+          "verb": "slide",
+          "useInRoom": 4,
+          "message": "You carefully slide the painting aside, revealing a hidden safe built into the wall!",
+          "revealsItemId": 31,
+          "onceOnly": true,
+          "newDescription": "The painting has been moved aside, exposing the wall behind it.",
+          "alreadyPerformedMessage": "The painting has already been moved. The hidden safe is visible."
+        },
+        {
+          "verb": "search",
+          "useInRoom": 4,
+          "message": "You search the painting and find that it appears it can be moved."
         }
       ]
     },
@@ -283,9 +306,11 @@
             "direction": "east",
             "destination": 45
           },
-          "message": "The brass key turns with a satisfying click in the lock. The door swings open.",
+          "message": "The brass key turns with a satisfying click in the lock. The door swings open automatically and now stands ajar.",
           "newName": "an unlocked door to the east",
-          "newDescription": "A heavy wooden door that now stands ajar. It is marked Master Gracey."
+          "newDescription": "A heavy wooden door that now stands ajar. It is marked Master Gracey.",
+          "onceOnly": true,
+          "alreadyPerformedMessage": "The door is already unlocked and standing ajar."
         },
         {
           "verb": "lock",
@@ -299,11 +324,6 @@
           "message": "The brass key turns with a satisfying click in the lock. You close and lock the door to the Servants Quarters.",
           "newName": "",
           "newDescription": ""
-        },
-        {
-          "verb": "open",
-          "useInRoom": 44,
-          "message": "You jiggle the handle, but the door is firmly locked. You'll need to unlock it first."
         }
       ]
     },

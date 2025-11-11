@@ -161,7 +161,7 @@
       "name": "Hallway",
       "description": "You are in a plain looking hallway. There is some old furniture here but little else of interest. There is a door marked Servants Quarters on the north wall.",
       "exits": {
-        "north": 0,
+        "north": 13,
         "south": 0,
         "west": 2,
         "east": 11,
