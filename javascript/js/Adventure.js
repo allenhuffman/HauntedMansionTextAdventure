@@ -163,10 +163,11 @@ class Adventure {
             this.desc.value += "There are no obvious exits.\n";
         }
 
-        // Show items using shared text formatting utility
+        // Show items using shared text formatting utility (exclude invisible items)
         const items = this.player.getLocation().getItems();
-        if (items.length > 0) {
-            const itemNames = items.map(item => item.getName());
+        const visibleItems = items.filter(item => !item.invisible);
+        if (visibleItems.length > 0) {
+            const itemNames = visibleItems.map(item => item.getName());
             const itemList = TextUtils.formatItemList(itemNames);
             this.desc.value += `You see ${itemList}.\n`;
         } else {

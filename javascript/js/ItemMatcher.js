@@ -135,46 +135,48 @@ class ItemMatcher {
         // Remove articles from name for better matching
         const nameClean = this.removeArticles(name);
         
+        // Split into words for whole-word matching
+        const inputWords = input.split(' ').filter(word => word.length > 0);
+        const nameWords = nameClean.split(' ').filter(word => word.length > 0);
+        const nameWordsOriginal = name.split(' ').filter(word => word.length > 0);
+        
         let score = 0;
 
         // Exact name match (highest priority)
         if (input === name || input === nameClean) {
-            score += 100;
+            return 100;
         }
         
-        // Name starts with input
-        else if (name.startsWith(input) || nameClean.startsWith(input)) {
-            score += 90;
-        }
-        
-        // Input starts with name (partial input matching full name)
-        else if (input.startsWith(name) || input.startsWith(nameClean)) {
-            score += 85;
-        }
-        
-        // Input matches end of name (for "blue book" matching "book")
-        else if (name.endsWith(input) || nameClean.endsWith(input)) {
-            score += 80;
-        }
-        
-        // Name contains input
-        else if (name.includes(input) || nameClean.includes(input)) {
-            score += 70;
-        }
-
-        // Multi-word matching for phrases like "blue book"
-        const inputWords = input.split(' ');
-        const nameWords = nameClean.split(' ');
-        
+        // Multi-word exact sequence match (e.g., "blue key" matches "a blue key")
         if (inputWords.length > 1 && this.matchesWordSequence(inputWords, nameWords)) {
-            score += 85;
+            return 95;
         }
         
-        // Partial word matching bonus
-        const partialMatches = this.countPartialMatches(inputWords, nameWords.concat(item.getKeyword().toLowerCase().split(' ')));
-        score += partialMatches * 10;
+        // Single word that exactly matches any word in the item name
+        if (inputWords.length === 1) {
+            const inputWord = inputWords[0];
+            if (nameWords.includes(inputWord) || nameWordsOriginal.includes(inputWord)) {
+                return 90;
+            }
+        }
+        
+        // Multiple input words where each word matches a word in the item name
+        if (inputWords.length > 1) {
+            const matchingWords = inputWords.filter(inputWord => 
+                nameWords.includes(inputWord) || nameWordsOriginal.includes(inputWord)
+            );
+            
+            if (matchingWords.length === inputWords.length) {
+                // All input words match - high score
+                return 85;
+            } else if (matchingWords.length > 0) {
+                // Some input words match - lower score
+                return 60 + (matchingWords.length * 10);
+            }
+        }
 
-        return score;
+        // No meaningful matches found
+        return 0;
     }
 
     /**
@@ -208,24 +210,7 @@ class ItemMatcher {
         return false;
     }
 
-    /**
-     * Count how many input words partially match target words
-     * @param {Array} inputWords - Words from user input
-     * @param {Array} targetWords - Words from item
-     * @returns {number} - Number of partial matches
-     */
-    countPartialMatches(inputWords, targetWords) {
-        let count = 0;
-        for (const inputWord of inputWords) {
-            for (const targetWord of targetWords) {
-                if (targetWord.includes(inputWord) || inputWord.includes(targetWord)) {
-                    count++;
-                    break; // Count each input word only once
-                }
-            }
-        }
-        return count;
-    }
+
 
     /**
      * Determine the type of match for debugging

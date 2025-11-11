@@ -17,7 +17,9 @@ class ExamineHandler {
     canHandle(verb, noun, parseResult) {
         if (!verb) return false;
         const upperVerb = verb.toUpperCase();
-        return upperVerb === "LOOK" || upperVerb === "EXAMINE";
+        const canHandle = upperVerb === "LOOK" || upperVerb === "EXAMINE";
+        console.log(`ExamineHandler: canHandle called with verb="${verb}", noun="${noun}", result=${canHandle}`);
+        return canHandle;
     }
 
     /**
@@ -28,13 +30,17 @@ class ExamineHandler {
      * @returns {Object} Result object with success flag and any location changes
      */
     handle(verb, noun, parseResult) {
+        console.log(`ExamineHandler: handle called with verb="${verb}", noun="${noun}"`);
         if (noun === null) {
             // Just looking at the room
             this.adventure.player.getLocation().beenHere(false); // Force room redisplay
             return { success: true, moved: true }; // moved=true to trigger location display
         } else {
             // Looking at something specific
-            return this.examineItem(verb, noun, parseResult);
+            console.log(`ExamineHandler: examining specific item "${noun}"`);
+            const result = this.examineItem(verb, noun, parseResult);
+            console.log(`ExamineHandler: examineItem returned:`, result);
+            return result;
         }
     }
 
@@ -77,9 +83,9 @@ class ExamineHandler {
             }
         }
         
-        // Check location items for ActionItems with smart matching
+        // Check location items for ActionItems with smart matching (include invisible items)
         if (!actionHandled) {
-            const locationItems = this.adventure.player.getLocation().getItems();
+            const locationItems = this.adventure.player.getLocation().getItems(); // This includes invisible items
             const locationMatch = this.itemMatcher.findBestMatch(searchTerm, locationItems);
             
             if (locationMatch.item && locationMatch.item.isSpecial()) {
@@ -116,11 +122,15 @@ class ExamineHandler {
                 this.adventure.desc.value += disambigResult.message + "\n";
                 items = true; // Mark as handled
             } else if (disambigResult.selectedItem) {
-                this.adventure.desc.value += disambigResult.selectedItem.getDescription() + "\n";
+                const description = disambigResult.selectedItem.getDescription();
+                const displayDescription = description && description.trim() !== '' ? description : "You see nothing special.";
+                this.adventure.desc.value += displayDescription + "\n";
                 items = true;
             }
             
             if (!items) {
+                console.log(`ExamineHandler: Could not find item "${searchTerm}"`);
+                console.log(`Available items:`, allItems.map(item => `"${item.getName()}" (invisible: ${item.invisible})`));
                 this.adventure.desc.value += "I don't see that around here.\n";
             }
         }

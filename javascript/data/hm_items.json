@@ -450,6 +450,20 @@
       "name": "an old rusty key",
       "description": "An old rusty key that looks like it could unlock something.",
       "carryable": true
+    },
+    {
+      "id": 45,
+      "startLocation": 1,
+      "name": "west",
+      "carryable": false,
+      "invisible": true,
+      "actions": [
+        {
+          "verb": "GO",
+          "message": "Secret passage!",
+          "newLocation": 42
+        }
+      ]
     }
   ]
 }

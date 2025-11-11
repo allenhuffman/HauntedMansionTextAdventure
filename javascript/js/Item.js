@@ -7,12 +7,14 @@ class Item {
             this.name = options.name || null;
             this.description = options.description || null;
             this.getable = options.getable !== undefined ? options.getable : true;
+            this.invisible = options.invisible || false;
             this.actions = options.actions || [];
         } else {
             // Old format: separate parameters, but use name as primary identifier
             this.name = name || keyword || null; // Prefer name, fallback to keyword
             this.description = description || null;
             this.getable = getable !== undefined ? getable : true;
+            this.invisible = false; // Default to visible for old format
             this.actions = actions || [];
         }
         

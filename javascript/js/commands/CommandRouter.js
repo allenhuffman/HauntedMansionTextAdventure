@@ -18,7 +18,27 @@ class CommandRouter {
      */
     initializeHandlers() {
         console.log("CommandRouter: Initializing handlers...");
-        // Add all available command handlers
+        
+        // Core system commands first - these should never be overridden
+        if (window.SystemHandler) {
+            console.log("CommandRouter: Adding SystemHandler");
+            this.handlers.push(new SystemHandler(this.adventure));
+        }
+        
+        if (window.GameControlHandler) {
+            console.log("CommandRouter: Adding GameControlHandler");
+            this.handlers.push(new GameControlHandler(this.adventure));
+        }
+        
+        // ActionItemHandler comes VERY EARLY to allow custom item behaviors to override everything
+        // This enables classic adventure patterns like "GO TREE" (climb tree), "GO BOAT" (board boat)
+        // as well as overriding LOOK, SEARCH, GET, etc. with custom messages
+        if (window.ActionItemHandler) {
+            console.log("CommandRouter: Adding ActionItemHandler");
+            this.handlers.push(new ActionItemHandler(this.adventure));
+        }
+        
+        // Movement commands - can be overridden by ActionItems for "GO TREE", "GO ROPE" patterns
         if (window.MovementHandler) {
             console.log("CommandRouter: Adding MovementHandler");
             this.handlers.push(new MovementHandler(this.adventure));
@@ -26,6 +46,7 @@ class CommandRouter {
             console.log("CommandRouter: MovementHandler not available");
         }
         
+        // Default command handlers - these can be overridden by ActionItems above
         if (window.InventoryHandler) {
             console.log("CommandRouter: Adding InventoryHandler");
             this.handlers.push(new InventoryHandler(this.adventure));
@@ -41,21 +62,8 @@ class CommandRouter {
             this.handlers.push(new ExamineHandler(this.adventure));
         }
         
-        if (window.SystemHandler) {
-            this.handlers.push(new SystemHandler(this.adventure));
-        }
-        
-        if (window.GameControlHandler) {
-            this.handlers.push(new GameControlHandler(this.adventure));
-        }
-        
-        // Add ActionItemHandler BEFORE SearchHandler so ActionItems get proper handling
-        if (window.ActionItemHandler) {
-            console.log("CommandRouter: Adding ActionItemHandler");
-            this.handlers.push(new ActionItemHandler(this.adventure));
-        }
-        
         if (window.SearchHandler) {
+            console.log("CommandRouter: Adding SearchHandler");
             this.handlers.push(new SearchHandler(this.adventure));
         }
     }

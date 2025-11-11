@@ -78,6 +78,7 @@ class CreateWorld {
                     name: itemInfo.name || itemInfo.keyword, // Prefer name, fallback to keyword
                     description: itemInfo.description,
                     getable: itemInfo.carryable !== undefined ? itemInfo.carryable : true,
+                    invisible: itemInfo.invisible || false,
                     actions: actions
                 };
                 
