@@ -61,15 +61,21 @@ class ActionItem extends Item {
     // Check if this item has a specific action
     hasAction(verb) {
         const verbLower = verb.toLowerCase();
-        return this.actions.some(action => action.verb.toLowerCase() === verbLower);
+        return this.actions.some(action => {
+            const verbs = action.verb.toLowerCase().split(',').map(v => v.trim());
+            return verbs.includes(verbLower);
+        });
     }
 
     // Execute an action based on the JSON definition
     executeAction(verb, currentRoomId, player, itemCollection) {
         const verbLower = verb.toLowerCase();
         
-        // Find the matching action
-        const actionDef = this.actions.find(action => action.verb.toLowerCase() === verbLower);
+        // Find the matching action (supports comma-separated verbs)
+        const actionDef = this.actions.find(action => {
+            const verbs = action.verb.toLowerCase().split(',').map(v => v.trim());
+            return verbs.includes(verbLower);
+        });
         if (!actionDef) {
             return { success: false, message: "I don't understand that." };
         }

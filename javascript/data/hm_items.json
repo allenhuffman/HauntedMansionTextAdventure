@@ -464,6 +464,32 @@
           "newLocation": 42
         }
       ]
+    },
+    {
+      "id": 46,
+      "startLocation": 1,
+      "name": "heavy stone gargoyle",
+      "description": "A menacing stone gargoyle perched on a pedestal. Its eyes seem to follow you.",
+      "carryable": false,
+      "actions": [
+        {
+          "verb": "PUSH,PULL,MOVE,TURN",
+          "message": "As you manipulate the gargoyle, you hear a grinding of ancient stone. The gargoyle's head turns with a loud CLICK!",
+          "onceOnly": true,
+          "revealsItemId": 47
+        },
+        {
+          "verb": "EXAMINE,LOOK,STUDY",
+          "message": "The gargoyle's base appears to be mounted on some kind of rotating mechanism. Perhaps it can be moved?"
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "startLocation": 0,
+      "name": "hidden stone key",
+      "description": "A small stone key that was hidden within the gargoyle's pedestal.",
+      "carryable": true
     }
   ]
 }

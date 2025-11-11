@@ -146,46 +146,27 @@ class ActionItemHandler {
         const fullNoun = parseResult && parseResult.getFullNoun ? parseResult.getFullNoun() : keyword;
         const searchTerm = fullNoun || keyword;
 
-        // Get all ActionItems from both player inventory and location
+        // Get ALL items from both player inventory and location (not just ActionItems)
         const playerItems = this.adventure.player.getItems();
         const locationItems = this.adventure.player.getLocation().getItems();
+        const allItems = [...playerItems, ...locationItems];
         
-        const playerActionItems = playerItems.filter(item => item.isSpecial && item.isSpecial());
-        const locationActionItems = locationItems.filter(item => item.isSpecial && item.isSpecial());
+        // Do smart matching across ALL items to find the best match
+        const matchResult = this.itemMatcher.findBestMatch(searchTerm, allItems);
         
-        // Combine all ActionItems for comprehensive matching
-        const allActionItems = [...playerActionItems, ...locationActionItems];
+        // Check if disambiguation is needed
+        const disambigResult = this.itemMatcher.handleDisambiguation(matchResult.matches, searchTerm);
         
-        if (allActionItems.length > 0) {
-            const matchResult = this.itemMatcher.findBestMatch(searchTerm, allActionItems);
-            
-            // Check if disambiguation is needed
-            const disambigResult = this.itemMatcher.handleDisambiguation(matchResult.matches, searchTerm);
-            
-            if (disambigResult.needsDisambiguation) {
-                // For ActionItemHandler, we need to show the disambiguation message through the adventure interface
-                // But we can't do it here as this is a finder method. We'll handle it in the calling method.
-                return null; // Let the calling method handle disambiguation
-            } else if (disambigResult.selectedItem) {
+        if (disambigResult.needsDisambiguation) {
+            // Let other handlers deal with disambiguation
+            return null;
+        } else if (disambigResult.selectedItem) {
+            // Only return the item if it's an ActionItem - otherwise let other handlers deal with it
+            if (disambigResult.selectedItem.isSpecial && disambigResult.selectedItem.isSpecial()) {
                 return disambigResult.selectedItem;
             }
         }
         
-        // Fallback to exact matching for backward compatibility
-        const keywordUpper = keyword.toUpperCase();
-        
-        for (const anItem of playerActionItems) {
-            if (anItem.getKeyword().toUpperCase() === keywordUpper) {
-                return anItem;
-            }
-        }
-        
-        for (const anItem of locationActionItems) {
-            if (anItem.getKeyword().toUpperCase() === keywordUpper) {
-                return anItem;
-            }
-        }
-
         return null;
     }
 

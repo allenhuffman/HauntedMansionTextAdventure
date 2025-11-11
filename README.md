@@ -260,6 +260,7 @@ HauntedMansionMap.png - Visual map reference
 ## Modern Enhancements (2025)
 
 ### ActionItem System
+- **Multiple Verb Support** - Single actions respond to multiple verbs: `"PUSH,PULL,MOVE"`
 - **Complex Interactions** - Items can respond to multiple verbs (READ, SEARCH, UNLOCK, CLIMB, etc.)
 - **Room-Specific Actions** - Items behave differently in different locations
 - **Requirement System** - Actions can require specific items in inventory

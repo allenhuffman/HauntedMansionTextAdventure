@@ -90,11 +90,22 @@ Actions allow items to respond to player commands with custom behavior beyond th
 }
 ```
 
+### Multiple Verbs Example
+
+```json
+{
+  "verb": "PUSH,PULL,MOVE",
+  "message": "The heavy bookshelf slides aside, revealing a secret passage!",
+  "newLocation": 99
+}
+```
+
 ### Action Fields
 
 #### `verb` (string, required)
-- Command verb that triggers this action
+- Command verb(s) that trigger this action
 - Case-insensitive (READ, read, Read all work)
+- **Multiple verbs**: Use comma-separated list: `"PUSH,PULL,MOVE"`
 - Common verbs: READ, SEARCH, USE, PUSH, PULL, OPEN, CLOSE
 
 #### `useInRoom` (string or number, optional)
@@ -198,7 +209,7 @@ The game uses intelligent whole-word matching for item references:
   "name": "a dark scroll",
   "actions": [
     {
-      "verb": "READ",
+      "verb": "READ,EXAMINE,STUDY",
       "requiresItem": "candle",
       "message": "By candlelight, you can make out ancient runes...",
       "onceOnly": true,
@@ -247,10 +258,14 @@ The game uses intelligent whole-word matching for item references:
   "carryable": false,
   "actions": [
     {
-      "verb": "OPEN",
+      "verb": "OPEN,UNLOCK",
       "requiresItem": "brass key",
       "message": "The key fits perfectly! The door creaks open.",
       "newLocation": 15
+    },
+    {
+      "verb": "PUSH,FORCE,SHOVE",
+      "message": "The door is firmly locked. You'll need to find a key."
     }
   ]
 }
@@ -263,7 +278,7 @@ The game uses intelligent whole-word matching for item references:
   "carryable": false,
   "actions": [
     {
-      "verb": "SEARCH",
+      "verb": "SEARCH,EXAMINE,OPEN",
       "message": "You find a hidden compartment with something inside!",
       "onceOnly": true,
       "revealsItemId": 33
@@ -280,7 +295,7 @@ The game uses intelligent whole-word matching for item references:
   "carryable": false,
   "actions": [
     {
-      "verb": "PUSH",
+      "verb": "PUSH,PULL,MOVE",
       "message": "The bookshelf swings inward, revealing a hidden passage!",
       "newLocation": 99
     }

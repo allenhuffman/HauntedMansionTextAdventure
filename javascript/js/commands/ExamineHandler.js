@@ -52,9 +52,12 @@ class ExamineHandler {
      * @returns {Object} Result object
      */
     examineItem(verb, noun, parseResult) {
-        // For LOOK/EXAMINE commands, use the simple noun rather than fullNoun to avoid 
-        // matching issues with prepositions like "look at door" -> "at door"
-        const searchTerm = noun;
+        // Extract fullNoun from parseResult for better multi-word matching
+        const fullNoun = parseResult && parseResult.getFullNoun ? parseResult.getFullNoun() : noun;
+        console.log(`ExamineHandler: examineItem called with noun: "${noun}", fullNoun: "${fullNoun}"`);
+        
+        // Use fullNoun for matching when available, fall back to noun
+        const searchTerm = fullNoun || noun;
         
         // First check for ActionItem actions (EXAMINE/LOOK with custom actions)
         let actionHandled = false;
@@ -83,34 +86,8 @@ class ExamineHandler {
             }
         }
         
-        // Check location items for ActionItems with smart matching (include invisible items)
+        // Do smart matching first across all items to find the best match
         if (!actionHandled) {
-            const locationItems = this.adventure.player.getLocation().getItems(); // This includes invisible items
-            const locationMatch = this.itemMatcher.findBestMatch(searchTerm, locationItems);
-            
-            if (locationMatch.item && locationMatch.item.isSpecial()) {
-                const result = locationMatch.item.executeAction(verb, currentRoomId, this.adventure.world, locationItems);
-                if (result && result.success) {
-                    this.adventure.desc.value += result.message + "\n";
-                    
-                    // Handle location change
-                    if (result.newLocation) {
-                        const newLoc = this.adventure.player.locations[result.newLocation];
-                        if (newLoc) {
-                            this.adventure.player.setLocation(newLoc);
-                            return { success: true, moved: true };
-                        }
-                    }
-                    
-                    actionHandled = true;
-                }
-            }
-        }
-        
-        // If no ActionItem handled it, check for regular items
-        if (!actionHandled) {
-            let items = false;
-            
             // Combine all items for comprehensive matching
             const allItems = [...playerItems, ...this.adventure.player.getLocation().getItems()];
             const allItemsMatch = this.itemMatcher.findBestMatch(searchTerm, allItems);
@@ -120,19 +97,41 @@ class ExamineHandler {
             
             if (disambigResult.needsDisambiguation) {
                 this.adventure.desc.value += disambigResult.message + "\n";
-                items = true; // Mark as handled
+                actionHandled = true;
             } else if (disambigResult.selectedItem) {
-                const description = disambigResult.selectedItem.getDescription();
-                const displayDescription = description && description.trim() !== '' ? description : "You see nothing special.";
-                this.adventure.desc.value += displayDescription + "\n";
-                items = true;
+                // Check if the best match is a special item with a custom action for this verb
+                if (disambigResult.selectedItem.isSpecial && disambigResult.selectedItem.isSpecial() && 
+                    disambigResult.selectedItem.hasAction && disambigResult.selectedItem.hasAction(verb)) {
+                    
+                    // Execute the ActionItem's custom action
+                    const result = disambigResult.selectedItem.executeAction(verb, currentRoomId, this.adventure.world, allItems);
+                    if (result && result.success) {
+                        this.adventure.desc.value += result.message + "\n";
+                        
+                        // Handle location change
+                        if (result.newLocation) {
+                            const newLoc = this.adventure.player.locations[result.newLocation];
+                            if (newLoc) {
+                                this.adventure.player.setLocation(newLoc);
+                                return { success: true, moved: true };
+                            }
+                        }
+                        actionHandled = true;
+                    }
+                } else {
+                    // Regular item examination
+                    const description = disambigResult.selectedItem.getDescription();
+                    const displayDescription = description && description.trim() !== '' ? description : "You see nothing special.";
+                    this.adventure.desc.value += displayDescription + "\n";
+                    actionHandled = true;
+                }
             }
-            
-            if (!items) {
-                console.log(`ExamineHandler: Could not find item "${searchTerm}"`);
-                console.log(`Available items:`, allItems.map(item => `"${item.getName()}" (invisible: ${item.invisible})`));
-                this.adventure.desc.value += "I don't see that around here.\n";
-            }
+        }
+        
+        // If nothing was handled, show not found message
+        if (!actionHandled) {
+            console.log(`ExamineHandler: Could not find item "${searchTerm}"`);
+            this.adventure.desc.value += "I don't see that around here.\n";
         }
         
         return { success: true, moved: false };
