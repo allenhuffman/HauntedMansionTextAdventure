@@ -90,6 +90,7 @@ class ActionItemHandler {
         let result = null;
         if (typeof actionItem.executeAction === 'function') {
             result = actionItem.executeAction(verb, currentRoomId, this.adventure.player, itemCollection);
+            console.log(`ActionItemHandler: Action result:`, result);
         }
         
         if (result && result.success) {
@@ -103,6 +104,11 @@ class ActionItemHandler {
             // Handle revealing items in specific location
             if (result.revealsItemId && result.revealsItemLocation) {
                 this.revealItemInLocation(result.revealsItemId, result.revealsItemLocation);
+            }
+            
+            // Handle hiding items
+            if (result.hidesItemId) {
+                this.hideItem(result.hidesItemId);
             }
             
             // Handle sound effects
@@ -120,9 +126,25 @@ class ActionItemHandler {
                 }
             }
             
-            // Handle adding exits
+            // Handle location modifications (new system)
+            if (result.modifyLocation) {
+                console.log(`ActionItemHandler: Found modifyLocation:`, result.modifyLocation);
+                this.handleModifyLocation(result.modifyLocation, currentRoomId);
+            } else {
+                console.log(`ActionItemHandler: No modifyLocation found in result`);
+            }
+            
+            // Handle adding exits (legacy system - keep for backward compatibility)
             if (result.addExit) {
-                this.handleAddExit(result.addExit, currentRoomId);
+                if (Array.isArray(result.addExit)) {
+                    // Handle multiple exits
+                    for (const exitDef of result.addExit) {
+                        this.handleAddExit(exitDef, currentRoomId);
+                    }
+                } else {
+                    // Handle single exit
+                    this.handleAddExit(result.addExit, currentRoomId);
+                }
             }
             
             return { success: true, moved: moved };
@@ -273,11 +295,16 @@ class ActionItemHandler {
      * @param {number} currentRoomId - Current room ID
      */
     handleAddExit(exitDef, currentRoomId) {
-        console.log(`ActionItemHandler: Adding exit ${exitDef.direction} to ${exitDef.destination} in room ${currentRoomId}`);
+        // Determine which room to add the exit to
+        const targetRoomId = exitDef.roomId || currentRoomId;
+        console.log(`ActionItemHandler: Adding exit ${exitDef.direction} to ${exitDef.destination} in room ${targetRoomId}`);
         
-        // Find the current location and add the exit
-        const currentLocation = this.adventure.player.getLocation();
-        if (currentLocation && currentLocation.addExit) {
+        // Find the target location and add the exit
+        const targetLocation = exitDef.roomId ? 
+            this.adventure.player.locations[exitDef.roomId] : 
+            this.adventure.player.getLocation();
+            
+        if (targetLocation && targetLocation.addExit) {
             // Convert direction string to Exit constant
             let directionConstant = Exit.UNDEFINED;
             const dir = exitDef.direction.toUpperCase();
@@ -294,10 +321,76 @@ class ActionItemHandler {
             const destinationLocation = this.adventure.player.locations[exitDef.destination];
             if (destinationLocation) {
                 const exit = new Exit(directionConstant, destinationLocation);
-                currentLocation.addExit(exit);
-                console.log(`ActionItemHandler: Successfully added ${dir} exit to room ${exitDef.destination}`);
+                targetLocation.addExit(exit);
+                console.log(`ActionItemHandler: Successfully added ${dir} exit from room ${targetRoomId} to room ${exitDef.destination}`);
+                
+                // Handle room description change if specified
+                if (exitDef.changeRoomDescription) {
+                    targetLocation.setDescription(exitDef.changeRoomDescription);
+                    console.log(`ActionItemHandler: Changed description of room ${targetRoomId}`);
+                }
             } else {
                 console.log(`ActionItemHandler: Could not find destination location ${exitDef.destination}`);
+            }
+        }
+    }
+
+    /**
+     * Handle modifying locations (adding exits, changing descriptions, etc.)
+     * @param {Object|Array} modifyDef - The modification definition(s)
+     * @param {number} currentRoomId - The current room ID (for default roomId)
+     */
+    handleModifyLocation(modifyDef, currentRoomId) {
+        console.log(`ActionItemHandler: Handling location modifications`);
+        
+        // Handle both single modification and array of modifications
+        const modifications = Array.isArray(modifyDef) ? modifyDef : [modifyDef];
+        
+        for (const mod of modifications) {
+            const targetRoomId = mod.roomId || currentRoomId;
+            console.log(`ActionItemHandler: Modifying room ${targetRoomId}`);
+            
+            // Find the target location
+            const targetLocation = mod.roomId ? 
+                this.adventure.player.locations[mod.roomId] : 
+                this.adventure.player.getLocation();
+                
+            if (!targetLocation) {
+                console.log(`ActionItemHandler: Could not find location ${targetRoomId}`);
+                continue;
+            }
+            
+            // Handle adding an exit
+            if (mod.addExit) {
+                console.log(`ActionItemHandler: Adding exit ${mod.addExit.direction} to ${mod.addExit.destination} in room ${targetRoomId}`);
+                
+                // Convert direction string to Exit constant
+                let directionConstant = Exit.UNDEFINED;
+                const dir = mod.addExit.direction.toUpperCase();
+                switch (dir) {
+                    case "NORTH": directionConstant = Exit.NORTH; break;
+                    case "SOUTH": directionConstant = Exit.SOUTH; break;
+                    case "WEST": directionConstant = Exit.WEST; break;
+                    case "EAST": directionConstant = Exit.EAST; break;
+                    case "UP": directionConstant = Exit.UP; break;
+                    case "DOWN": directionConstant = Exit.DOWN; break;
+                }
+                
+                // Find the destination location object
+                const destinationLocation = this.adventure.player.locations[mod.addExit.destination];
+                if (destinationLocation) {
+                    const exit = new Exit(directionConstant, destinationLocation);
+                    targetLocation.addExit(exit);
+                    console.log(`ActionItemHandler: Successfully added ${dir} exit from room ${targetRoomId} to room ${mod.addExit.destination}`);
+                } else {
+                    console.log(`ActionItemHandler: Could not find destination location ${mod.addExit.destination}`);
+                }
+            }
+            
+            // Handle changing room description
+            if (mod.changeDescription) {
+                targetLocation.setDescription(mod.changeDescription);
+                console.log(`ActionItemHandler: Changed description of room ${targetRoomId}`);
             }
         }
     }
@@ -338,6 +431,59 @@ class ActionItemHandler {
         if (this.adventure.player.hiddenItems && this.adventure.player.hiddenItems[itemId]) {
             delete this.adventure.player.hiddenItems[itemId];
             console.log(`ActionItemHandler: Removed item ${itemId} from hiddenItems`);
+        }
+    }
+
+    /**
+     * Hide an item (make it invisible/inaccessible)
+     * @param {number} itemId - The ID of the item to hide
+     */
+    hideItem(itemId) {
+        console.log(`ActionItemHandler: Attempting to hide item ${itemId}`);
+        
+        const allItems = this.adventure.player.allItems;
+        if (!allItems) {
+            console.log("ActionItemHandler: allItems not available");
+            return;
+        }
+
+        const itemToHide = allItems[itemId];
+        if (!itemToHide) {
+            console.log(`ActionItemHandler: Item with ID ${itemId} not found`);
+            return;
+        }
+
+        let foundLocation = null;
+        let removed = false;
+
+        // Search all locations to find where the item is
+        const locations = this.adventure.player.locations;
+        for (const location of Object.values(locations)) {
+            const locationItems = location.getItems();
+            if (locationItems.includes(itemToHide)) {
+                removed = location.removeItem(itemToHide);
+                if (removed) {
+                    foundLocation = location;
+                    break;
+                }
+            }
+        }
+
+        if (removed && foundLocation) {
+            console.log(`ActionItemHandler: Hid item ${itemToHide.getName()} from location ${foundLocation.getName()}`);
+            
+            // Add to hiddenItems tracking
+            if (!this.adventure.player.hiddenItems) {
+                this.adventure.player.hiddenItems = {};
+            }
+            this.adventure.player.hiddenItems[itemId] = {
+                item: itemToHide,
+                hiddenFrom: foundLocation.id,
+                hiddenAt: Date.now()
+            };
+            console.log(`ActionItemHandler: Added item ${itemId} to hiddenItems tracking`);
+        } else {
+            console.log(`ActionItemHandler: Item ${itemToHide.getName()} was not found in any location`);
         }
     }
 }

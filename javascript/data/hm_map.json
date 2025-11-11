@@ -224,13 +224,13 @@
     {
       "id": 17,
       "name": "Grand Hall",
-      "description": "You are standing next to a large dining room table. It is set as if expecting a large party. You notice an interesting arrangement of plates. There is a decaying birthday cake on the south end of the table.",
+      "description": "You are standing next to a large dining room table, set as if expecting a large party. There is a decaying birthday cake on the south end of the table, and a stairway that leads up to a balcony.",
       "exits": {
         "north": 16,
         "south": 20,
         "west": 18,
         "east": 0,
-        "up": 34,
+        "up": 0,
         "down": 0
       }
     },

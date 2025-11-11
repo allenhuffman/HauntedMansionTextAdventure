@@ -33,7 +33,7 @@
       "id": 3,
       "startLocation": 7,
       "name": "some sheet music",
-      "description": "It is sheet music for an eerie piece of piano music.",
+      "description": "It is sheet music for a haunting waltz.",
       "carryable": true
     },
     {
@@ -469,7 +469,7 @@
       "id": 46,
       "startLocation": 1,
       "name": "a heavy stone gargoyle",
-      "description": "A menacing stone gargoyle perched on a pedestal. Its eyes seem to follow you.",
+      "description": "A menacing stone gargoyle is perched on a pedestal. Its eyes seem to follow you.",
       "carryable": false,
       "actions": [
         {
@@ -487,7 +487,7 @@
     {
       "id": 47,
       "startLocation": 0,
-      "name": "hidden stone key",
+      "name": "a stone key",
       "description": "A small stone key that was hidden within the gargoyle's pedestal.",
       "carryable": true
     },
@@ -496,6 +496,40 @@
       "startLocation": 1,
       "name": "a locked door",
       "description": "It is a heavy wooden door with an ornate bronze lock.",
+      "carryable": false
+    },
+    {
+      "id": 49,
+      "startLocation": 15,
+      "name": "a pipe organ",
+      "description": "The pipe organ is old and dusty, but it still looks functional. The keys are worn from years of use.",
+      "carryable": false,
+      "actions": [
+        {
+          "verb": "play",
+          "useInRoom": 15,
+          "message": "If you played by ear, you might be able to improvise something. But you don't.",
+          "requiresItem": "some sheet music",
+          "requiresItemMessage": "You need sheet music to play a proper melody.",
+          "message": "You begin playing the sheet music. The haunting melody fills the room and echoes throughout the mansion. When you lift your hands from the keys, the music continues to play on its own. As you step away, you now see a ghostly organist sitting at the organ. You hear the sound of ghostly footsteps retreating from somewhere else in the mansion.",
+          "modifyLocation": {
+            "roomId": 17,
+            "addExit": {
+              "direction": "up",
+              "destination": 34
+            }
+          },
+          "hidesItemId": 50,
+          "newDescription": "A ghostly organist is playing a haunting melody on the pipe organ.",
+          "onceOnly": true
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "startLocation": 17,
+      "name": "a group of ghosts",
+      "description": "A group of bored ghostly party guests is hanging out blocking the stairs. They are dressed in formal attire and seem to be waiting for something to happen.",
       "carryable": false
     }
   ]

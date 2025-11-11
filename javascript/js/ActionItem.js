@@ -132,7 +132,9 @@ class ActionItem extends Item {
             revealsItemLocation: actionDef.revealsItemLocation,
             newLocation: actionDef.newLocation,
             addSound: actionDef.addSound,
-            addExit: actionDef.addExit
+            addExit: actionDef.addExit,
+            modifyLocation: actionDef.modifyLocation,
+            hidesItemId: actionDef.hidesItemId
         };
     }
 }
