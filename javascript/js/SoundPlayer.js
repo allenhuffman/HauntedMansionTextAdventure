@@ -59,10 +59,13 @@ class SoundPlayer {
             
             try {
                 this.loopClip.loop = true;
+                this.loopClip.volume = 1.0; // Ensure volume is at maximum
+                console.log(`Audio settings: volume=${this.loopClip.volume}, muted=${this.loopClip.muted}, duration=${this.loopClip.duration}`);
                 await this.loopClip.play();
-                console.log(`Now playing sound file '${this.nowPlaying}'.`);
+                console.log(`Now playing sound file '${this.nowPlaying}' at volume ${this.loopClip.volume}.`);
             } catch (error) {
                 console.log(`Error playing sound file '${soundFile}': ${error.message}`);
+                console.log(`Error details: audioEnabled=${this.audioEnabled}, clip exists=${!!this.loopClip}`);
             }
         }
     }
@@ -97,5 +100,24 @@ class SoundPlayer {
             this.nowPlaying = null;   // Clear the current playing track
             this.zone = null;         // Clear the zone
         }
+    }
+
+    // Debug function - can be called from browser console
+    debugAudio() {
+        console.log(`=== AUDIO DEBUG INFO ===`);
+        console.log(`Audio enabled: ${this.audioEnabled}`);
+        console.log(`Current zone: ${this.zone}`);
+        console.log(`Now playing: ${this.nowPlaying}`);
+        console.log(`Loop clip exists: ${!!this.loopClip}`);
+        if (this.loopClip) {
+            console.log(`Clip volume: ${this.loopClip.volume}`);
+            console.log(`Clip muted: ${this.loopClip.muted}`);
+            console.log(`Clip paused: ${this.loopClip.paused}`);
+            console.log(`Clip current time: ${this.loopClip.currentTime}`);
+            console.log(`Clip duration: ${this.loopClip.duration}`);
+            console.log(`Clip ready state: ${this.loopClip.readyState}`);
+        }
+        console.log(`Loaded clips: ${this.soundList.clips.length}`);
+        console.log(`=========================`);
     }
 }

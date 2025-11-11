@@ -264,28 +264,58 @@ class ActionItemHandler {
     handleSoundEffects(soundEffects, currentRoomId) {
         console.log(`ActionItemHandler: Processing ${soundEffects.length} sound effects`);
         
-        // Update sound configuration for each room specified
+        let currentRoomAffected = false;
+        let newCurrentRoomSound = null;
+        
+        // Update sound configuration for each effect specified
         for (const soundEffect of soundEffects) {
-            const targetRoomId = soundEffect.roomId;
-            const soundFile = soundEffect.soundFile;
-            
-            console.log(`ActionItemHandler: Setting sound ${soundFile} for room ${targetRoomId}`);
-            
-            // Find the target location and set its sound
-            const targetLocation = this.adventure.player.locations[targetRoomId];
-            if (targetLocation && targetLocation.setSound) {
-                targetLocation.setSound(soundFile);
-                console.log(`ActionItemHandler: Sound ${soundFile} set for location ${targetLocation.getName()}`);
-            } else {
-                console.log(`ActionItemHandler: Could not find location ${targetRoomId} or setSound method`);
+            if (soundEffect.zoneName) {
+                // Zone-based audio
+                const zoneName = soundEffect.zoneName;
+                const soundFile = soundEffect.soundFile;
+                
+                console.log(`ActionItemHandler: Setting sound ${soundFile} for zone ${zoneName}`);
+                
+                if (this.adventure.player.setZoneSound && this.adventure.player.setZoneSound(zoneName, soundFile)) {
+                    console.log(`ActionItemHandler: Sound ${soundFile} set for zone ${zoneName}`);
+                    
+                    // Check if current room is in this zone
+                    if (this.adventure.player.audioZones && this.adventure.player.audioZones[zoneName]) {
+                        const zone = this.adventure.player.audioZones[zoneName];
+                        if (zone.rooms.includes(currentRoomId)) {
+                            currentRoomAffected = true;
+                            newCurrentRoomSound = soundFile;
+                        }
+                    }
+                } else {
+                    console.log(`ActionItemHandler: Could not set sound for zone ${zoneName}`);
+                }
+            } else if (soundEffect.roomId) {
+                // Individual room audio (legacy support)
+                const targetRoomId = soundEffect.roomId;
+                const soundFile = soundEffect.soundFile;
+                
+                console.log(`ActionItemHandler: Setting sound ${soundFile} for room ${targetRoomId}`);
+                
+                const targetLocation = this.adventure.player.locations[targetRoomId];
+                if (targetLocation && targetLocation.setSound) {
+                    targetLocation.setSound(soundFile);
+                    console.log(`ActionItemHandler: Sound ${soundFile} set for location ${targetLocation.getName()}`);
+                    
+                    if (targetRoomId === currentRoomId) {
+                        currentRoomAffected = true;
+                        newCurrentRoomSound = soundFile;
+                    }
+                } else {
+                    console.log(`ActionItemHandler: Could not find location ${targetRoomId} or setSound method`);
+                }
             }
         }
         
         // Start playing sound for current room if it was affected
-        const currentRoomSound = soundEffects.find(sound => sound.roomId === currentRoomId);
-        if (currentRoomSound && this.adventure.soundPlayer && this.adventure.soundPlayer.loop) {
-            console.log(`ActionItemHandler: Starting sound ${currentRoomSound.soundFile} in current room ${currentRoomId}`);
-            this.adventure.soundPlayer.loop(currentRoomSound.soundFile);
+        if (currentRoomAffected && newCurrentRoomSound && this.adventure.soundPlayer && this.adventure.soundPlayer.loop) {
+            console.log(`ActionItemHandler: Starting sound ${newCurrentRoomSound} in current room ${currentRoomId}`);
+            this.adventure.soundPlayer.loop(newCurrentRoomSound);
         }
     }
 

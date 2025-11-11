@@ -120,8 +120,8 @@ Loading game map and items...
                 versionElement.textContent = window.Versions.getFullVersionString();
             }
             
-            const adventure = new Adventure();
-            adventure.init();
+            window.adventure = new Adventure();
+            window.adventure.init();
         });
     </script>
 </body>

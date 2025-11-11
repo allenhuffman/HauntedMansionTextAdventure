@@ -17,7 +17,9 @@
     },
     "ballroom": {
       "rooms": [15, 16, 17, 20, 21, 29, 30, 31, 32, 34, 35, 36],
-      "description": "Grand ballroom complex - starts silent, puzzle enables music"
+      "description": "Grand ballroom complex - starts silent, pipe organ puzzle enables ballroom.mp3 music",
+      "enabled": false,
+      "soundFile": "ballroom.mp3"
     },
     "seance": {
       "rooms": [27],

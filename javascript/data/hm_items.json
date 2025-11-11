@@ -508,7 +508,6 @@
         {
           "verb": "play",
           "useInRoom": 15,
-          "message": "If you played by ear, you might be able to improvise something. But you don't.",
           "requiresItem": "some sheet music",
           "requiresItemMessage": "You need sheet music to play a proper melody.",
           "message": "You begin playing the sheet music. The haunting melody fills the room and echoes throughout the mansion. When you lift your hands from the keys, the music continues to play on its own. As you step away, you now see a ghostly organist sitting at the organ. You hear the sound of ghostly footsteps retreating from somewhere else in the mansion.",
@@ -519,6 +518,12 @@
               "destination": 34
             }
           },
+          "addSound": [
+            {
+              "zoneName": "ballroom",
+              "soundFile": "ballroom.mp3"
+            }
+          ],
           "hidesItemId": 50,
           "newDescription": "A ghostly organist is playing a haunting melody on the pipe organ.",
           "onceOnly": true

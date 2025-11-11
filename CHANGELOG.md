@@ -44,6 +44,8 @@ All notable changes to the Haunted Mansion Text Adventure JavaScript version.
 - **Enhanced**: Comprehensive debug logging for modifyLocation operations
 - **Visibility**: Clear console output for room modifications and item hiding
 - **Troubleshooting**: Easier debugging of complex puzzle interactions
+- **Browser Console**: Global `debugAudio()` function for audio system diagnostics
+- **Cleanup**: Removed temporary `testAudio()` function after successful implementation
 
 ### 📝 Documentation Updates
 

@@ -189,3 +189,12 @@ class Adventure {
         this.desc.scrollTop = this.desc.scrollHeight;
     }
 }
+
+// Global debug functions for browser console
+window.debugAudio = function() {
+    if (window.adventure && window.adventure.soundPlayer) {
+        window.adventure.soundPlayer.debugAudio();
+    } else {
+        console.log("Adventure or soundPlayer not available");
+    }
+};

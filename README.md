@@ -194,6 +194,12 @@ ACTIVATE lever - Trigger mansion-wide mechanical changes
 GOTO <room>  - Teleport to any room by number (debug mode)
 ```
 
+### Developer Console Functions
+For troubleshooting and development, several functions are available in the browser console:
+```javascript
+debugAudio()     - Display comprehensive audio system status and diagnostics
+```
+
 ### Shortcuts
 - **L** - LOOK
 - **I** - INVENTORY  

@@ -124,9 +124,10 @@ class CreateWorld {
             
             let audioRoomCount = 0;
             
-            // Apply zone audio to rooms (only if zone has soundFile)
+            // Apply zone audio to rooms (only if zone has soundFile and is enabled)
             for (const [zoneName, zoneData] of Object.entries(audioData.zones)) {
-                if (zoneData.soundFile) { // Only apply if zone has audio
+                if (zoneData.soundFile && zoneData.enabled !== false) { 
+                    // Apply audio if zone has soundFile and is not explicitly disabled
                     for (const roomId of zoneData.rooms) {
                         if (tempLocation[roomId]) {
                             tempLocation[roomId].setSound(zoneData.soundFile);
@@ -134,6 +135,8 @@ class CreateWorld {
                             audioRoomCount++;
                         }
                     }
+                } else if (zoneData.soundFile && zoneData.enabled === false) {
+                    console.log(`Zone ${zoneName} - Audio disabled (${zoneData.rooms.length} rooms, would play: ${zoneData.soundFile})`);
                 } else {
                     console.log(`Zone ${zoneName} - Silent zone (${zoneData.rooms.length} rooms)`);
                 }
