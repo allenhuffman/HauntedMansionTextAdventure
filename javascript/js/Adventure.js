@@ -73,7 +73,7 @@ class Adventure {
         if (line.length === 0) return; // Ignore NULL lines...
         line = line.trim(); // Remove leading and trailing whitespace.
         
-        // Parse the input
+        // Parse the input with enhanced parsing
         const parser = new Parse();
         parser.parse(line);
         let verb = parser.getVerb();
@@ -97,12 +97,12 @@ class Adventure {
         
         let moved = false;
         
-        // Try the new command routing system first
+        // Try the new command routing system first with enhanced parse result
         if (this.commandRouter) {
             console.log("Router exists, checking canHandle for:", verb, noun);
-            if (this.commandRouter.canHandle(verb, noun)) {
+            if (this.commandRouter.canHandle(verb, noun, parser)) {
                 console.log("Router can handle command, routing...");
-                const result = this.commandRouter.route(verb, noun);
+                const result = this.commandRouter.route(verb, noun, parser);
                 console.log("Router result:", result);
                 if (result.success) {
                     moved = result.moved;
@@ -150,44 +150,27 @@ class Adventure {
             this.player.getLocation().beenHere(true);
         }
 
-        flag = false; // No exits found yet.
+        // Show exits using shared text formatting utility
         const allExits = this.player.getLocation().getExits();
         // Filter out exits that point to room 0 or null (blocked exits)
         const exits = allExits.filter(exit => exit.getLeadsTo() && exit.getLeadsTo().getId && exit.getLeadsTo().getId() !== 0);
         
-        for (let i = 0; i < exits.length; i++) {
-            const anExit = exits[i];
-            if (flag === true) { // If we have printed at least one dir...
-                if (i === exits.length - 1) { // ...but there are no more after this one,
-                    this.desc.value += " and "; // ...we can print the final "and".
-                } else { // Else there are more after this one...
-                    this.desc.value += ", "; // ...so just print a comma.
-                }
-            }
-            if (flag === false) this.desc.value += "Obvious exits lead ";
-            this.desc.value += anExit.getDirectionName();
-            flag = true;
-            if (i === exits.length - 1) this.desc.value += ".\n";
+        if (exits.length > 0) {
+            const exitNames = exits.map(exit => exit.getDirectionName());
+            const exitList = TextUtils.formatList(exitNames);
+            this.desc.value += `Obvious exits lead ${exitList}.\n`;
+        } else {
+            this.desc.value += "There are no obvious exits.\n";
         }
-        if (flag === false) this.desc.value += "There are no obvious exits.\n";
 
-        flag = false; // no items
-        this.desc.value += "You see ";
+        // Show items using shared text formatting utility
         const items = this.player.getLocation().getItems();
-        
-        for (let i = 0; i < items.length; i++) {
-            const anItem = items[i];
-            if (flag === true && i === items.length - 1) this.desc.value += "and ";
-            this.desc.value += anItem.getName();
-            flag = true;
-            if (i < items.length - 1) { // More items?
-                this.desc.value += ", ";
-            } else {
-                this.desc.value += ".\n";
-            }
-        }
-        if (!flag) {
-            this.desc.value += "nothing of interest.\n";
+        if (items.length > 0) {
+            const itemNames = items.map(item => item.getName());
+            const itemList = TextUtils.formatItemList(itemNames);
+            this.desc.value += `You see ${itemList}.\n`;
+        } else {
+            this.desc.value += "You see nothing of interest.\n";
         }
         
         // Location-based audio system

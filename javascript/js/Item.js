@@ -1,14 +1,24 @@
 class Item {
     constructor(keyword, name, description, getable = true, actions = []) {
-        this.keyword = keyword || null;
-        this.name = name || null;
-        this.description = description || null;
-        this.getable = getable;
-        this.actions = actions || [];
+        // For backward compatibility, support both old (keyword, name) and new (name only) formats
+        if (typeof keyword === 'object' && keyword !== null) {
+            // New format: first parameter is an options object
+            const options = keyword;
+            this.name = options.name || null;
+            this.description = options.description || null;
+            this.getable = options.getable !== undefined ? options.getable : true;
+            this.actions = options.actions || [];
+        } else {
+            // Old format: separate parameters, but use name as primary identifier
+            this.name = name || keyword || null; // Prefer name, fallback to keyword
+            this.description = description || null;
+            this.getable = getable !== undefined ? getable : true;
+            this.actions = actions || [];
+        }
         
         // Store original values for resetting
-        this.originalName = name || null;
-        this.originalDescription = description || null;
+        this.originalName = this.name || null;
+        this.originalDescription = this.description || null;
         
         // Track which actions have been performed (for onceOnly actions)
         this.performedActions = new Set();
@@ -60,7 +70,7 @@ class Item {
         // Check if action requires a specific item
         if (action.requiresItem) {
             const hasRequiredItem = playerItems.some(item => 
-                item.getKeyword().toLowerCase() === action.requiresItem.toLowerCase()
+                item.getName().toLowerCase().includes(action.requiresItem.toLowerCase())
             );
             if (!hasRequiredItem) {
                 return {
@@ -83,7 +93,7 @@ class Item {
 
         const result = {
             success: true,
-            message: action.message || `You ${verb} the ${this.keyword}.`,
+            message: action.message || `You ${verb} the ${this.name}.`,
             newLocation: null,
             consumeItem: action.consumeItem || false,
             addExit: action.addExit || null,
@@ -133,14 +143,14 @@ class Item {
         return this.name;
     }
 
-    // Set/change item keyword.
-    setKeyword(keyword) {
-        this.keyword = keyword;
+    // Return item keyword (for backward compatibility - returns name)
+    getKeyword() {
+        return this.name; // Use name as the keyword for backward compatibility
     }
 
-    // Return item keyword.
-    getKeyword() {
-        return this.keyword;
+    // Set/change item keyword (for backward compatibility - sets name)
+    setKeyword(keyword) {
+        this.name = keyword;
     }
 
     // Set/change item getable status.

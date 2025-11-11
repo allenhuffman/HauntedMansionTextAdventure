@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET Command Debug</title>
+    <style>
+        body { font-family: monospace; background: #000; color: #0f0; padding: 20px; }
+        .debug { border: 1px solid #0f0; padding: 10px; margin: 10px 0; }
+        pre { background: #111; padding: 10px; }
+        button { background: #0f0; color: #000; padding: 5px 10px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>GET Command Debug Test</h1>
+    
+    <div class="debug">
+        <h2>Current Game State</h2>
+        <button onclick="checkGameState()">Check Game State</button>
+        <pre id="gameState"></pre>
+    </div>
+
+    <div class="debug">
+        <h2>Test GET Command Processing</h2>
+        <button onclick="testGetCommand()">Test 'get key' Command</button>
+        <pre id="getCommandResult"></pre>
+    </div>
+
+    <div class="debug">
+        <h2>Live Command Test</h2>
+        <input type="text" id="testInput" value="get key" style="padding: 5px; width: 200px;">
+        <button onclick="testLiveCommand()">Execute Command</button>
+        <pre id="liveResult"></pre>
+    </div>
+
+    <!-- Load all necessary game files -->
+    <script src="js/Location.js"></script>
+    <script src="js/Exit.js"></script>
+    <script src="js/Item.js"></script>
+    <script src="js/ActionItem.js"></script>
+    <script src="js/Inventory.js"></script>
+    <script src="js/Player.js"></script>
+    <script src="js/SpecialExit.js"></script>
+    <script src="js/SpecialLocation.js"></script>
+    <script src="js/World.js"></script>
+    <script src="js/Carryable.js"></script>
+    <script src="js/GUI.js"></script>
+    <script src="js/Display.js"></script>
+    <script src="js/CSVTokenizer.js"></script>
+    <script src="js/Parse.js"></script>
+    <script src="js/ItemMatcher.js"></script>
+    <script src="js/SoundList.js"></script>
+    <script src="js/SoundPlayer.js"></script>
+    <script src="js/CreateWorld.js"></script>
+    
+    <!-- Load Command System -->
+    <script src="js/commands/MovementHandler.js"></script>
+    <script src="js/commands/InventoryHandler.js"></script>
+    <script src="js/commands/ItemHandler.js"></script>
+    <script src="js/commands/ExamineHandler.js"></script>
+    <script src="js/commands/SystemHandler.js"></script>
+    <script src="js/commands/GameControlHandler.js"></script>
+    <script src="js/commands/SearchHandler.js"></script>
+    <script src="js/commands/ActionItemHandler.js"></script>
+    <script src="js/commands/CommandRouter.js"></script>
+    
+    <!-- Load Main Adventure -->
+    <script src="js/Adventure.js"></script>
+
+    <script>
+        let adventure = null;
+        let commandRouter = null;
+
+        // Initialize game on load
+        window.addEventListener('load', async function() {
+            console.log('Debug page loading...');
+            
+            // Create a mock textarea for adventure.desc
+            const mockDesc = document.createElement('textarea');
+            mockDesc.style.display = 'none';
+            document.body.appendChild(mockDesc);
+            
+            // Initialize adventure
+            adventure = new Adventure();
+            adventure.desc = mockDesc; // Use mock desc
+            adventure.input = document.getElementById('testInput');
+            
+            // Initialize sound player (minimal)
+            adventure.soundPlayer = { enableAudio: () => {} };
+            
+            try {
+                // Initialize the world
+                adventure.player = new CreateWorld();
+                const initResult = await adventure.player.init();
+                
+                // Initialize command router
+                if (typeof CommandRouter !== 'undefined') {
+                    setTimeout(() => {
+                        adventure.commandRouter = new CommandRouter(adventure);
+                        commandRouter = adventure.commandRouter;
+                        console.log("CommandRouter initialized with", adventure.commandRouter.handlers.length, "handlers");
+                        document.getElementById('gameState').textContent = 'Game initialized successfully!';
+                    }, 100);
+                } else {
+                    document.getElementById('gameState').textContent = 'CommandRouter not available!';
+                }
+                
+            } catch (error) {
+                console.error('Failed to initialize game:', error);
+                document.getElementById('gameState').textContent = 'Failed to initialize: ' + error.message;
+            }
+        });
+
+        function checkGameState() {
+            const output = document.getElementById('gameState');
+            let result = '';
+            
+            try {
+                if (!adventure) {
+                    result += 'Adventure not initialized\n';
+                    return;
+                }
+                
+                if (!adventure.player) {
+                    result += 'Player not initialized\n';
+                    return;
+                }
+                
+                const location = adventure.player.getLocation();
+                result += `Current Location: ${location.getName()}\n`;
+                result += `Location ID: ${location.getId()}\n`;
+                
+                const items = location.getItems();
+                result += `Items in location: ${items.length}\n`;
+                
+                items.forEach((item, index) => {
+                    result += `  ${index + 1}. "${item.getName()}" (keyword: "${item.getKeyword()}", getable: ${item.isGetable()})\n`;
+                });
+                
+                const inventory = adventure.player.getItems();
+                result += `Items in inventory: ${inventory.length}\n`;
+                
+                inventory.forEach((item, index) => {
+                    result += `  ${index + 1}. "${item.getName()}" (keyword: "${item.getKeyword()}")\n`;
+                });
+                
+                result += `\nCommand Router: ${commandRouter ? 'Available' : 'Not available'}\n`;
+                if (commandRouter) {
+                    result += `Handlers: ${commandRouter.handlers.length}\n`;
+                    commandRouter.handlers.forEach((handler, index) => {
+                        result += `  ${index + 1}. ${handler.constructor.name}\n`;
+                    });
+                }
+                
+            } catch (error) {
+                result += `Error checking game state: ${error.message}\n`;
+                console.error('Game state error:', error);
+            }
+            
+            output.textContent = result;
+        }
+
+        function testGetCommand() {
+            const output = document.getElementById('getCommandResult');
+            let result = '';
+            
+            try {
+                if (!adventure || !adventure.player || !commandRouter) {
+                    result += 'Game not properly initialized\n';
+                    output.textContent = result;
+                    return;
+                }
+                
+                // Parse the command
+                const parser = new Parse();
+                parser.parse('get key');
+                const verb = parser.getVerb();
+                const noun = parser.getNoun();
+                
+                result += `Parsed command: verb="${verb}", noun="${noun}"\n`;
+                result += `Full noun: "${parser.getFullNoun()}"\n`;
+                
+                // Check if router can handle it
+                const canHandle = commandRouter.canHandle(verb, noun, parser);
+                result += `Router can handle: ${canHandle}\n`;
+                
+                if (canHandle) {
+                    // Execute the command
+                    result += '\n--- Executing command ---\n';
+                    const routeResult = commandRouter.route(verb, noun, parser);
+                    result += `Route result: success=${routeResult.success}, moved=${routeResult.moved}\n`;
+                    
+                    // Check if anything changed
+                    const inventory = adventure.player.getItems();
+                    result += `Inventory after command: ${inventory.length} items\n`;
+                    inventory.forEach((item, index) => {
+                        result += `  ${index + 1}. "${item.getName()}"\n`;
+                    });
+                    
+                    // Show any messages from the desc
+                    const messages = adventure.desc.value;
+                    if (messages) {
+                        result += '\nGame messages:\n' + messages;
+                    }
+                }
+                
+            } catch (error) {
+                result += `Error testing GET command: ${error.message}\n`;
+                console.error('GET command error:', error);
+            }
+            
+            output.textContent = result;
+        }
+
+        function testLiveCommand() {
+            const input = document.getElementById('testInput');
+            const output = document.getElementById('liveResult');
+            const command = input.value;
+            
+            let result = `Testing command: "${command}"\n\n`;
+            
+            try {
+                if (!adventure || !adventure.player || !commandRouter) {
+                    result += 'Game not properly initialized\n';
+                    output.textContent = result;
+                    return;
+                }
+                
+                // Clear previous messages
+                adventure.desc.value = '';
+                
+                // Simulate the textEntered() method logic
+                const parser = new Parse();
+                parser.parse(command);
+                let verb = parser.getVerb();
+                let noun = parser.getNoun();
+                
+                result += `Original: verb="${verb}", noun="${noun}"\n`;
+                
+                // Process shortcuts (from Adventure.textEntered)
+                const directionResult = MovementHandler.processDirectionShortcuts(verb, noun);
+                verb = directionResult.verb;
+                noun = directionResult.noun;
+                
+                if (verb && verb.toUpperCase() === "L") { verb = "LOOK"; noun = null; }
+                if (verb && verb.toUpperCase() === "I") { verb = "INVENTORY"; noun = null; }
+                
+                result += `After shortcuts: verb="${verb}", noun="${noun}"\n`;
+                
+                // Try command router
+                if (commandRouter.canHandle(verb, noun, parser)) {
+                    result += 'Router can handle command\n';
+                    const routeResult = commandRouter.route(verb, noun, parser);
+                    result += `Router result: success=${routeResult.success}, moved=${routeResult.moved}\n`;
+                    
+                    // Check messages
+                    const messages = adventure.desc.value;
+                    if (messages) {
+                        result += '\nGame output:\n' + messages;
+                    } else {
+                        result += '\nNo game output generated\n';
+                    }
+                } else {
+                    result += 'Router cannot handle command\n';
+                }
+                
+            } catch (error) {
+                result += `Error: ${error.message}\n`;
+                console.error('Live command error:', error);
+            }
+            
+            output.textContent = result;
+        }
+    </script>
+</body>
+</html>

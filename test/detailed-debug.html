@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detailed Debug - Name-Only System</title>
+    <style>
+        body { font-family: monospace; background: #000; color: #0f0; padding: 20px; }
+        .section { margin: 20px 0; border: 1px solid #0f0; padding: 10px; }
+        .error { color: #f00; }
+        .success { color: #0f0; }
+        .warning { color: #ff0; }
+        .info { color: #0ff; }
+        textarea { width: 100%; height: 200px; background: #111; color: #0f0; border: 1px solid #0f0; }
+        button { background: #0f0; color: #000; padding: 5px 10px; margin: 5px; }
+        pre { background: #111; padding: 10px; border: 1px solid #333; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Detailed Debug - Name-Only System Analysis</h1>
+    
+    <div class="section">
+        <h2>Step 1: Basic Item Creation Tests</h2>
+        <button onclick="testBasicItemCreation()">Run Item Creation Tests</button>
+        <pre id="itemCreationResults"></pre>
+    </div>
+
+    <div class="section">
+        <h2>Step 2: ItemMatcher Testing</h2>
+        <button onclick="testItemMatcher()">Run ItemMatcher Tests</button>
+        <pre id="itemMatcherResults"></pre>
+    </div>
+
+    <div class="section">
+        <h2>Step 3: Parse Testing</h2>
+        <button onclick="testParsing()">Run Parse Tests</button>
+        <pre id="parseResults"></pre>
+    </div>
+
+    <div class="section">
+        <h2>Step 4: Command Handler Testing</h2>
+        <button onclick="testCommandHandlers()">Run Command Handler Tests</button>
+        <pre id="commandHandlerResults"></pre>
+    </div>
+
+    <div class="section">
+        <h2>Step 5: Full Integration Test</h2>
+        <button onclick="testFullIntegration()">Run Full Integration Test</button>
+        <pre id="integrationResults"></pre>
+    </div>
+
+    <div class="section">
+        <h2>Live Command Testing</h2>
+        <input type="text" id="testCommand" placeholder="Enter command to test (e.g., 'get key')" style="width: 300px;">
+        <button onclick="testLiveCommand()">Test Command</button>
+        <pre id="liveResults"></pre>
+    </div>
+
+    <script src="../js/Item.js"></script>
+    <script src="../js/ActionItem.js"></script>
+    <script src="../js/ItemMatcher.js"></script>
+    <script src="../js/Parse.js"></script>
+    <script src="../js/Location.js"></script>
+    <script src="../js/Inventory.js"></script>
+    <script src="../js/Player.js"></script>
+    <script src="../js/commands/ItemHandler.js"></script>
+
+    <script>
+        // Debug utilities
+        function log(message, type = 'info') {
+            console.log(`[${type.toUpperCase()}] ${message}`);
+            return `<span class="${type}">[${type.toUpperCase()}]</span> ${message}\n`;
+        }
+
+        function testBasicItemCreation() {
+            const results = document.getElementById('itemCreationResults');
+            let output = '';
+
+            try {
+                output += log('Testing Item creation with name only...', 'info');
+
+                // Test 1: Create item with just name (new format)
+                const item1 = new Item({ name: 'Skeleton Key', location: 1, carryable: true });
+                output += log(`✓ Created item1: name="${item1.getName()}", keyword="${item1.getKeyword()}"`, 'success');
+
+                // Test 2: Create item with old format (keyword + name)
+                const item2 = new Item({ keyword: 'portrait', name: 'Changing Portrait', location: 1, carryable: false });
+                output += log(`✓ Created item2: name="${item2.getName()}", keyword="${item2.getKeyword()}"`, 'success');
+
+                // Test 3: ActionItem with name only
+                const actionItem = new ActionItem({ name: 'Crystal Ball', location: 1, carryable: true, action: 'examine' });
+                output += log(`✓ Created actionItem: name="${actionItem.getName()}", keyword="${actionItem.getKeyword()}"`, 'success');
+
+                // Test 4: Verify getKeyword() returns getName() for name-only items
+                if (item1.getKeyword() === item1.getName()) {
+                    output += log('✓ getKeyword() correctly returns getName() for name-only items', 'success');
+                } else {
+                    output += log(`✗ getKeyword() should return getName() but returns "${item1.getKeyword()}"`, 'error');
+                }
+
+                output += log('Basic Item creation tests completed successfully!', 'success');
+
+            } catch (error) {
+                output += log(`✗ Item creation failed: ${error.message}`, 'error');
+                console.error('Item creation error:', error);
+            }
+
+            results.innerHTML = output;
+        }
+
+        function testItemMatcher() {
+            const results = document.getElementById('itemMatcherResults');
+            let output = '';
+
+            try {
+                output += log('Testing ItemMatcher functionality...', 'info');
+
+                // Create test items
+                const items = [
+                    new Item({ name: 'Skeleton Key', location: 1, carryable: true }),
+                    new Item({ name: 'Rusty Key', location: 1, carryable: true }),
+                    new Item({ name: 'Crystal Ball', location: 1, carryable: true })
+                ];
+
+                // Test exact match
+                const matcher = new ItemMatcher();
+                let matches = matcher.findMatches('skeleton key', items);
+                output += log(`Searching for "skeleton key": found ${matches.length} matches`, matches.length > 0 ? 'success' : 'error');
+                if (matches.length > 0) {
+                    output += log(`  Best match: "${matches[0].item.getName()}" (confidence: ${matches[0].confidence})`, 'info');
+                }
+
+                // Test partial match
+                matches = matcher.findMatches('key', items);
+                output += log(`Searching for "key": found ${matches.length} matches`, matches.length > 0 ? 'success' : 'error');
+                matches.forEach((match, index) => {
+                    output += log(`  Match ${index + 1}: "${match.item.getName()}" (confidence: ${match.confidence})`, 'info');
+                });
+
+                // Test no match
+                matches = matcher.findMatches('nonexistent', items);
+                output += log(`Searching for "nonexistent": found ${matches.length} matches`, matches.length === 0 ? 'success' : 'warning');
+
+                output += log('ItemMatcher tests completed!', 'success');
+
+            } catch (error) {
+                output += log(`✗ ItemMatcher test failed: ${error.message}`, 'error');
+                console.error('ItemMatcher error:', error);
+            }
+
+            results.innerHTML = output;
+        }
+
+        function testParsing() {
+            const results = document.getElementById('parseResults');
+            let output = '';
+
+            try {
+                output += log('Testing Parse functionality...', 'info');
+
+                const parser = new Parse();
+
+                // Test basic parsing
+                const cmd1 = parser.parseCommand('get skeleton key');
+                output += log(`Parsed "get skeleton key": verb="${cmd1.verb}", noun="${cmd1.noun}", fullNoun="${cmd1.fullNoun}"`, 'info');
+
+                const cmd2 = parser.parseCommand('get key');
+                output += log(`Parsed "get key": verb="${cmd2.verb}", noun="${cmd2.noun}", fullNoun="${cmd2.fullNoun}"`, 'info');
+
+                const cmd3 = parser.parseCommand('examine crystal ball');
+                output += log(`Parsed "examine crystal ball": verb="${cmd3.verb}", noun="${cmd3.noun}", fullNoun="${cmd3.fullNoun}"`, 'info');
+
+                // Test noun variations
+                const variations = parser.getNounVariations('skeleton key');
+                output += log(`Noun variations for "skeleton key": [${variations.join(', ')}]`, 'info');
+
+                output += log('Parse tests completed!', 'success');
+
+            } catch (error) {
+                output += log(`✗ Parse test failed: ${error.message}`, 'error');
+                console.error('Parse error:', error);
+            }
+
+            results.innerHTML = output;
+        }
+
+        function testCommandHandlers() {
+            const results = document.getElementById('commandHandlerResults');
+            let output = '';
+
+            try {
+                output += log('Testing Command Handlers...', 'info');
+
+                // Create mock world state
+                const location = new Location(1, "Test Room", "A test room for debugging.");
+                const inventory = new Inventory();
+                const player = new Player();
+                
+                // Add test items to location
+                const testItems = [
+                    new Item({ name: 'Skeleton Key', location: 1, carryable: true }),
+                    new Item({ name: 'Crystal Ball', location: 1, carryable: true })
+                ];
+                
+                testItems.forEach(item => location.addItem(item));
+
+                // Create world mock
+                const world = {
+                    getPlayerLocation: () => location,
+                    getPlayer: () => player,
+                    getInventory: () => inventory,
+                    findItemInLocation: (itemName, loc) => {
+                        const matcher = new ItemMatcher();
+                        const matches = matcher.findMatches(itemName, loc.getItems());
+                        return matches.length > 0 ? matches[0].item : null;
+                    }
+                };
+
+                // Test ItemHandler
+                if (typeof ItemHandler !== 'undefined') {
+                    const itemHandler = new ItemHandler();
+                    
+                    // Test GET command
+                    const getResult = itemHandler.handleCommand('get', 'skeleton key', world);
+                    output += log(`GET "skeleton key" result: ${getResult || 'null'}`, getResult ? 'success' : 'error');
+                    
+                    // Test inventory after get
+                    const inventoryItems = inventory.getItems();
+                    output += log(`Inventory now contains ${inventoryItems.length} items`, inventoryItems.length > 0 ? 'success' : 'info');
+                    
+                    if (inventoryItems.length > 0) {
+                        inventoryItems.forEach(item => {
+                            output += log(`  - ${item.getName()}`, 'info');
+                        });
+                    }
+                } else {
+                    output += log('✗ ItemHandler not available', 'error');
+                }
+
+                output += log('Command Handler tests completed!', 'success');
+
+            } catch (error) {
+                output += log(`✗ Command Handler test failed: ${error.message}`, 'error');
+                console.error('Command Handler error:', error);
+            }
+
+            results.innerHTML = output;
+        }
+
+        function testFullIntegration() {
+            const results = document.getElementById('integrationResults');
+            let output = '';
+
+            try {
+                output += log('Testing Full Integration...', 'info');
+
+                // This would test the full pipeline:
+                // Parse -> ItemMatcher -> CommandHandler -> Result
+                
+                output += log('Full integration test requires full game engine - check main game', 'warning');
+
+            } catch (error) {
+                output += log(`✗ Full integration test failed: ${error.message}`, 'error');
+                console.error('Full integration error:', error);
+            }
+
+            results.innerHTML = output;
+        }
+
+        function testLiveCommand() {
+            const results = document.getElementById('liveResults');
+            const command = document.getElementById('testCommand').value;
+            let output = '';
+
+            try {
+                output += log(`Testing live command: "${command}"`, 'info');
+
+                // Parse the command
+                const parser = new Parse();
+                const parsed = parser.parseCommand(command);
+                output += log(`Parsed: verb="${parsed.verb}", noun="${parsed.noun}", fullNoun="${parsed.fullNoun}"`, 'info');
+
+                // Create test environment
+                const location = new Location(1, "Test Room", "A test room for debugging.");
+                const testItems = [
+                    new Item({ name: 'Skeleton Key', location: 1, carryable: true }),
+                    new Item({ name: 'Rusty Key', location: 1, carryable: true }),
+                    new Item({ name: 'Crystal Ball', location: 1, carryable: true })
+                ];
+                testItems.forEach(item => location.addItem(item));
+
+                // Test item matching
+                const matcher = new ItemMatcher();
+                const matches = matcher.findMatches(parsed.fullNoun || parsed.noun, location.getItems());
+                output += log(`Found ${matches.length} matching items`, matches.length > 0 ? 'success' : 'warning');
+                
+                matches.forEach((match, index) => {
+                    output += log(`  Match ${index + 1}: "${match.item.getName()}" (confidence: ${match.confidence})`, 'info');
+                });
+
+            } catch (error) {
+                output += log(`✗ Live command test failed: ${error.message}`, 'error');
+                console.error('Live command error:', error);
+            }
+
+            results.innerHTML = output;
+        }
+
+        // Auto-run basic tests on load
+        window.addEventListener('load', () => {
+            console.log('Debug page loaded - ready for testing');
+        });
+    </script>
+</body>
+</html>

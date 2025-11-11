@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Parsing Test</title>
+    <style>
+        body { font-family: monospace; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .test-passed { color: green; }
+        .test-failed { color: red; }
+        .test-result { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Smart Parsing System Test</h1>
+    <div id="test-results"></div>
+
+    <script src="../js/utils/Parse.js"></script>
+    <script src="../js/utils/ItemMatcher.js"></script>
+    <script>
+        // Mock Item class for testing
+        class MockItem {
+            constructor(keyword, name, description) {
+                this.keyword = keyword;
+                this.name = name;
+                this.description = description;
+            }
+            
+            getKeyword() { return this.keyword; }
+            getName() { return this.name; }
+            getDescription() { return this.description; }
+        }
+
+        // Test data based on actual game items
+        const testItems = [
+            new MockItem("candle", "a lit candle", "It is just your basic magically burning candle."),
+            new MockItem("music", "some sheet music", "Musical notes for a haunting melody."),
+            new MockItem("spork", "a plastic spork", "A combination spoon and fork made of plastic."),
+            new MockItem("chicken", "a rubber chicken", "A squeaky rubber chicken toy."),
+            new MockItem("hatbox", "a small hatbox", "A small decorative hatbox."),
+            new MockItem("clock", "a grandfather clock", "An old grandfather clock that ticks ominously."),
+            new MockItem("trumpet", "an old trumpet", "A tarnished brass trumpet."),
+            new MockItem("slipper", "a glass slipper", "A delicate glass slipper."),
+            new MockItem("ladder", "a wooden ladder", "A sturdy wooden ladder."),
+            new MockItem("book", "a book", "It appears to be a collection of stories by Edgar Allan Poe.")
+        ];
+
+        function runTests() {
+            const results = document.getElementById('test-results');
+            const itemMatcher = new ItemMatcher();
+            let passCount = 0;
+            let totalTests = 0;
+
+            function addResult(testName, passed, details) {
+                totalTests++;
+                if (passed) passCount++;
+                
+                const div = document.createElement('div');
+                div.className = 'test-result';
+                div.innerHTML = `<span class="${passed ? 'test-passed' : 'test-failed'}">
+                    ${passed ? '✓' : '✗'} ${testName}
+                    </span>${details ? ': ' + details : ''}`;
+                results.appendChild(div);
+            }
+
+            // Test 1: Enhanced Parse.js multi-word noun extraction
+            const section1 = document.createElement('div');
+            section1.className = 'test-section';
+            section1.innerHTML = '<h3>Test 1: Enhanced Parse.js Multi-word Noun Extraction</h3>';
+            results.appendChild(section1);
+
+            const parser = new Parse();
+            
+            // Test simple commands
+            parser.parse("get candle");
+            addResult("Simple command", parser.getVerb() === "GET" && parser.getNoun() === "CANDLE");
+            addResult("Full noun matches regular noun", parser.getFullNoun() === "CANDLE");
+
+            // Test multi-word commands
+            parser.parse("get lit candle");
+            addResult("Multi-word command verb", parser.getVerb() === "GET");
+            addResult("Multi-word command full noun", parser.getFullNoun() === "LIT CANDLE");
+            addResult("Multi-word command single noun fallback", parser.getNoun() === "CANDLE");
+
+            parser.parse("examine glass slipper");
+            addResult("Multi-word examine", parser.getVerb() === "EXAMINE" && parser.getFullNoun() === "GLASS SLIPPER");
+
+            parser.parse("take wooden ladder");
+            addResult("Multi-word take", parser.getVerb() === "TAKE" && parser.getFullNoun() === "WOODEN LADDER");
+
+            // Test 2: ItemMatcher smart matching
+            const section2 = document.createElement('div');
+            section2.className = 'test-section';
+            section2.innerHTML = '<h3>Test 2: ItemMatcher Smart Matching</h3>';
+            results.appendChild(section2);
+
+            // Test exact keyword matching
+            let match = itemMatcher.findBestMatch("candle", testItems);
+            addResult("Exact keyword match", match.item && match.item.getKeyword() === "candle", 
+                     `confidence: ${match.confidence}`);
+
+            // Test partial name matching
+            match = itemMatcher.findBestMatch("lit candle", testItems);
+            addResult("Partial name match - lit candle", match.item && match.item.getKeyword() === "candle", 
+                     `matched: ${match.item ? match.item.getName() : 'none'}, confidence: ${match.confidence}`);
+
+            match = itemMatcher.findBestMatch("glass slipper", testItems);
+            addResult("Partial name match - glass slipper", match.item && match.item.getKeyword() === "slipper", 
+                     `matched: ${match.item ? match.item.getName() : 'none'}, confidence: ${match.confidence}`);
+
+            match = itemMatcher.findBestMatch("wooden ladder", testItems);
+            addResult("Partial name match - wooden ladder", match.item && match.item.getKeyword() === "ladder", 
+                     `matched: ${match.item ? match.item.getName() : 'none'}, confidence: ${match.confidence}`);
+
+            match = itemMatcher.findBestMatch("grandfather clock", testItems);
+            addResult("Partial name match - grandfather clock", match.item && match.item.getKeyword() === "clock", 
+                     `matched: ${match.item ? match.item.getName() : 'none'}, confidence: ${match.confidence}`);
+
+            // Test case insensitive matching
+            match = itemMatcher.findBestMatch("LIT CANDLE", testItems);
+            addResult("Case insensitive matching", match.item && match.item.getKeyword() === "candle", 
+                     `confidence: ${match.confidence}`);
+
+            // Test 3: Integration - Parse + ItemMatcher
+            const section3 = document.createElement('div');
+            section3.className = 'test-section';
+            section3.innerHTML = '<h3>Test 3: Parse + ItemMatcher Integration</h3>';
+            results.appendChild(section3);
+
+            function testIntegration(command, expectedKeyword) {
+                parser.parse(command);
+                const fullNoun = parser.getFullNoun();
+                const match = itemMatcher.findBestMatch(fullNoun, testItems);
+                const success = match.item && match.item.getKeyword() === expectedKeyword;
+                addResult(`Integration: "${command}"`, success, 
+                         `fullNoun: "${fullNoun}" → ${match.item ? match.item.getName() : 'no match'}`);
+                return success;
+            }
+
+            testIntegration("get lit candle", "candle");
+            testIntegration("examine glass slipper", "slipper");
+            testIntegration("take wooden ladder", "ladder");
+            testIntegration("drop grandfather clock", "clock");
+            testIntegration("search old trumpet", "trumpet");
+
+            // Test 4: Edge cases and disambiguation
+            const section4 = document.createElement('div');
+            section4.className = 'test-section';
+            section4.innerHTML = '<h3>Test 4: Edge Cases</h3>';
+            results.appendChild(section4);
+
+            // Test non-existent items
+            match = itemMatcher.findBestMatch("blue book", testItems);
+            addResult("Non-existent modifier", !match.item || match.confidence < 0.6, 
+                     `matched: ${match.item ? match.item.getName() : 'none'}, confidence: ${match.confidence}`);
+
+            // Test ambiguous partial matches
+            match = itemMatcher.findBestMatch("rubber", testItems);
+            addResult("Partial word match", match.item && match.item.getKeyword() === "chicken", 
+                     `matched: ${match.item ? match.item.getName() : 'none'}, confidence: ${match.confidence}`);
+
+            // Summary
+            const summary = document.createElement('div');
+            summary.className = 'test-section';
+            summary.innerHTML = `<h3>Test Summary</h3>
+                <p><strong>${passCount}/${totalTests} tests passed (${Math.round(passCount/totalTests*100)}%)</strong></p>
+                ${passCount === totalTests ? 
+                    '<p style="color: green;">🎉 All tests passed! Smart parsing system is working correctly.</p>' : 
+                    '<p style="color: orange;">⚠️ Some tests failed. Check implementation details above.</p>'}`;
+            results.appendChild(summary);
+        }
+
+        // Run tests when page loads
+        window.onload = runTests;
+    </script>
+</body>
+</html>

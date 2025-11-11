@@ -5,58 +5,47 @@
 class SearchHandler {
     constructor(adventure) {
         this.adventure = adventure;
+        this.itemMatcher = new ItemMatcher();
     }
 
     /**
      * Check if this handler can process the given command
      * @param {string} verb - The command verb
      * @param {string} noun - The command noun (optional)
+     * @param {Object} parseResult - Complete parse result with full noun info
      * @returns {boolean} True if this handler can process the command
      */
-    canHandle(verb, noun) {
+    canHandle(verb, noun, parseResult) {
         return verb && verb.toUpperCase() === "SEARCH" && noun;
     }
 
     /**
      * Handle SEARCH command
      * @param {string} verb - The command verb
-     * @param {string} noun - The item to search
+     * @param {string} noun - The item to search (for backward compatibility)
+     * @param {Object} parseResult - Complete parse result with full noun info
      * @returns {Object} Result object with success flag and any location changes
      */
-    handle(verb, noun) {
+    handle(verb, noun, parseResult) {
+        const fullNoun = parseResult && parseResult.getFullNoun ? parseResult.getFullNoun() : noun;
+        const searchTerm = fullNoun || noun;
+        
         // SEARCH is typically handled by ActionItems with custom actions
         // This handler provides a fallback for when no ActionItem handles it
         
         const currentRoomId = this.adventure.player.getLocation().getId ? 
                              this.adventure.player.getLocation().getId() : 1;
         
-        // First check for ActionItem actions in player inventory
+        // Get all items from player inventory and location
         const playerItems = this.adventure.player.getItems();
-        for (const anItem of playerItems) {
-            if (anItem.isSpecial() && anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
-                const result = anItem.executeAction(verb, currentRoomId, this.adventure.world, playerItems);
-                if (result && result.success) {
-                    this.adventure.desc.value += result.message + "\n";
-                    
-                    // Handle location change
-                    if (result.newLocation) {
-                        const newLoc = this.adventure.player.locations[result.newLocation];
-                        if (newLoc) {
-                            this.adventure.player.setLocation(newLoc);
-                            return { success: true, moved: true };
-                        }
-                    }
-                    
-                    return { success: true, moved: false };
-                }
-            }
-        }
-        
-        // Check location items for ActionItems
         const locationItems = this.adventure.player.getLocation().getItems();
-        for (const anItem of locationItems) {
-            if (anItem.isSpecial() && anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
-                const result = anItem.executeAction(verb, currentRoomId, this.adventure.world, locationItems);
+        
+        // First check for ActionItem actions in player inventory using smart matching
+        const playerActionItems = playerItems.filter(item => item.isSpecial && item.isSpecial());
+        if (playerActionItems.length > 0) {
+            const playerMatch = this.itemMatcher.findBestMatch(searchTerm, playerActionItems);
+            if (playerMatch.item) {
+                const result = playerMatch.item.executeAction(verb, currentRoomId, this.adventure.world, playerItems);
                 if (result && result.success) {
                     this.adventure.desc.value += result.message + "\n";
                     
@@ -74,24 +63,62 @@ class SearchHandler {
             }
         }
         
-        // Fallback: if no ActionItem handled it, provide generic search behavior
+        // Check location items for ActionItems using smart matching
+        const locationActionItems = locationItems.filter(item => item.isSpecial && item.isSpecial());
+        if (locationActionItems.length > 0) {
+            const locationMatch = this.itemMatcher.findBestMatch(searchTerm, locationActionItems);
+            if (locationMatch.item) {
+                const result = locationMatch.item.executeAction(verb, currentRoomId, this.adventure.world, locationItems);
+                if (result && result.success) {
+                    this.adventure.desc.value += result.message + "\n";
+                    
+                    // Handle location change
+                    if (result.newLocation) {
+                        const newLoc = this.adventure.player.locations[result.newLocation];
+                        if (newLoc) {
+                            this.adventure.player.setLocation(newLoc);
+                            return { success: true, moved: true };
+                        }
+                    }
+                    
+                    return { success: true, moved: false };
+                }
+            }
+        }
+        
+        // Fallback: if no ActionItem handled it, provide generic search behavior with smart matching
         let itemFound = false;
         
-        // Check if the item exists (in inventory or location)
-        for (const anItem of playerItems) {
-            if (anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
-                this.adventure.desc.value += "You search the " + anItem.getName() + " but find nothing special.\n";
-                itemFound = true;
-                break;
-            }
-        }
+        // Try smart matching on all available items
+        const allItems = [...playerItems, ...locationItems];
+        const itemMatch = this.itemMatcher.findBestMatch(searchTerm, allItems);
         
-        if (!itemFound) {
-            for (const anItem of locationItems) {
+        // Check if disambiguation is needed
+        const disambigResult = this.itemMatcher.handleDisambiguation(itemMatch.matches, searchTerm);
+        
+        if (disambigResult.needsDisambiguation) {
+            this.adventure.desc.value += disambigResult.message + "\n";
+            itemFound = true; // Mark as handled
+        } else if (disambigResult.selectedItem) {
+            this.adventure.desc.value += "You search the " + disambigResult.selectedItem.getName() + " but find nothing special.\n";
+            itemFound = true;
+        } else {
+            // Fallback to exact matching for backward compatibility
+            for (const anItem of playerItems) {
                 if (anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
                     this.adventure.desc.value += "You search the " + anItem.getName() + " but find nothing special.\n";
                     itemFound = true;
                     break;
+                }
+            }
+            
+            if (!itemFound) {
+                for (const anItem of locationItems) {
+                    if (anItem.getKeyword().toUpperCase() === noun.toUpperCase()) {
+                        this.adventure.desc.value += "You search the " + anItem.getName() + " but find nothing special.\n";
+                        itemFound = true;
+                        break;
+                    }
                 }
             }
         }

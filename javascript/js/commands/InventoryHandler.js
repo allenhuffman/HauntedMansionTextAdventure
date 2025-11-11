@@ -11,9 +11,10 @@ class InventoryHandler {
      * Check if this handler can process the given command
      * @param {string} verb - The command verb
      * @param {string} noun - The command noun (optional)
+     * @param {Object} parseResult - Complete parse result with full noun info
      * @returns {boolean} True if this handler can process the command
      */
-    canHandle(verb, noun) {
+    canHandle(verb, noun, parseResult) {
         return verb && verb.toUpperCase() === "INVENTORY";
     }
 
@@ -21,9 +22,10 @@ class InventoryHandler {
      * Handle the INVENTORY command
      * @param {string} verb - The command verb
      * @param {string} noun - The command noun (optional)
+     * @param {Object} parseResult - Complete parse result with full noun info
      * @returns {Object} Result object with success flag and any location changes
      */
-    handle(verb, noun) {
+    handle(verb, noun, parseResult) {
         this.adventure.desc.value += "You are carrying ";
         let items = false;
         const playerItems = this.adventure.player.getItems();

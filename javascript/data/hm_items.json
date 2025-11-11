@@ -470,6 +470,27 @@
       "name": "a stone",
       "description": "The stone is engraved with the name M.T. Tombs.",
       "carryable": false
+    },
+    {
+      "id": 42,
+      "startLocation": 1,
+      "name": "a red key",
+      "description": "A small red key that looks like it could unlock something.",
+      "carryable": true
+    },
+    {
+      "id": 43,
+      "startLocation": 1,
+      "name": "a blue key",
+      "description": "A small blue key that looks like it could unlock something.",
+      "carryable": true
+    },
+    {
+      "id": 44,
+      "startLocation": 1,
+      "name": "an old rusty key",
+      "description": "An old rusty key that looks like it could unlock something.",
+      "carryable": true
     }
   ]
 }

@@ -64,9 +64,10 @@ class CommandRouter {
      * Route a command to the appropriate handler
      * @param {string} verb - The command verb
      * @param {string} noun - The command noun/object
+     * @param {Object} parseResult - Complete parse result with full noun info
      * @returns {Object} - Result object with success flag and moved status
      */
-    route(verb, noun) {
+    route(verb, noun, parseResult) {
         if (!verb) {
             this.adventure.desc.value += "I have no idea what you are trying to do.\n";
             return { success: true, moved: false };
@@ -74,8 +75,8 @@ class CommandRouter {
 
         // Try each handler until one can handle the command
         for (const handler of this.handlers) {
-            if (handler.canHandle(verb, noun)) {
-                return handler.handle(verb, noun);
+            if (handler.canHandle(verb, noun, parseResult)) {
+                return handler.handle(verb, noun, parseResult);
             }
         }
 
@@ -87,12 +88,13 @@ class CommandRouter {
      * Check if this router can handle a specific verb
      * @param {string} verb - The command verb to check
      * @param {string} noun - The command noun (optional)
+     * @param {Object} parseResult - Complete parse result with full noun info
      * @returns {boolean} - True if this router has a handler for the verb
      */
-    canHandle(verb, noun) {
+    canHandle(verb, noun, parseResult) {
         if (!verb) return false;
         
-        return this.handlers.some(handler => handler.canHandle(verb, noun));
+        return this.handlers.some(handler => handler.canHandle(verb, noun, parseResult));
     }
 }
 

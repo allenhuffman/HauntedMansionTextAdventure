@@ -7,23 +7,25 @@
 class ActionItemHandler {
     constructor(adventure) {
         this.adventure = adventure;
+        this.itemMatcher = new ItemMatcher();
     }
 
     /**
      * Check if this handler can process the given command
      * @param {string} verb - The command verb
      * @param {string} noun - The command noun (item keyword)
+     * @param {Object} parseResult - Complete parse result with full noun info
      * @returns {boolean} - True if we have an ActionItem and it has executeAction method
      */
-    canHandle(verb, noun) {
+    canHandle(verb, noun, parseResult) {
         if (!verb || !noun) {
             return false;
         }
 
         console.log(`ActionItemHandler: canHandle called with verb="${verb}", noun="${noun}"`);
 
-        // Find the ActionItem
-        const actionItem = this.findActionItem(noun);
+        // Find the ActionItem using smart matching
+        const actionItem = this.findActionItem(noun, parseResult);
         if (!actionItem) {
             console.log(`ActionItemHandler: No ActionItem found for "${noun}"`);
             return false;
@@ -49,13 +51,14 @@ class ActionItemHandler {
     /**
      * Handle ActionItem interactions
      * @param {string} verb - The action verb (USE, TOUCH, ACTIVATE, etc.)
-     * @param {string} noun - The item keyword
+     * @param {string} noun - The item keyword (for backward compatibility)
+     * @param {Object} parseResult - Complete parse result with full noun info
      * @returns {Object} - Result object with success flag and moved status
      */
-    handle(verb, noun) {
+    handle(verb, noun, parseResult) {
         console.log(`ActionItemHandler: handle called with verb="${verb}", noun="${noun}"`);
         
-        const actionItem = this.findActionItem(noun);
+        const actionItem = this.findActionItem(noun, parseResult);
         if (!actionItem) {
             console.log(`ActionItemHandler: No ActionItem found in handle`);
             return { success: false, moved: false };
@@ -131,30 +134,54 @@ class ActionItemHandler {
 
     /**
      * Find an ActionItem by keyword in player inventory or current location
-     * @param {string} keyword - The item keyword to search for
+     * @param {string} keyword - The item keyword to search for (for backward compatibility)
+     * @param {Object} parseResult - Complete parse result with full noun info
      * @returns {ActionItem|null} - The matching ActionItem or null if not found
      */
-    findActionItem(keyword) {
+    findActionItem(keyword, parseResult) {
         if (!keyword) {
             return null;
         }
 
-        const keywordUpper = keyword.toUpperCase();
+        const fullNoun = parseResult && parseResult.getFullNoun ? parseResult.getFullNoun() : keyword;
+        const searchTerm = fullNoun || keyword;
 
-        // Check player inventory for ActionItems
+        // Get all ActionItems from both player inventory and location
         const playerItems = this.adventure.player.getItems();
-        for (const anItem of playerItems) {
-            if (anItem.isSpecial && anItem.isSpecial() && 
-                anItem.getKeyword().toUpperCase() === keywordUpper) {
+        const locationItems = this.adventure.player.getLocation().getItems();
+        
+        const playerActionItems = playerItems.filter(item => item.isSpecial && item.isSpecial());
+        const locationActionItems = locationItems.filter(item => item.isSpecial && item.isSpecial());
+        
+        // Combine all ActionItems for comprehensive matching
+        const allActionItems = [...playerActionItems, ...locationActionItems];
+        
+        if (allActionItems.length > 0) {
+            const matchResult = this.itemMatcher.findBestMatch(searchTerm, allActionItems);
+            
+            // Check if disambiguation is needed
+            const disambigResult = this.itemMatcher.handleDisambiguation(matchResult.matches, searchTerm);
+            
+            if (disambigResult.needsDisambiguation) {
+                // For ActionItemHandler, we need to show the disambiguation message through the adventure interface
+                // But we can't do it here as this is a finder method. We'll handle it in the calling method.
+                return null; // Let the calling method handle disambiguation
+            } else if (disambigResult.selectedItem) {
+                return disambigResult.selectedItem;
+            }
+        }
+        
+        // Fallback to exact matching for backward compatibility
+        const keywordUpper = keyword.toUpperCase();
+        
+        for (const anItem of playerActionItems) {
+            if (anItem.getKeyword().toUpperCase() === keywordUpper) {
                 return anItem;
             }
         }
-
-        // Check location items for ActionItems
-        const locationItems = this.adventure.player.getLocation().getItems();
-        for (const anItem of locationItems) {
-            if (anItem.isSpecial && anItem.isSpecial() && 
-                anItem.getKeyword().toUpperCase() === keywordUpper) {
+        
+        for (const anItem of locationActionItems) {
+            if (anItem.getKeyword().toUpperCase() === keywordUpper) {
                 return anItem;
             }
         }

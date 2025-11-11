@@ -13,7 +13,7 @@ class SystemHandler {
      * @param {string} noun - The command noun (optional)
      * @returns {boolean} True if this handler can process the command
      */
-    canHandle(verb, noun) {
+    canHandle(verb, noun, parseResult) {
         if (!verb) return false;
         const upperVerb = verb.toUpperCase();
         return upperVerb === "HELP" || upperVerb === "VERSION" || 
@@ -26,7 +26,7 @@ class SystemHandler {
      * @param {string} noun - The command noun (optional)
      * @returns {Object} Result object with success flag and any location changes
      */
-    handle(verb, noun) {
+    handle(verb, noun, parseResult) {
         const upperVerb = verb.toUpperCase();
         
         switch (upperVerb) {

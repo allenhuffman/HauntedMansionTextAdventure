@@ -73,11 +73,19 @@ class CreateWorld {
                 let item;
                 
                 // Create ActionItem if it has actions, otherwise regular Item
+                // Use new object-based constructor format for proper name-only support
+                const itemOptions = {
+                    name: itemInfo.name || itemInfo.keyword, // Prefer name, fallback to keyword
+                    description: itemInfo.description,
+                    getable: itemInfo.carryable !== undefined ? itemInfo.carryable : true,
+                    actions: actions
+                };
+                
                 if (actions.length > 0) {
-                    item = new ActionItem(itemInfo.keyword, itemInfo.name, itemInfo.description, itemInfo.carryable);
+                    item = new ActionItem(itemOptions);
                     item.setActions(actions);
                 } else {
-                    item = new Item(itemInfo.keyword, itemInfo.name, itemInfo.description, itemInfo.carryable);
+                    item = new Item(itemOptions);
                 }
                 
                 // Store item by ID for revealing system

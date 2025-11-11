@@ -13,9 +13,10 @@ class MovementHandler {
      * Check if this handler can process the given command
      * @param {string} verb - The command verb
      * @param {string} noun - The command noun (optional)
+     * @param {Object} parseResult - Complete parse result with full noun info
      * @returns {boolean} - True if this handler can process the command
      */
-    canHandle(verb, noun) {
+    canHandle(verb, noun, parseResult) {
         console.log("MovementHandler canHandle called with:", verb, noun);
         if (!verb) {
             console.log("MovementHandler: No verb, returning false");
@@ -32,9 +33,10 @@ class MovementHandler {
      * Handle movement commands (GO direction, GOTO room_number)
      * @param {string} verb - The movement verb (GO, GOTO) 
      * @param {string} noun - The direction or room number
+     * @param {Object} parseResult - Complete parse result with full noun info
      * @returns {Object} - Result object with success flag and moved status
      */
-    handle(verb, noun) {
+    handle(verb, noun, parseResult) {
         const verbUpper = verb.toUpperCase();
         
         if (verbUpper === "GO") {

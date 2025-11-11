@@ -1,6 +1,14 @@
 class ActionItem extends Item {
     constructor(keyword, name, description, getable = false) {
-        super(keyword, name, description, getable);
+        // Handle both old format (keyword, name, description, getable) and new format (options object)
+        if (typeof keyword === 'object' && keyword !== null) {
+            // New format: first parameter is an options object
+            super(keyword); // Pass the options object to parent constructor
+        } else {
+            // Old format: separate parameters
+            super(keyword, name, description, getable);
+        }
+        
         this.action = null;     // Action keyword.
         this.leadsTo = null;    // Where does this item take you?
         this.actions = [];      // Array of action definitions from JSON

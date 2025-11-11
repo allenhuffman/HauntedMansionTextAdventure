@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Item System</title>
+    <style>
+        body { font-family: monospace; margin: 20px; }
+        .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .debug-result { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Debug Item System</h1>
+    <div id="debug-results"></div>
+
+    <script src="../js/Item.js"></script>
+    <script src="../js/ActionItem.js"></script>
+    <script src="../js/ItemMatcher.js"></script>
+    
+    <script>
+        function debugItemSystem() {
+            const results = document.getElementById('debug-results');
+            
+            function addResult(message) {
+                const div = document.createElement('div');
+                div.className = 'debug-result';
+                div.textContent = message;
+                results.appendChild(div);
+            }
+            
+            // Test 1: Create items like CreateWorld does
+            const section1 = document.createElement('div');
+            section1.className = 'debug-section';
+            section1.innerHTML = '<h3>Test 1: Item Creation</h3>';
+            results.appendChild(section1);
+            
+            // Simulate the new format (no keyword field)
+            const itemInfo1 = {
+                name: "a red key",
+                description: "A small red key",
+                carryable: true
+            };
+            
+            const itemName = itemInfo1.name || itemInfo1.keyword;
+            const itemKeyword = itemInfo1.keyword || itemInfo1.name;
+            
+            addResult(`itemName: "${itemName}"`);
+            addResult(`itemKeyword: "${itemKeyword}"`);
+            
+            const item1 = new Item(itemKeyword, itemName, itemInfo1.description, itemInfo1.carryable);
+            addResult(`Created item - getName(): "${item1.getName()}"`);
+            addResult(`Created item - getKeyword(): "${item1.getKeyword()}"`);
+            
+            // Test 2: ItemMatcher with these items
+            const section2 = document.createElement('div');
+            section2.className = 'debug-section';
+            section2.innerHTML = '<h3>Test 2: ItemMatcher</h3>';
+            results.appendChild(section2);
+            
+            const itemInfo2 = {
+                name: "a blue key",
+                description: "A small blue key",
+                carryable: true
+            };
+            const item2 = new Item(itemInfo2.name, itemInfo2.name, itemInfo2.description, itemInfo2.carryable);
+            
+            const itemInfo3 = {
+                name: "an old rusty key", 
+                description: "An old rusty key",
+                carryable: true
+            };
+            const item3 = new Item(itemInfo3.name, itemInfo3.name, itemInfo3.description, itemInfo3.carryable);
+            
+            const testItems = [item1, item2, item3];
+            const matcher = new ItemMatcher();
+            
+            // Test matching
+            addResult(`Items: ${testItems.map(i => i.getName()).join(', ')}`);
+            
+            const match1 = matcher.findBestMatch("key", testItems);
+            addResult(`Match "key": ${match1.item ? match1.item.getName() : 'none'} (confidence: ${match1.confidence})`);
+            addResult(`All matches: ${match1.matches.length} matches`);
+            
+            const disambig1 = matcher.handleDisambiguation(match1.matches, "key");
+            addResult(`Disambiguation needed: ${disambig1.needsDisambiguation}`);
+            if (disambig1.needsDisambiguation) {
+                addResult(`Disambiguation message: "${disambig1.message}"`);
+            }
+            
+            const match2 = matcher.findBestMatch("red key", testItems);
+            addResult(`Match "red key": ${match2.item ? match2.item.getName() : 'none'} (confidence: ${match2.confidence})`);
+        }
+        
+        window.onload = debugItemSystem;
+    </script>
+</body>
+</html>
