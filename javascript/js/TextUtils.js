@@ -52,6 +52,31 @@ class TextUtils {
         const lastItem = items[items.length - 1];
         return `${allButLast}, ${conjunction} ${lastItem}`;
     }
+
+    /**
+     * Strip leading articles from text for better grammar
+     * Removes "a ", "an ", "the ", "some " from the beginning of text
+     * @param {string} text - Text to process
+     * @returns {string} Text without leading article
+     */
+    static stripArticle(text) {
+        if (!text || typeof text !== 'string') {
+            return text;
+        }
+        
+        // Remove leading articles (case insensitive)
+        return text.replace(/^(a|an|the|some)\s+/i, '');
+    }
+
+    /**
+     * Format text for use after "the" - strips leading articles to avoid double articles
+     * Example: "a red key" becomes "red key" so "the a red key" becomes "the red key"
+     * @param {string} text - Text to format
+     * @returns {string} Text suitable for use after "the"
+     */
+    static formatAfterThe(text) {
+        return this.stripArticle(text);
+    }
 }
 
 // Make available globally

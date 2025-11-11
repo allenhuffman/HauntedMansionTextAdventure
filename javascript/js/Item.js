@@ -164,4 +164,9 @@ class Item {
     isGetable() {
         return this.getable;
     }
+
+    // Return item invisible status.
+    isInvisible() {
+        return this.invisible;
+    }
 }

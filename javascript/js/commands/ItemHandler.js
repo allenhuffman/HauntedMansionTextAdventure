@@ -56,7 +56,11 @@ class ItemHandler {
         let items = false;
         
         if (noun && noun.toUpperCase() === "ALL") {
-            // Handle "GET ALL" - process all items once, restart only when item is taken
+            // Handle "GET ALL" - collect all getable items first, then show combined message
+            const takenItems = [];
+            const cantTakeItems = [];
+            
+            // Process all items once
             let foundItem = true;
             while (foundItem) {
                 foundItem = false;
@@ -66,18 +70,41 @@ class ItemHandler {
                     if (anItem.isGetable() === true) {
                         this.adventure.player.getLocation().removeItem(anItem);
                         this.adventure.player.addItem(anItem);
-                        this.adventure.desc.value += anItem.getKeyword() + " taken.\n";
+                        // Format item name for natural language (strip article for "the red key" format)
+                        const itemName = TextUtils.formatAfterThe(anItem.getKeyword());
+                        takenItems.push("the " + itemName);
                         items = true;
                         foundItem = true; // Found a getable item, restart to get fresh item list
                         break;
                     }
                 }
             }
-            // Now handle non-getable items (only show message once each)
+            
+            // Collect non-getable visible items for error messages
             const remainingItems = this.adventure.player.getLocation().getItems();
             for (const anItem of remainingItems) {
-                if (anItem.isGetable() === false) {
-                    this.adventure.desc.value += "You can't take the " + anItem.getKeyword() + ".\n";
+                if (anItem.isGetable() === false && !anItem.isInvisible()) {
+                    const itemName = TextUtils.formatAfterThe(anItem.getKeyword());
+                    cantTakeItems.push("the " + itemName);
+                }
+            }
+            
+            // Show combined messages
+            if (takenItems.length > 0) {
+                if (takenItems.length === 1) {
+                    this.adventure.desc.value += "You take " + takenItems[0] + ".\n";
+                } else {
+                    const itemList = TextUtils.formatItemList(takenItems);
+                    this.adventure.desc.value += "You take " + itemList + ".\n";
+                }
+            }
+            
+            if (cantTakeItems.length > 0) {
+                if (cantTakeItems.length === 1) {
+                    this.adventure.desc.value += "You can't take " + cantTakeItems[0] + ".\n";
+                } else {
+                    const itemList = TextUtils.formatItemList(cantTakeItems);
+                    this.adventure.desc.value += "You can't take " + itemList + ".\n";
                 }
             }
         } else if (fullNoun || noun) {
@@ -102,11 +129,15 @@ class ItemHandler {
                 if (anItem.isGetable() === true) {
                     this.adventure.player.getLocation().removeItem(anItem);
                     this.adventure.player.addItem(anItem);
-                    this.adventure.desc.value += anItem.getKeyword() + " taken.\n";
+                    // Format for natural language: "You take the red key."
+                    const itemName = TextUtils.formatAfterThe(anItem.getKeyword());
+                    this.adventure.desc.value += "You take the " + itemName + ".\n";
                     console.log(`ItemHandler: Successfully took "${anItem.getKeyword()}"`);
                     items = true;
                 } else {
-                    this.adventure.desc.value += "You can't take the " + anItem.getKeyword() + ".\n";
+                    // Use TextUtils to handle grammar properly (avoid "the a key" constructions)
+                    const itemName = TextUtils.formatAfterThe(anItem.getKeyword());
+                    this.adventure.desc.value += "You can't take the " + itemName + ".\n";
                     console.log(`ItemHandler: Item "${anItem.getKeyword()}" is not getable`);
                     items = true;
                 }
@@ -132,14 +163,27 @@ class ItemHandler {
         let items = false;
         
         if (noun && noun.toUpperCase() === "ALL") {
-            // Handle "DROP ALL" - drop all items player is carrying
+            // Handle "DROP ALL" - collect all items first, then show combined message
             const playerItems = [...this.adventure.player.getItems()]; // Create copy to avoid modification during iteration
+            const droppedItems = [];
             
             for (const anItem of playerItems) {
                 this.adventure.player.removeItem(anItem);
                 this.adventure.player.getLocation().addItem(anItem);
-                this.adventure.desc.value += anItem.getKeyword() + " dropped.\n";
+                // Format item name for natural language (strip article for "the red key" format)
+                const itemName = TextUtils.formatAfterThe(anItem.getKeyword());
+                droppedItems.push("the " + itemName);
                 items = true;
+            }
+            
+            // Show combined message
+            if (droppedItems.length > 0) {
+                if (droppedItems.length === 1) {
+                    this.adventure.desc.value += "You drop " + droppedItems[0] + ".\n";
+                } else {
+                    const itemList = TextUtils.formatItemList(droppedItems);
+                    this.adventure.desc.value += "You drop " + itemList + ".\n";
+                }
             }
         } else if (fullNoun || noun) {
             // Handle specific item with smart matching
@@ -162,7 +206,9 @@ class ItemHandler {
                 
                 this.adventure.player.removeItem(anItem);
                 this.adventure.player.getLocation().addItem(anItem);
-                this.adventure.desc.value += anItem.getKeyword() + " dropped.\n";
+                // Format for natural language: "You drop the red key."
+                const itemName = TextUtils.formatAfterThe(anItem.getKeyword());
+                this.adventure.desc.value += "You drop the " + itemName + ".\n";
                 console.log(`ItemHandler: Successfully dropped "${anItem.getKeyword()}"`);
                 items = true;
             }

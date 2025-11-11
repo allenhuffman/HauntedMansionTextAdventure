@@ -468,7 +468,7 @@
     {
       "id": 46,
       "startLocation": 1,
-      "name": "heavy stone gargoyle",
+      "name": "a heavy stone gargoyle",
       "description": "A menacing stone gargoyle perched on a pedestal. Its eyes seem to follow you.",
       "carryable": false,
       "actions": [
@@ -490,6 +490,13 @@
       "name": "hidden stone key",
       "description": "A small stone key that was hidden within the gargoyle's pedestal.",
       "carryable": true
+    },
+    {
+      "id": 48,
+      "startLocation": 1,
+      "name": "a locked door to the west",
+      "description": "A heavy wooden door with an ornate brass lock. The door is marked Master Gracey.",
+      "carryable": false
     }
   ]
 }
