@@ -9,13 +9,13 @@ class Versions {
     static getVersionInfo() {
         return {
             // Main version number (semantic versioning)
-            version: "0.0.1",
+            version: "0.1.0",
             
             // Build date (update manually when releasing)
-            buildDate: "2025-11-08",
+            buildDate: "2025-11-11",
             
             // Build number (increment for each release)
-            buildNumber: 10,
+            buildNumber: 11,
             
             // Release name (optional, for named releases)
             releaseName: "Work-in-progress",
