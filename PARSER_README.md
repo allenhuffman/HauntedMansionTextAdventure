@@ -2,17 +2,20 @@
 
 ## Overview
 
-The Haunted Mansion Text Adventure uses a sophisticated two-stage parsing system that transforms natural language commands into executable game actions. The parser has evolved from a simple verb-noun system to support multi-word item names, smart matching, and disambiguation.
+The Haunted Mansion Text Adventure uses a sophisticated multi-stage parsing system that transforms natural language commands into executable game actions. The parser has evolved from a simple verb-noun system to support multi-word item names, reverse-matching strategies, smart disambiguation, and unified text formatting throughout the game.
 
 ## Architecture
 
 ### 1. Parse.js - Core Command Parser
-The main parser class that handles initial command tokenization and verb-noun extraction.
+The main parser class that handles initial command tokenization and verb-noun extraction with enhanced multi-word support.
 
 ### 2. ItemMatcher.js - Smart Item Matching
-An intelligent matching system that finds items based on partial names, synonyms, and contextual clues.
+An intelligent matching system with reverse-matching strategy that finds items based on partial names, word sequences, and contextual clues.
 
-### 3. Command Router System
+### 3. TextUtils.js - Unified Text Formatting
+A shared utility that ensures consistent natural language formatting across room descriptions, item lists, and disambiguation messages.
+
+### 4. Command Router System
 A collection of specialized handlers that process different types of commands (movement, inventory, item manipulation, etc.).
 
 ## Parsing Pipeline
@@ -77,9 +80,24 @@ Before routing to handlers, the parser processes shortcuts:
 "examine" → "look"
 ```
 
-### Stage 4: Smart Item Matching
+### Stage 4: Smart Item Matching with Reverse-Matching Strategy
 
-When the command reaches an ItemHandler, the ItemMatcher uses sophisticated algorithms:
+When the command reaches an ItemHandler, the ItemMatcher uses sophisticated algorithms with a revolutionary reverse-matching approach:
+
+#### Reverse-Matching Strategy (New!)
+
+The system now works backwards from the full input to find the most specific match:
+
+```
+Input: "get the blue key from table"
+Tries: "table" → "from table" → "key from table" → "blue key from table" → "the blue key from table"
+Stops when exactly one high-confidence match is found.
+```
+
+This solves the common problem where:
+- `"get blue"` works (finds "a blue key")
+- `"get blue key"` previously failed with wrong disambiguation
+- Now `"get blue key"` works perfectly!
 
 #### Matching Algorithm Priorities
 
@@ -127,20 +145,20 @@ The parser intelligently removes common articles for better matching:
 "some strange items" → "strange items"
 ```
 
-### Stage 5: Disambiguation
+### Stage 5: Disambiguation with Unified Text Formatting
 
-When multiple items match, the system provides helpful disambiguation:
+When multiple items match, the system provides helpful disambiguation using natural language formatting:
 
 ```
 > get key
 
-I found multiple items that could match "key":
-1. a red key
-2. a blue key  
-3. an old rusty key
-
-Please be more specific, or use "get red key", "get blue key", etc.
+Please be more specific. I see a red key, a blue key, and an old rusty key.
 ```
+
+**Key Improvements:**
+- **Better Phrasing**: "Please be more specific" instead of "Which key do you mean?" (avoids confusing responses like "the red one")
+- **Natural Language**: Uses same formatting as room descriptions with proper comma/and placement
+- **Unified Formatting**: Powered by `TextUtils.formatItemList()` for consistency across all game text
 
 ## Command Flow Examples
 
@@ -165,7 +183,28 @@ User Input: "get book"
    - Displays: "a book taken."
 ```
 
-### Example 2: Multi-word Item with Disambiguation
+### Example 2: Reverse-Matching Success Story
+```
+User Input: "get blue key"
+
+1. Parse.js extracts:
+   - Verb: "get"
+   - Noun: "blue"
+   - Full Noun: "blue key"
+
+2. ItemMatcher tries reverse-matching:
+   - Tries "key" → finds multiple matches (red key, blue key, rusty key)
+   - Tries "blue key" → finds exactly one match: "a blue key" (Score: 100)
+   - Returns immediately with high confidence
+
+3. ItemHandler executes pickup:
+   - "a blue key taken."
+
+Old System: Would have shown disambiguation for "blue key"
+New System: Works perfectly on first try!
+```
+
+### Example 3: Disambiguation When Needed
 ```
 User Input: "get key"
 
@@ -174,21 +213,14 @@ User Input: "get key"
    - Noun: "key"
    - Full Noun: "key"
 
-2. ItemMatcher finds multiple matches:
-   - "a red key" (Score: 80)
-   - "a blue key" (Score: 80)
-   - "an old rusty key" (Score: 80)
+2. ItemMatcher tries reverse-matching:
+   - Tries "key" → finds multiple high-confidence matches
+   - No single clear winner, falls back to disambiguation
 
-3. ItemMatcher triggers disambiguation:
-   - Shows list of matching items
-   - Requests more specific input
+3. System shows natural language disambiguation:
+   - "Please be more specific. I see a red key, a blue key, and an old rusty key."
 
-User Input: "get red key"
-
-4. ItemMatcher finds single match:
-   - "a red key" (Score: 100 - exact match after article removal)
-
-5. ItemHandler executes pickup
+4. User responds: "get red key" → Works perfectly!
 ```
 
 ### Example 3: Complex Multi-word Command
@@ -287,6 +319,44 @@ Prepositions are intelligently processed:
 - "put book on shelf" → focuses on "book" and "shelf"
 - "go through door" → focuses on "door"
 
+## Usage Examples
+
+### Basic Commands
+```
+> go north
+> look around
+> get key
+> drop lantern
+```
+
+### Smart Parsing with Reverse-Matching
+```
+> get old dusty tome      # Matches "old tome" item
+> examine music box       # Matches "crystal music box"  
+> drop house key         # Matches "house key" exactly
+> get blue key           # Reverse-matches: tries "key" → "blue key" → finds unique match
+```
+
+### Natural Language Disambiguation
+```
+> get key
+Please be more specific. I see a blue key and a red key here.
+
+> get blue key           # Reverse-matching finds the specific item
+> get blue              # Also works - reverse-matching expands to "blue key"
+```
+
+### Unified Text Formatting
+```
+> look
+Foyer
+You are in a grand foyer with marble floors.
+Exits: north and east
+You see a blue key, a red key, and an old lantern here.
+
+# Consistent formatting throughout: commas for lists, "and" for final item
+```
+
 ## Future Enhancements
 
 - **Synonym Database**: Expand vocabulary recognition
@@ -298,20 +368,28 @@ Prepositions are intelligently processed:
 ## Technical Implementation
 
 ### Key Classes
-- `Parse.js`: Core tokenization and verb-noun extraction
-- `ItemMatcher.js`: Intelligent item matching with scoring
+- `Parse.js`: Core tokenization and verb-noun extraction with multi-word support
+- `ItemMatcher.js`: Intelligent item matching with reverse-matching strategy and confidence scoring
+- `TextUtils.js`: Unified text formatting for natural language lists throughout the game
 - `CommandRouter.js`: Routes commands to specialized handlers
-- Various `*Handler.js`: Process specific command types
+- Various `*Handler.js`: Process specific command types with smart matching integration
 
 ### Data Structures
-- **Parse Result**: Contains verb, noun, fullNoun, and variations
-- **Match Result**: Item matches with confidence scores  
+- **Parse Result**: Contains verb, noun, fullNoun, and noun variations for flexible matching
+- **Match Result**: Item matches with confidence scores and match types
+- **Disambiguation Result**: Handles multiple matches with natural language formatting
 - **Command Result**: Success/failure with game state changes
 
+### Key Algorithms
+- **Reverse-Matching**: Works backwards from full input to find most specific matches
+- **Confidence Scoring**: Multi-tier scoring system (100=exact, 90=prefix, 80=suffix, etc.)
+- **Natural Language Formatting**: Consistent "item1, item2, and item3" formatting across all game text
+
 ### Integration Points
-- Game state through Adventure.js
-- Item database through CreateWorld.js
+- Game state through Adventure.js with unified showLocation() formatting
+- Item database through CreateWorld.js with name-only item support
 - User interface through GUI components
 - Audio system through SoundPlayer.js
+- Text formatting through TextUtils.js shared across all components
 
 This parser system transforms simple text input into rich, interactive gameplay while maintaining the classic text adventure feel that made the original games so engaging.
