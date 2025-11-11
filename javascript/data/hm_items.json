@@ -311,19 +311,6 @@
           "newDescription": "A heavy wooden door that now stands ajar. It is marked Master Gracey.",
           "onceOnly": true,
           "alreadyPerformedMessage": "The door is already unlocked and standing ajar."
-        },
-        {
-          "verb": "lock",
-          "useInRoom": 12,
-          "requiresItem": "key",
-          "requiresItemMessage": "You need a key to do that.",
-          "addExit": {
-            "direction": "north",
-            "destination": 0
-          },
-          "message": "The brass key turns with a satisfying click in the lock. You close and lock the door to the Servants Quarters.",
-          "newName": "",
-          "newDescription": ""
         }
       ]
     },
