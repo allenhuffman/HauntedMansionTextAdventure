@@ -77,6 +77,30 @@ class TextUtils {
     static formatAfterThe(text) {
         return this.stripArticle(text);
     }
+
+    /**
+     * Format a list for negative contexts (uses "or" instead of "and")
+     * @param {Array} items - Array of item names/strings
+     * @returns {string} Formatted list (e.g., "the red key, the blue key, or the old rusty key")
+     */
+    static formatNegativeList(items) {
+        if (!items || items.length === 0) {
+            return "";
+        }
+        
+        if (items.length === 1) {
+            return items[0];
+        }
+        
+        if (items.length === 2) {
+            return `${items[0]} or ${items[1]}`;
+        }
+        
+        // For 3 or more items: "item1, item2, or item3"
+        const allButLast = items.slice(0, -1).join(', ');
+        const lastItem = items[items.length - 1];
+        return `${allButLast}, or ${lastItem}`;
+    }
 }
 
 // Make available globally

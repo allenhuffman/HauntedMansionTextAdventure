@@ -494,8 +494,8 @@
     {
       "id": 48,
       "startLocation": 1,
-      "name": "a locked door to the west",
-      "description": "A heavy wooden door with an ornate brass lock. The door is marked Master Gracey.",
+      "name": "a locked door",
+      "description": "It is a heavy wooden door with an ornate bronze lock.",
       "carryable": false
     }
   ]

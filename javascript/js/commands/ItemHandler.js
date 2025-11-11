@@ -103,7 +103,7 @@ class ItemHandler {
                 if (cantTakeItems.length === 1) {
                     this.adventure.desc.value += "You can't take " + cantTakeItems[0] + ".\n";
                 } else {
-                    const itemList = TextUtils.formatItemList(cantTakeItems);
+                    const itemList = TextUtils.formatNegativeList(cantTakeItems);
                     this.adventure.desc.value += "You can't take " + itemList + ".\n";
                 }
             }
