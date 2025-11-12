@@ -551,8 +551,8 @@
           "verb": "play",
           "useInRoom": 15,
           "requiresItem": "some sheet music",
-          "requiresItemMessage": "You need sheet music to play a proper melody.",
-          "message": "You begin playing the sheet music. The haunting melody fills the room and echoes throughout the mansion. When you lift your hands from the keys, the music continues to play on its own. As you step away, you now see a ghostly organist sitting at the organ. You hear the sound of ghostly footsteps retreating from somewhere else in the mansion.",
+          "requiresItemMessage": "If I could play by ear, I would. But I can't.",
+          "message": "You begin playing the sheet music. The haunting melody fills the room and echoes throughout the mansion. When you lift your hands from the keys, the music continues to play on its own. As you step away, you now see a ghostly organist sitting at the organ. You hear the sound of ghostly footsteps.",
           "modifyLocation": {
             "roomId": 17,
             "addExit": {

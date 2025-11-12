@@ -354,7 +354,7 @@
     {
       "id": 27,
       "name": "Seance Circle",
-      "description": "You are in a large dark room. There is a table and chair in the center. A raven is perched on the chair and a large cabinet sits behind that.",
+      "description": "You are in a large dark room. There is a circular table and chair in the center. A raven is perched on the chair and a large cabinet sits behind that.",
       "exits": {
         "north": 0,
         "south": 0,
@@ -561,8 +561,8 @@
     },
     {
       "id": 43,
-      "name": "Secret Room",
-      "description": "You are in a secret room.",
+      "name": "Bathroom",
+      "description": "You are in what appears to be the only bathroom in this mansion.",
       "exits": {
         "north": 0,
         "south": 0,
