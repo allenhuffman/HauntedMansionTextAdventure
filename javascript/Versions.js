@@ -12,10 +12,10 @@ class Versions {
             version: "0.2.0",
             
             // Build date (update manually when releasing)
-            buildDate: "2025-11-11",
+            buildDate: "2025-11-12",
             
             // Build number (increment for each release)
-            buildNumber: 11,
+            buildNumber: 12,
             
             // Release name (optional, for named releases)
             releaseName: "Enhanced Command System",
