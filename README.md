@@ -2,12 +2,12 @@ This document was created by GitHub A.I. Read with caution...
 
 # Haunted Mansion Text Adventure
 
-A text adventure game inspired by Disney's Haunted Mansion attraction, featuring atmospheric audio and faithful recreation of the mansion's iconic locations and mysteries. Originally built as a Java applet in 2002, now modernized with JavaScript ES6 and enhanced with advanced interactive features.
+A text adventure game inspired by Disney's Haunted Mansion attraction, featuring atmospheric audio and faithful recreation of the mansion's iconic locations and mysteries. Originally built as a Java applet in 2002, now modernized with JavaScript ES6 and enhanced with advanced interactive features. The engine is now configurable and reusable for creating different text adventure games.
 
 ## Project Structure
 
 - **`java/`** - Original 2002 Java applet implementation with CSV data and .au audio files
-- **`javascript/`** - Modern 2025 JavaScript version with JSON data, MP3 audio, and enhanced features
+- **`javascript/`** - Modern 2025 JavaScript version with JSON data, MP3 audio, configurable game system, and enhanced features
 - **`java-to-javascript-conversion/`** - Development notes and conversion documentation
 
 ## Game Map
@@ -98,6 +98,7 @@ This interactive text adventure allows players to explore a virtual version of D
 - **`javascript/data/hm_map.json`** - Room definitions, connections, and descriptions in structured JSON
 - **`javascript/data/hm_items.json`** - Enhanced item system with ActionItem support, hidden items, and complex interactions
 - **`javascript/data/hm_audio.json`** - Data-driven audio zone configuration with silent room support
+- **`javascript/data/hm_config.json`** - Game configuration for customizable messages, titles, and file paths
 
 ### Developer Documentation
 - **[`javascript/data/ITEMS-README.md`](javascript/data/ITEMS-README.md)** - Complete guide to the item system, ActionItem capabilities, and smart matching
@@ -265,8 +266,46 @@ HauntedMansionMap.png - Visual map reference
 - ✅ **Enhanced error handling** - In-game feedback for configuration issues
 - ✅ **Improved user experience** - Better command fallbacks and help system
 - ✅ **Data-driven design** - Easy content modification through JSON files
+- ✅ **Configurable game system** - Reusable engine for different adventure games
+
+## Creating Custom Games
+
+The JavaScript engine now supports creating different text adventure games by modifying the configuration file:
+
+### Configuration File: `javascript/data/hm_config.json`
+```json
+{
+  "title": "Pirate Adventure",
+  "welcome_message": "Ahoy matey! Welcome to Pirate's Treasure Adventure!",
+  "quit_message": "Fair winds and following seas!",
+  "restart_message": "Setting sail on a new voyage...",
+  "continue_message": "Back to the high seas!",
+  "version_fallback": "Pirate Adventure - JavaScript Version",
+  "data_files": {
+    "map": "data/pirate_map.json",
+    "items": "data/pirate_items.json",
+    "audio": "data/pirate_audio.json"
+  }
+}
+```
+
+### Steps to Create a Custom Game:
+1. **Modify `hm_config.json`** - Update title, messages, and file paths
+2. **Create custom data files** - Design your own map, items, and audio zones
+3. **Add game assets** - Include custom audio files and images
+4. **Test and iterate** - Use the same engine with your custom content
+
+The engine automatically adapts to different game themes while maintaining all interactive features!
 
 ## Modern Enhancements (2025)
+
+### Configurable Game System
+- **Reusable Engine** - Single codebase supports multiple adventure games through configuration
+- **Customizable Messages** - Welcome, quit, restart, and system messages configurable per game
+- **Dynamic File Paths** - Map, items, and audio file locations configurable for different games
+- **Theme Adaptation** - Easy conversion between game genres (haunted house, pirate adventure, space exploration, etc.)
+- **Fallback Support** - Graceful degradation if configuration files are missing
+- **Consistent Architecture** - Maintains existing code patterns while enabling flexibility
 
 ### ActionItem System
 - **Multiple Verb Support** - Single actions respond to multiple verbs: `"PUSH,PULL,MOVE"`
