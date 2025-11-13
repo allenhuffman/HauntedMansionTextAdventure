@@ -40,6 +40,9 @@
   - Audio cues for discoveries (finding items, unlocking doors)
   - Atmospheric audio that changes based on inventory or story progress
 
+- [ ] **Quit Sound Behavior**
+  - QUIT command should turn off background audio
+
 ## 🔍 Enhanced Interaction System
 - [ ] **More ActionItem Types**
   - PUSH/PULL interactions
