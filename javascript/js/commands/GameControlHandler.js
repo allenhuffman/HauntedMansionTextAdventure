@@ -12,11 +12,18 @@ class GameControlHandler {
      * @returns {Object} Configuration object
      */
     getConfig() {
-        const config = window.gameConfig || {};
+        if (window.configManager) {
+            return {
+                quit_message: window.configManager.getQuitMessage(),
+                restart_message: window.configManager.getRestartMessage(),
+                continue_message: window.configManager.getContinueMessage()
+            };
+        }
+        // Fallback if ConfigManager not available
         return {
-            quit_message: config.quit_message || "Thanks for playing the Haunted Mansion!",
-            restart_message: config.restart_message || "Restarting the haunted adventure...",
-            continue_message: config.continue_message || "Good! Continue your haunted adventure..."
+            quit_message: "Thanks for playing the Haunted Mansion!",
+            restart_message: "Restarting the haunted adventure...",
+            continue_message: "Good! Continue your haunted adventure..."
         };
     }
 

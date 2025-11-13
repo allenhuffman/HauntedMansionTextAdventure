@@ -16,7 +16,9 @@ class CreateWorld {
 
         try {
             // Load room data from JSON
-            const mapFile = this.config.data_files?.map || "data/hm_map.json";
+            const mapFile = window.configManager ?
+                window.configManager.getDataFile('map') :
+                "data/hm_map.json";
             console.log("Retrieving map from: " + mapFile);
             const mapResponse = await fetch(mapFile);
             const mapData = await mapResponse.json();
@@ -64,13 +66,17 @@ class CreateWorld {
 
         } catch (e) {
             console.log("Error loading map -- " + e.toString());
-            const mapFile = this.config.data_files?.map || "hm_map.json";
+            const mapFile = window.configManager ?
+                window.configManager.getDataFile('map') :
+                "hm_map.json";
             errors.push("Failed to load game map (" + mapFile + "): " + e.message);
         }
 
         // Now load items
         try {
-            const itemsFile = this.config.data_files?.items || "data/hm_items.json";
+            const itemsFile = window.configManager ?
+                window.configManager.getDataFile('items') :
+                "data/hm_items.json";
             console.log("Retrieving item list from: " + itemsFile);
             const itemResponse = await fetch(itemsFile);
             const itemData = await itemResponse.json();
@@ -116,14 +122,18 @@ class CreateWorld {
 
         } catch (e) {
             console.log("Error loading items -- " + e.toString());
-            const itemsFile = this.config.data_files?.items || "hm_items.json";
+            const itemsFile = window.configManager ?
+                window.configManager.getDataFile('items') :
+                "hm_items.json";
             errors.push("Failed to load game items (" + itemsFile + "): " + e.message);
         }
 
         // Set up audio zones and room-specific overrides
         try {
             // First, load audio zones
-            const audioFile = this.config.data_files?.audio || "data/hm_audio.json";
+            const audioFile = window.configManager ?
+                window.configManager.getDataFile('audio') :
+                "data/hm_audio.json";
             console.log("Loading audio zones from: " + audioFile);
             const audioResponse = await fetch(audioFile);
             const audioData = await audioResponse.json();

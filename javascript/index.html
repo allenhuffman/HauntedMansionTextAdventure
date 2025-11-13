@@ -78,6 +78,7 @@ Loading game map and items...
 
     <!-- Load JavaScript modules -->
     <script src="Versions.js"></script>
+    <script src="js/ConfigManager.js"></script>
     <script src="js/Location.js"></script>
     <script src="js/Exit.js"></script>
     <script src="js/Item.js"></script>
@@ -148,18 +149,26 @@ Loading game map and items...
             // Load configuration first
             const configLoaded = await loadGameConfig();
             
+            // Initialize ConfigManager with loaded config
+            if (window.configManager) {
+                window.configManager.loadConfig();
+                if (!window.configManager.isValid()) {
+                    console.warn("Configuration validation failed:", window.configManager.getValidationErrors());
+                }
+            }
+            
             // Update page title from config
-            if (window.gameConfig.title) {
-                document.title = window.gameConfig.title;
+            if (window.configManager) {
+                document.title = window.configManager.getTitle();
             }
             
             // Update textarea placeholder from config
             const descElement = document.getElementById('desc');
-            if (window.gameConfig.welcome_message && descElement) {
+            if (window.configManager && descElement) {
                 // Replace the default welcome message with configured one
                 const defaultWelcome = "Welcome, foolish mortal.";
                 if (descElement.value.startsWith(defaultWelcome)) {
-                    descElement.value = window.gameConfig.welcome_message + "\n\nLoading game map and items...";
+                    descElement.value = window.configManager.getWelcomeMessage() + "\n\nLoading game map and items...";
                 }
             }
             

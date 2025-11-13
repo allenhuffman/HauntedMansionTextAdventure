@@ -297,6 +297,33 @@ The JavaScript engine now supports creating different text adventure games by mo
 
 The engine automatically adapts to different game themes while maintaining all interactive features!
 
+### ConfigManager System
+The game now uses a centralized `ConfigManager` class for robust configuration management:
+
+**Key Features:**
+- **Type-Safe Access** - Dedicated getter methods with validation and fallbacks
+- **Schema Validation** - Runtime validation of configuration structure and data types
+- **Centralized Loading** - Single point of configuration loading with error handling
+- **Debug Support** - Comprehensive debugging methods for development
+- **Graceful Degradation** - Fallback values ensure game continues even with config errors
+
+**Usage in Code:**
+```javascript
+// Type-safe access with validation
+const title = window.configManager.getTitle();
+const welcomeMsg = window.configManager.getWelcomeMessage();
+const mapFile = window.configManager.getDataFile('map');
+
+// Debug configuration status
+window.configManager.debug();
+```
+
+**Benefits:**
+- Eliminates scattered `window.gameConfig` access throughout codebase
+- Provides consistent error handling and validation
+- Enables easy debugging and configuration inspection
+- Supports future configuration extensions without code changes
+
 ## Modern Enhancements (2025)
 
 ### Configurable Game System

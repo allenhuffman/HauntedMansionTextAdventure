@@ -39,9 +39,10 @@ class Adventure {
         this.player = new CreateWorld();
         const initResult = await this.player.init();
         
-        // Get welcome message from global config, with fallback
-        const config = window.gameConfig || {};
-        const welcomeMessage = config.welcome_message || "Welcome, foolish mortal, to the Haunted Mansion Adventure Game.";
+        // Get welcome message from ConfigManager, with fallback
+        const welcomeMessage = window.configManager ?
+            window.configManager.getWelcomeMessage() :
+            "Welcome, foolish mortal, to the Haunted Mansion Adventure Game.";
         this.desc.value = welcomeMessage + "\n\nLoading game map and items...\n\n(Type 'sound on/off' to enable/disable atmospheric audio.)\n";
         
         // Initialize command routing system (only if CommandRouter is available)
@@ -204,15 +205,25 @@ window.debugAudio = function() {
 
 window.debugConfig = function() {
     console.log("=== Game Configuration Debug ===");
-    console.log("Config loaded:", window.gameConfig ? "YES" : "NO");
+    console.log("Raw config loaded:", window.gameConfig ? "YES" : "NO");
     if (window.gameConfig) {
-        console.log("Title:", window.gameConfig.title);
-        console.log("Welcome message:", window.gameConfig.welcome_message);
-        console.log("Quit message:", window.gameConfig.quit_message);
-        console.log("Data files:", window.gameConfig.data_files);
-        console.log("Full config:", window.gameConfig);
+        console.log("Raw config:", window.gameConfig);
+    }
+
+    console.log("ConfigManager available:", window.configManager ? "YES" : "NO");
+    if (window.configManager) {
+        console.log("ConfigManager loaded:", window.configManager.isLoaded);
+        console.log("ConfigManager valid:", window.configManager.isValid());
+        console.log("Validation errors:", window.configManager.getValidationErrors());
+        console.log("Title:", window.configManager.getTitle());
+        console.log("Welcome message:", window.configManager.getWelcomeMessage());
+        console.log("Data files:", {
+            map: window.configManager.getDataFile('map'),
+            items: window.configManager.getDataFile('items'),
+            audio: window.configManager.getDataFile('audio')
+        });
     } else {
-        console.log("No configuration loaded - using defaults");
+        console.log("ConfigManager not available - using raw config access");
     }
     console.log("=================================");
 };
