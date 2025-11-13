@@ -113,7 +113,31 @@ Loading game map and items...
     
     <script>
         // Initialize the game when page loads
-        window.addEventListener('load', function() {
+        window.addEventListener('load', async function() {
+            // Load game configuration first
+            let config = {};
+            try {
+                const configResponse = await fetch('data/hm_config.json');
+                config = await configResponse.json();
+            } catch (e) {
+                console.log("Could not load config, using defaults:", e);
+            }
+            
+            // Update page title from config
+            if (config.title) {
+                document.title = config.title;
+            }
+            
+            // Update textarea placeholder from config
+            const descElement = document.getElementById('desc');
+            if (config.welcome_message && descElement) {
+                // Replace the default welcome message with configured one
+                const defaultWelcome = "Welcome, foolish mortal.";
+                if (descElement.value.startsWith(defaultWelcome)) {
+                    descElement.value = config.welcome_message + "\n\nLoading game map and items...";
+                }
+            }
+            
             // Display version information
             const versionElement = document.getElementById('version-info');
             if (versionElement && window.Versions) {

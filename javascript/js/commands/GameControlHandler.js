@@ -8,6 +8,19 @@ class GameControlHandler {
     }
 
     /**
+     * Get game configuration with fallbacks
+     * @returns {Object} Configuration object
+     */
+    getConfig() {
+        const config = this.adventure.player?.getConfig() || {};
+        return {
+            quit_message: config.quit_message || "Thanks for playing the Haunted Mansion!",
+            restart_message: config.restart_message || "Restarting the haunted adventure...",
+            continue_message: config.continue_message || "Good! Continue your haunted adventure..."
+        };
+    }
+
+    /**
      * Check if this handler can process the given command
      * @param {string} verb - The command verb
      * @param {string} noun - The command noun (optional)
@@ -59,9 +72,10 @@ class GameControlHandler {
      * @returns {Object} Result object
      */
     handleRestart() {
+        const config = this.getConfig();
         if (this.adventure.awaitingQuitConfirmation) {
             // If we're in quit confirmation mode, restart anyway
-            this.adventure.desc.value += "Restarting the haunted adventure...\n\n";
+            this.adventure.desc.value += config.restart_message + "\n\n";
             this.adventure.awaitingQuitConfirmation = false;
             location.reload();
         } else {
@@ -78,8 +92,9 @@ class GameControlHandler {
      * @returns {Object} Result object
      */
     handleYes() {
+        const config = this.getConfig();
         if (this.adventure.awaitingQuitConfirmation) {
-            this.adventure.desc.value += "Thanks for playing the Haunted Mansion!\n";
+            this.adventure.desc.value += config.quit_message + "\n";
             this.adventure.desc.value += "Closing game...\n";
             this.adventure.awaitingQuitConfirmation = false;
             
@@ -91,7 +106,7 @@ class GameControlHandler {
             }, 1000);
             
         } else if (this.adventure.awaitingRestartConfirmation) {
-            this.adventure.desc.value += "Restarting the haunted adventure...\n\n";
+            this.adventure.desc.value += config.restart_message + "\n\n";
             this.adventure.awaitingRestartConfirmation = false;
             location.reload();
             
@@ -107,8 +122,9 @@ class GameControlHandler {
      * @returns {Object} Result object
      */
     handleNo() {
+        const config = this.getConfig();
         if (this.adventure.awaitingQuitConfirmation) {
-            this.adventure.desc.value += "Good! Continue your haunted adventure...\n";
+            this.adventure.desc.value += config.continue_message + "\n";
             this.adventure.awaitingQuitConfirmation = false;
             
         } else if (this.adventure.awaitingRestartConfirmation) {

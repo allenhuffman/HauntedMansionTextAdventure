@@ -35,11 +35,14 @@ class Adventure {
         // Focus on input field
         this.input.focus();
 
-        this.desc.value = "Welcome, foolish mortal, to the Haunted Mansion Adventure Game.\n\nLoading game map and items...\n\n(Type 'sound on/off' to enable/disable atmospheric audio.)\n";
-        
         // Initialize the world
         this.player = new CreateWorld();
         const initResult = await this.player.init();
+        
+        // Get welcome message from config, with fallback
+        const config = this.player.getConfig();
+        const welcomeMessage = config?.welcome_message || "Welcome, foolish mortal, to the Haunted Mansion Adventure Game.";
+        this.desc.value = welcomeMessage + "\n\nLoading game map and items...\n\n(Type 'sound on/off' to enable/disable atmospheric audio.)\n";
         
         // Initialize command routing system (only if CommandRouter is available)
         if (typeof CommandRouter !== 'undefined') {

@@ -71,7 +71,9 @@ class SystemHandler {
         if (window.Versions) {
             this.adventure.desc.value += window.Versions.getFullVersionString() + "\n";
         } else {
-            this.adventure.desc.value += "Haunted Mansion Text Adventure - JavaScript Version\n";
+            const config = this.adventure.player?.getConfig();
+            const fallbackMessage = config?.version_fallback || "Haunted Mansion Text Adventure - JavaScript Version";
+            this.adventure.desc.value += fallbackMessage + "\n";
         }
         
         return { success: true, moved: false };

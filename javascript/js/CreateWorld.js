@@ -4,16 +4,37 @@ class CreateWorld {
         this.exits = [];         // List of Exit items.
         this.currentLocation = null;    // Where we currently are in the game.
         this.inventory = new Inventory();   // What we are holding (player's inventory).
+        this.config = null;      // Game configuration
     }
 
     async init() {
         let tempLocation = [];
         const errors = []; // Collect errors to report to user
 
+        // Load game configuration first
+        try {
+            console.log("Loading game configuration from: data/hm_config.json");
+            const configResponse = await fetch('data/hm_config.json');
+            this.config = await configResponse.json();
+            console.log("Game configuration loaded.");
+        } catch (e) {
+            console.log("Error loading configuration -- " + e.toString());
+            errors.push("Failed to load game configuration (hm_config.json): " + e.message);
+            // Continue with defaults if config fails to load
+            this.config = {
+                data_files: {
+                    map: "data/hm_map.json",
+                    items: "data/hm_items.json",
+                    audio: "data/hm_audio.json"
+                }
+            };
+        }
+
         try {
             // Load room data from JSON
-            console.log("Retrieving map from: data/hm_map.json");
-            const mapResponse = await fetch('data/hm_map.json');
+            const mapFile = this.config.data_files?.map || "data/hm_map.json";
+            console.log("Retrieving map from: " + mapFile);
+            const mapResponse = await fetch(mapFile);
             const mapData = await mapResponse.json();
 
             const numRooms = mapData.rooms.length;
@@ -59,13 +80,15 @@ class CreateWorld {
 
         } catch (e) {
             console.log("Error loading map -- " + e.toString());
-            errors.push("Failed to load game map (hm_map.json): " + e.message);
+            const mapFile = this.config.data_files?.map || "hm_map.json";
+            errors.push("Failed to load game map (" + mapFile + "): " + e.message);
         }
 
         // Now load items
         try {
-            console.log("Retrieving item list from: data/hm_items.json");
-            const itemResponse = await fetch('data/hm_items.json');
+            const itemsFile = this.config.data_files?.items || "data/hm_items.json";
+            console.log("Retrieving item list from: " + itemsFile);
+            const itemResponse = await fetch(itemsFile);
             const itemData = await itemResponse.json();
 
             // Initialize items tracking
@@ -109,14 +132,16 @@ class CreateWorld {
 
         } catch (e) {
             console.log("Error loading items -- " + e.toString());
-            errors.push("Failed to load game items (hm_items.json): " + e.message);
+            const itemsFile = this.config.data_files?.items || "hm_items.json";
+            errors.push("Failed to load game items (" + itemsFile + "): " + e.message);
         }
 
         // Set up audio zones and room-specific overrides
         try {
             // First, load audio zones
-            console.log("Loading audio zones from: data/hm_audio.json");
-            const audioResponse = await fetch('data/hm_audio.json');
+            const audioFile = this.config.data_files?.audio || "data/hm_audio.json";
+            console.log("Loading audio zones from: " + audioFile);
+            const audioResponse = await fetch(audioFile);
             const audioData = await audioResponse.json();
             
             // Store zones for dynamic updates
@@ -165,6 +190,11 @@ class CreateWorld {
         
         // Return result with any errors
         return { errors: errors };
+    }
+
+    // Get game configuration
+    getConfig() {
+        return this.config;
     }
 
     // Player functions.
