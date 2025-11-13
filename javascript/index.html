@@ -112,29 +112,54 @@ Loading game map and items...
     <script src="js/Adventure.js"></script>
     
     <script>
-        // Initialize the game when page loads
-        window.addEventListener('load', async function() {
-            // Load game configuration first
-            let config = {};
+        // Global configuration object
+        window.gameConfig = {};
+
+        // Load game configuration first
+        async function loadGameConfig() {
             try {
+                console.log("Loading game configuration from: data/hm_config.json");
                 const configResponse = await fetch('data/hm_config.json');
-                config = await configResponse.json();
+                window.gameConfig = await configResponse.json();
+                console.log("Game configuration loaded successfully");
+                return true;
             } catch (e) {
                 console.log("Could not load config, using defaults:", e);
+                // Set minimal defaults
+                window.gameConfig = {
+                    title: "Haunted Mansion Text Adventure",
+                    welcome_message: "Welcome, foolish mortal, to the Haunted Mansion Adventure Game.",
+                    quit_message: "Thanks for playing the Haunted Mansion!",
+                    restart_message: "Restarting the haunted adventure...",
+                    continue_message: "Good! Continue your haunted adventure...",
+                    version_fallback: "Haunted Mansion Text Adventure - JavaScript Version",
+                    data_files: {
+                        map: "data/hm_map.json",
+                        items: "data/hm_items.json",
+                        audio: "data/hm_audio.json"
+                    }
+                };
+                return false;
             }
+        }
+
+        // Initialize the game when page loads
+        window.addEventListener('load', async function() {
+            // Load configuration first
+            const configLoaded = await loadGameConfig();
             
             // Update page title from config
-            if (config.title) {
-                document.title = config.title;
+            if (window.gameConfig.title) {
+                document.title = window.gameConfig.title;
             }
             
             // Update textarea placeholder from config
             const descElement = document.getElementById('desc');
-            if (config.welcome_message && descElement) {
+            if (window.gameConfig.welcome_message && descElement) {
                 // Replace the default welcome message with configured one
                 const defaultWelcome = "Welcome, foolish mortal.";
                 if (descElement.value.startsWith(defaultWelcome)) {
-                    descElement.value = config.welcome_message + "\n\nLoading game map and items...";
+                    descElement.value = window.gameConfig.welcome_message + "\n\nLoading game map and items...";
                 }
             }
             

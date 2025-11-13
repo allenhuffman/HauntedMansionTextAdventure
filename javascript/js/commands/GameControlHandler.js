@@ -12,7 +12,7 @@ class GameControlHandler {
      * @returns {Object} Configuration object
      */
     getConfig() {
-        const config = this.adventure.player?.getConfig() || {};
+        const config = window.gameConfig || {};
         return {
             quit_message: config.quit_message || "Thanks for playing the Haunted Mansion!",
             restart_message: config.restart_message || "Restarting the haunted adventure...",

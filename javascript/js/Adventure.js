@@ -39,9 +39,9 @@ class Adventure {
         this.player = new CreateWorld();
         const initResult = await this.player.init();
         
-        // Get welcome message from config, with fallback
-        const config = this.player.getConfig();
-        const welcomeMessage = config?.welcome_message || "Welcome, foolish mortal, to the Haunted Mansion Adventure Game.";
+        // Get welcome message from global config, with fallback
+        const config = window.gameConfig || {};
+        const welcomeMessage = config.welcome_message || "Welcome, foolish mortal, to the Haunted Mansion Adventure Game.";
         this.desc.value = welcomeMessage + "\n\nLoading game map and items...\n\n(Type 'sound on/off' to enable/disable atmospheric audio.)\n";
         
         // Initialize command routing system (only if CommandRouter is available)
@@ -200,4 +200,19 @@ window.debugAudio = function() {
     } else {
         console.log("Adventure or soundPlayer not available");
     }
+};
+
+window.debugConfig = function() {
+    console.log("=== Game Configuration Debug ===");
+    console.log("Config loaded:", window.gameConfig ? "YES" : "NO");
+    if (window.gameConfig) {
+        console.log("Title:", window.gameConfig.title);
+        console.log("Welcome message:", window.gameConfig.welcome_message);
+        console.log("Quit message:", window.gameConfig.quit_message);
+        console.log("Data files:", window.gameConfig.data_files);
+        console.log("Full config:", window.gameConfig);
+    } else {
+        console.log("No configuration loaded - using defaults");
+    }
+    console.log("=================================");
 };

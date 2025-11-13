@@ -4,31 +4,15 @@ class CreateWorld {
         this.exits = [];         // List of Exit items.
         this.currentLocation = null;    // Where we currently are in the game.
         this.inventory = new Inventory();   // What we are holding (player's inventory).
-        this.config = null;      // Game configuration
     }
 
     async init() {
         let tempLocation = [];
         const errors = []; // Collect errors to report to user
 
-        // Load game configuration first
-        try {
-            console.log("Loading game configuration from: data/hm_config.json");
-            const configResponse = await fetch('data/hm_config.json');
-            this.config = await configResponse.json();
-            console.log("Game configuration loaded.");
-        } catch (e) {
-            console.log("Error loading configuration -- " + e.toString());
-            errors.push("Failed to load game configuration (hm_config.json): " + e.message);
-            // Continue with defaults if config fails to load
-            this.config = {
-                data_files: {
-                    map: "data/hm_map.json",
-                    items: "data/hm_items.json",
-                    audio: "data/hm_audio.json"
-                }
-            };
-        }
+        // Use global configuration loaded in index.html
+        const config = window.gameConfig || {};
+        this.config = config; // Store for backward compatibility
 
         try {
             // Load room data from JSON
