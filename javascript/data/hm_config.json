@@ -1,7 +1,7 @@
 {
-  "title": "Haunted Mansion Text Adventure",
-  "welcome_message": "Welcome, foolish mortal, to the Haunted Mansion Text Adventure.",
-  "quit_message": "Thanks for playing the Haunted Mansion Text Adventure.",
+  "title": "Haunted Mansion Text Adventure (Test)",
+  "welcome_message": "Welcome, foolish mortal, to the Haunted Mansion Text Adventure. This game has audio (activate by clicking the screen or typing 'sound on'). If you've never played a text adventure before, type 'help' for instructions.",
+  "quit_message": "Thank you for testing the Haunted Mansion Text Adventure.",
   "restart_message": "Restarting your haunted adventure...",
   "continue_message": "Good! Continue your haunted adventure...",
   "version_fallback": "Haunted Mansion Text Adventure - JavaScript Version",
